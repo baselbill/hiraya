@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { t, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
 import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
 
 const JUST_EAT_URL = 'https://www.just-eat.ch/en/menu/hiraya-asian-fusion-sushi';
+
+const useIsMobile = () => {
+  const [mobile, setMobile] = useState(() => window.innerWidth < 768);
+  useEffect(() => {
+    const fn = () => setMobile(window.innerWidth < 768);
+    window.addEventListener('resize', fn);
+    return () => window.removeEventListener('resize', fn);
+  }, []);
+  return mobile;
+};
 
 const MENU = {
   poke: {
@@ -390,117 +400,206 @@ const FusionStory = ({ lang }) => (
 );
 
 // ── Menu ──
-const MenuCard = ({ item, lang }) => {
+const MenuCard = ({ item, lang, isMobile = false }) => {
   const desc = ITEM_I18N[item.id] && ITEM_I18N[item.id][lang];
+  // Mobile: text left, small thumbnail right (Just Eat mobile pattern)
+  // Desktop: large thumbnail left, text right
   return (
     <article style={{
-      display: 'grid', gridTemplateColumns: '180px 1fr', gap: 20,
-      background: 'var(--linen)', borderRadius: 14, padding: 16,
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr 88px' : '160px 1fr',
+      gap: isMobile ? 12 : 18,
+      background: 'var(--linen)', borderRadius: 12, padding: isMobile ? 14 : 16,
       border: '1px solid rgba(26,20,16,0.06)',
     }}>
-      <FoodPlaceholder label={item.name} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12 }}>
-          <h3 style={{ fontFamily: 'var(--f-display)', fontSize: 30, lineHeight: 1, margin: 0, color: 'var(--ink)' }}>
+      {!isMobile && <FoodPlaceholder label={item.name} />}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
+          <h3 style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 20 : 28, lineHeight: 1.05, margin: 0, color: 'var(--ink)' }}>
             {item.name}
           </h3>
-          <span style={{ fontFamily: 'var(--f-mono)', fontSize: 16, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
-            CHF {item.price.toFixed(2)}
-          </span>
+          {!isMobile && (
+            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 15, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
+              CHF {item.price.toFixed(2)}
+            </span>
+          )}
         </div>
-        <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
+        <div style={{ fontFamily: 'var(--f-sans)', fontSize: 12, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
           {item.ingredients}
         </div>
-        {desc && (
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 16, color: 'var(--ink-mute)', lineHeight: 1.4, marginTop: 2 }}>
+        {desc && !isMobile && (
+          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 15, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
             {desc}
           </div>
         )}
-        {item.tags && item.tags.length > 0 && (
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto', paddingTop: 6 }}>
-            {item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: 6, flexWrap: 'wrap', gap: 6 }}>
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+            {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
           </div>
-        )}
+          {isMobile && (
+            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 14, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
+              CHF {item.price.toFixed(2)}
+            </span>
+          )}
+        </div>
       </div>
+      {isMobile && (
+        <div style={{ alignSelf: 'center' }}>
+          <FoodPlaceholder label={item.name} />
+        </div>
+      )}
     </article>
   );
 };
 
 const Menu = ({ lang }) => {
-  const [active, setActive] = useState('poke');
-  const catData = MENU[active];
-  const catMeta = MENU_I18N[active];
+  const isMobile = useIsMobile();
+  const [activeKey, setActiveKey] = useState('poke');
+  const [headerH, setHeaderH] = useState(110);
+  const catNavRef = useRef(null);
+  const sectionRefs = useRef({});
+  const px = isMobile ? '20px' : '56px';
+
+  useEffect(() => {
+    const header = document.querySelector('header');
+    if (header) setHeaderH(header.offsetHeight);
+  }, [isMobile]);
+
+  useEffect(() => {
+    const observers = [];
+    Object.keys(MENU).forEach(key => {
+      const el = sectionRefs.current[key];
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveKey(key); },
+        { rootMargin: '-20% 0px -65% 0px' }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
+  const scrollToSection = (e, key) => {
+    e.preventDefault();
+    const el = sectionRefs.current[key];
+    if (!el) return;
+    const catNavH = catNavRef.current ? catNavRef.current.offsetHeight : 50;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - catNavH - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   return (
-    <section id="menu" style={{ background: 'var(--paper)', padding: '90px 56px 80px' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 24 }}>
-        <div>
-          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'menu.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'menu.title.html')}
-                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.92, marginTop: 6 }} />
-        </div>
-        <div className="mono" style={{ color: 'var(--ink-mute)', maxWidth: 360, textAlign: 'right', lineHeight: 1.7 }}>
-          {t(lang, 'menu.browseInst')}
+    <section id="menu" style={{ background: 'var(--paper)', paddingBottom: 80 }}>
+
+      {/* Section header */}
+      <div style={{ padding: `90px ${px} 28px` }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24 }}>
+          <div>
+            <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'menu.eyebrow')}</div>
+            <Rich as="div" html={t(lang, 'menu.title.html')}
+                  style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.92, marginTop: 6 }} />
+          </div>
+          {!isMobile && (
+            <div className="mono" style={{ color: 'var(--ink-mute)', maxWidth: 360, textAlign: 'right', lineHeight: 1.7 }}>
+              {t(lang, 'menu.browseInst')}
+            </div>
+          )}
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 8, padding: 6, background: 'var(--bone)', borderRadius: 999, flexWrap: 'wrap', width: 'fit-content' }}>
-        {Object.entries(MENU).map(([k]) => (
-          <button key={k} onClick={() => setActive(k)}
-                  style={{
-                    padding: '12px 22px', border: 'none', borderRadius: 999, cursor: 'pointer',
-                    fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600,
-                    background: active === k ? 'var(--ink)' : 'transparent',
-                    color: active === k ? 'var(--paper)' : 'var(--ink-soft)',
-                  }}>{MENU_I18N[k].label[lang]}</button>
-        ))}
-      </div>
-
-      <div style={{
-        marginTop: 28, padding: '24px 28px',
-        background: 'var(--linen)', borderRadius: 12,
-        borderLeft: '4px solid var(--clay)',
-        display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'center',
+      {/* Sticky category nav */}
+      <div ref={catNavRef} style={{
+        position: 'sticky', top: headerH, zIndex: 50,
+        background: 'var(--paper)',
+        borderBottom: '1px solid rgba(26,20,16,0.1)',
+        padding: `10px ${px}`,
       }}>
-        <div>
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 32, lineHeight: 1.1, color: 'var(--ink)' }}>
-            {catMeta.label[lang]}
-          </div>
-          <div style={{ fontFamily: 'var(--f-sans)', fontSize: 16, color: 'var(--ink-soft)', lineHeight: 1.55, marginTop: 10 }}>
-            {catMeta.intro[lang]}
-          </div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
-          <span className="mono" style={{ color: 'var(--ink-mute)', textAlign: 'right' }}>
-            {catData.items.length} {t(lang, 'menu.itemsLabel')} · {catMeta.sub[lang]}
-          </span>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-            <TagChip tag="bestseller" lang={lang} small />
-            <TagChip tag="spicy" lang={lang} small />
-            <TagChip tag="veg" lang={lang} small />
-            <TagChip tag="vegan" lang={lang} small />
-          </div>
+        <div className="menu-cat-nav" style={{
+          display: 'flex', gap: 4,
+          overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none',
+        }}>
+          {Object.entries(MENU).map(([k]) => (
+            <a key={k} href={`#menu-${k}`} onClick={e => scrollToSection(e, k)} style={{
+              padding: '9px 16px', borderRadius: 999, cursor: 'pointer',
+              fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600,
+              background: activeKey === k ? 'var(--ink)' : 'transparent',
+              color: activeKey === k ? 'var(--paper)' : 'var(--ink-soft)',
+              textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0,
+              transition: 'background 0.15s, color 0.15s',
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+            }}>
+              {MENU_I18N[k].label[lang]}
+              <span style={{
+                fontFamily: 'var(--f-mono)', fontSize: 10,
+                opacity: activeKey === k ? 0.65 : 0.4,
+              }}>{MENU[k].items.length}</span>
+            </a>
+          ))}
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(480px, 1fr))', gap: 18, marginTop: 24 }}>
-        {catData.items.map(item => <MenuCard key={item.id} item={item} lang={lang} />)}
+      {/* All categories stacked */}
+      <div style={{ padding: `0 ${px}` }}>
+        {Object.entries(MENU).map(([k, cat]) => {
+          const catMeta = MENU_I18N[k];
+          return (
+            <div key={k} id={`menu-${k}`} ref={el => { sectionRefs.current[k] = el; }} style={{ paddingTop: 52, paddingBottom: 12 }}>
+
+              {/* Category header */}
+              <div style={{
+                padding: '18px 22px', background: 'var(--linen)', borderRadius: 12,
+                borderLeft: '4px solid var(--clay)', marginBottom: 16,
+                display: 'flex', justifyContent: 'space-between',
+                alignItems: isMobile ? 'flex-start' : 'center',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: 12,
+              }}>
+                <div>
+                  <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 26, lineHeight: 1.1, color: 'var(--ink)' }}>
+                    {catMeta.label[lang]}
+                  </div>
+                  <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.5, marginTop: 5 }}>
+                    {catMeta.intro[lang]}
+                  </div>
+                </div>
+                <span className="mono" style={{ color: 'var(--ink-mute)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  {cat.items.length} {t(lang, 'menu.itemsLabel')} · {catMeta.sub[lang]}
+                </span>
+              </div>
+
+              {/* Items */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(460px, 1fr))',
+                gap: 12,
+              }}>
+                {cat.items.map(item => <MenuCard key={item.id} item={item} lang={lang} isMobile={isMobile} />)}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
+      {/* Bottom CTA */}
       <div style={{
-        marginTop: 36, padding: '28px 36px',
+        margin: `36px ${px} 0`,
+        padding: isMobile ? '24px 22px' : '28px 36px',
         background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14,
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexWrap: 'wrap',
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+        justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center',
+        gap: 20,
       }}>
         <div>
           <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'menu.cta.eyebrow')}</div>
           <Rich as="div" html={t(lang, 'menu.cta.title.html')}
                 color="var(--ember)"
-                style={{ fontFamily: 'var(--f-display)', fontSize: 36, lineHeight: 1.05, marginTop: 4 }} />
+                style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 28 : 36, lineHeight: 1.05, marginTop: 4 }} />
           <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'rgba(244,234,214,0.7)', marginTop: 6 }}>
             {t(lang, 'menu.cta.body')}
           </div>
         </div>
-        <JustEatLink size="lg" lang={lang} />
+        <JustEatLink size={isMobile ? 'md' : 'lg'} lang={lang} />
       </div>
     </section>
   );

@@ -59,3 +59,6 @@ button { cursor: pointer; }
 
 /* rich text: italic <i> uses --rich-color */
 .rich i { font-style: italic; color: var(--rich-color, var(--clay)); }
+
+/* hide scrollbar on category nav pill row */
+.menu-cat-nav::-webkit-scrollbar { display: none; }
