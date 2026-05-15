@@ -1,0 +1,59 @@
+/* Hiraya design tokens */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* surfaces */
+  --paper:      #f4ead6;
+  --paper-soft: #efe2c7;
+  --bone:       #e8dabd;
+  --linen:      #faf3e2;
+  --ink:        #1a1410;
+  --ink-soft:   #3a2f26;
+  --ink-mute:   #6e5d4d;
+
+  /* brand */
+  --clay:       #c2492a;
+  --clay-deep:  #8f2f1b;
+  --ember:      #e07a3c;
+  --saffron:    #e5a430;
+  --moss:       #5b6c3a;
+  --teal:       #1d3a3f;
+  --teal-deep:  #122528;
+
+  /* inabel textile */
+  --tx-red:   #b03a22;
+  --tx-gold:  #d99425;
+  --tx-bone:  #efe2c7;
+  --tx-black: #221912;
+  --tx-teal:  #1d3a3f;
+
+  /* type */
+  --f-display: 'Instrument Serif', Georgia, serif;
+  --f-sans:    'Familjen Grotesk', system-ui, sans-serif;
+  --f-mono:    'DM Mono', 'Courier New', monospace;
+
+  /* radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-sans);
+}
+
+a { text-decoration: none; cursor: pointer; }
+button { cursor: pointer; }
+
+.mono  { font-family: var(--f-mono);    font-size: 11px; letter-spacing: 0.08em; }
+.serif { font-family: var(--f-display); }
+.serif-i { font-family: var(--f-display); font-style: italic; }
+.sans  { font-family: var(--f-sans); }
+
+.rich i { font-style: italic; color: var(--rich-color, var(--clay)); }

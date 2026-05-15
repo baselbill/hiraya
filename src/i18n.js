@@ -1,0 +1,608 @@
+export const LANG_LIST = [
+  { code: 'de', label: 'DE', long: 'Deutsch',   greeting: 'Grüezi'   },
+  { code: 'fr', label: 'FR', long: 'Français',  greeting: 'Bonjour'  },
+  { code: 'it', label: 'IT', long: 'Italiano',  greeting: 'Ciao'     },
+  { code: 'en', label: 'EN', long: 'English',   greeting: 'Welcome'  },
+];
+
+export function detectLang() {
+  const supported = ['de', 'fr', 'it', 'en'];
+  const raw = (typeof navigator !== 'undefined' && (navigator.language || (navigator.languages && navigator.languages[0]))) || 'de';
+  const code = raw.slice(0, 2).toLowerCase();
+  return supported.includes(code) ? code : 'de';
+}
+
+import { useState, useEffect } from 'react';
+
+export function useLang() {
+  const [lang, setLang] = useState(() => {
+    try {
+      const stored = window.localStorage && localStorage.getItem('hiraya-lang');
+      if (stored && ['de', 'fr', 'it', 'en'].indexOf(stored) >= 0) return stored;
+    } catch (e) {}
+    return detectLang();
+  });
+  useEffect(() => {
+    try { localStorage.setItem('hiraya-lang', lang); } catch (e) {}
+  }, [lang]);
+  return [lang, setLang];
+}
+
+export function t(lang, key) {
+  const bucket = T[lang] || T.de;
+  if (bucket && key in bucket) return bucket[key];
+  if (key in T.de) return T.de[key];
+  return key;
+}
+
+export const T = {
+  de: {
+    'nav.menu':     'Speisekarte',
+    'nav.about':    'Über uns',
+    'nav.catering': 'Catering',
+    'nav.find':     'Standort',
+    'nav.poke':     'Poke Bowls',
+    'nav.home':     'Start',
+    'nav.cart':     'Karte',
+
+    'cta.order':       'Bestellen auf Just Eat',
+    'cta.viewMenu':    'Speisekarte ansehen',
+    'cta.orderShort':  'Auf Just Eat bestellen',
+    'cta.request':     'Anfrage stellen',
+    'cta.examples':    'Beispiel-Menüs ansehen',
+    'cta.route':       'Route ansehen',
+    'cta.reserve':     'Tisch reservieren',
+
+    'bar.openToday':  'Heute geöffnet · 12–14 · 16–20',
+    'bar.viaJustEat': 'Bestellung via Just Eat',
+
+    'hero.eyebrow':  'Binningen · seit 2024 · chef Gerwin',
+    'hero.subtitle': 'Fusion-Sushi und Poke Bowls, heute frisch gerollt von Chef Gerwin in Binningen. Filipinische Aromen treffen japanischen Reis. Bestellung über Just Eat — bereit in 25 Minuten.',
+    'hero.reviews':  '230+ Bewertungen',
+    'hero.delivery': 'Ø 25 min Lieferung',
+    'hero.minOrder': 'Min. CHF 30',
+    'hero.floatFilLabel':  'Filipino',
+    'hero.floatFilGloss':  'Frucht eines Traums',
+    'hero.floatJpLabel':   '日本語 · 平屋',
+    'hero.floatJpLine':    '<i>ein einfaches<br/>Haus</i>',
+
+    'fs.eyebrow':       'Hiraya · n.',
+    'fs.title.html':    'Dasselbe Wort, in zwei Sprachen, bedeutet <i>alles</i>, was wir servieren.',
+    'fs.fil.label':     'Filipino · n.',
+    'fs.fil.gloss':     '„Die Frucht eines Traums<br/>und einer Hoffnung."',
+    'fs.jp.label':      '日本語 · 平屋',
+    'fs.jp.gloss':      '„Ein einstöckiges Haus —<br/>wo alle zusammenkommen."',
+    'fs.closing.html':  'Ein einfaches Haus, voller Träume.<br/>Das ist, was Gerwin kocht — filipinisch, japanisch, alles in einer Schüssel.',
+
+    'menu.eyebrow':       'Speisekarte · die Rolle & Schüssel des Tages',
+    'menu.title.html':    'Unsere <i>Karte</i>',
+    'menu.browseInst':    'Hier stöbern · über Just Eat bestellen für Abholung oder Lieferung',
+    'menu.itemsLabel':    'Gerichte',
+    'menu.cta.eyebrow':   'Bereit zum Bestellen?',
+    'menu.cta.title.html':'Bestellung läuft über <i>Just Eat</i>.',
+    'menu.cta.body':      'Abholung in 25 min · Lieferung im Umkreis Binningen · Min. CHF 30',
+
+    'how.eyebrow':     'So bestellst du',
+    'how.title.html':  'Drei <i>Schritte</i>.',
+    'how.s1.title':    'Stöbern',
+    'how.s1.body':     'Lies die Karte oben. Jede Schüssel und jede Rolle hat ihre Zutaten und einen kurzen Hinweis vom Chef.',
+    'how.s2.title':    'Auf Just Eat bestellen',
+    'how.s2.body':     'Klicke auf den orangen Button. Du wirst zu just-eat.ch weitergeleitet, wo du deine Bestellung abschliesst.',
+    'how.s3.title':    'Abholen oder liefern lassen',
+    'how.s3.body':     'Ø 25 min. Lieferung im Umkreis Binningen / Bottmingen / Allschwil. Abholung an der Paradiesstrasse 2.',
+
+    'feature.eyebrow':    '★ Die Signatur-Schüssel',
+    'feature.title.html': 'Die <i>Hiraya</i>-Schüssel',
+    'feature.body':       'Atlantischer Lachs, reife Mango, Calamansi-Zitrus aus Laguna, Avocado, knuspriger Knoblauch. Sushi-Reis oder grüne Basis. Die Schüssel, die uns den Namen gab — filipinische Helligkeit auf japanischen Grundlagen.',
+    'feature.badge':      '★ HEUTIGE EMPFEHLUNG',
+
+    'loc.eyebrow':       'Eine Küche · Paradiesstrasse',
+    'loc.title.html':    'Komm <i>vorbei</i>',
+    'loc.hint':          'Abholung ist am schnellsten. Lieferung via Just Eat im Raum Binningen.',
+    'loc.hours.label':   'Öffnungszeiten',
+    'loc.hours.days':    'Di–Sa',
+    'loc.hours.closed':  'So & Mo geschlossen',
+    'loc.kicker':        'BINNINGEN',
+    'loc.address.label': 'Paradiesstrasse 2',
+
+    'cat.eyebrow':    'Catering & Privatkoch',
+    'cat.title.html': 'Wir kommen<br/>zu <i>dir</i>.',
+    'cat.body':       'Geburtstage, Office-Lunches, Hochzeiten, Sushi-Abende zu Hause — Gerwin rollt live vor deinen Gästen oder bringt Platten kühl und bereit. Von 8 bis 80 Personen. Catering läuft nicht über Just Eat — schreib uns direkt.',
+    'cat.packages':   'Pakete · ab',
+    'cat.perPerson':  '/p.',
+    'cat.row1.name':  'Office Box',
+    'cat.row1.sub':   '5 Rolls · 1 Poke · für 1 Person',
+    'cat.row1.price': 'CHF 28',
+    'cat.row2.name':  'Family Platter',
+    'cat.row2.sub':   '40 Pieces · für 4–6',
+    'cat.row2.price': 'CHF 145',
+    'cat.row3.name':  'Live Rolling',
+    'cat.row3.sub':   'Chef vor Ort · ab 12 Gäste',
+    'cat.row3.price': 'auf Anfrage',
+
+    'story.eyebrow':     'Chef Gerwin',
+    'story.title.l1':    'Ein Koch.',
+    'story.title.l2':    'Eine Küche.',
+    'story.title.l3':    'Ein einfaches Haus.',
+    'story.body':        'Gerwin ist in der Cordillera-Region der Philippinen aufgewachsen und hat hinter Sushi-Theken in Basel gelernt. 2024 hat er an der Paradiesstrasse in Binningen eine kleine Küche eröffnet und rollt seither Fusion-Sushi und Poke Bowls, die filipinische Aromen auf japanischem Reis treffen lassen. Jede Rolle wird noch von Hand geschnitten. Jede Poke noch nach Bestellung gebaut. Jeder Tag ein bisschen anders.',
+    'story.quote':       '„Frisch gerollt, mit Liebe gemacht und jeden Tag ein bisschen anders."',
+    'story.quoteGloss':  null,
+    'story.stat.founded':  'gegründet',
+    'story.stat.rating':   'Just Eat-Bewertung',
+    'story.stat.delivery': 'Ø Lieferzeit',
+
+    'footer.tagline':    'ang bunga ng pangarap · 平屋 — Fusion-Sushi und Poke Bowls, frisch gerollt in Binningen von Chef Gerwin.',
+    'footer.col.order':  'Bestellen',
+    'footer.col.loc':    'Standort',
+    'footer.col.follow': 'Folgen',
+    'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
+    'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
+
+    'tag.bestseller': 'Bestseller',
+    'tag.spicy':      'scharf',
+    'tag.veg':        'vegetarisch',
+    'tag.vegan':      'vegan',
+  },
+
+  fr: {
+    'nav.menu':     'Carte',
+    'nav.about':    'À propos',
+    'nav.catering': 'Traiteur',
+    'nav.find':     'Adresse',
+    'nav.poke':     'Bols Poké',
+    'nav.home':     'Accueil',
+    'nav.cart':     'Carte',
+
+    'cta.order':       'Commander sur Just Eat',
+    'cta.viewMenu':    'Voir la carte',
+    'cta.orderShort':  'Commander sur Just Eat',
+    'cta.request':     'Faire une demande',
+    'cta.examples':    'Voir des menus',
+    'cta.route':       "Voir l'itinéraire", 
+    'cta.reserve':     'Réserver une table',
+
+    'bar.openToday':  "Aujourd'hui ouvert · 12–14 · 16–20",
+    'bar.viaJustEat': 'Commande via Just Eat',
+
+    'hero.eyebrow':  'Binningen · depuis 2024 · chef Gerwin',
+    'hero.subtitle': "Sushis fusion et poke bowls, roulés à la main aujourd'hui par le chef Gerwin à Binningen. Saveurs philippines, riz japonais. Commande sur Just Eat — prêt en 25 minutes.",
+    'hero.reviews':  '230+ avis',
+    'hero.delivery': 'Ø 25 min livraison',
+    'hero.minOrder': 'Min. CHF 30',
+    'hero.floatFilLabel':  'Philippin',
+    'hero.floatFilGloss':  "fruit d'un rêve",
+    'hero.floatJpLabel':   '日本語 · 平屋',
+    'hero.floatJpLine':    '<i>une maison<br/>simple</i>',
+
+    'fs.eyebrow':       'Hiraya · n.',
+    'fs.title.html':    'Le même mot, en deux langues, signifie <i>tout</i> ce que nous servons.',
+    'fs.fil.label':     'Philippin · n.',
+    'fs.fil.gloss':     "« Le fruit d'un rêve<br/>et d'une espérance. »",
+    'fs.jp.label':      '日本語 · 平屋',
+    'fs.jp.gloss':      "« Une maison à un étage —<br/>où tout le monde se rassemble. »",
+    'fs.closing.html':  "Une maison simple, pleine de rêves.<br/>C'est ce que Gerwin cuisine — philippin, japonais, le tout dans un bol.",
+
+    'menu.eyebrow':       'La carte · le rouleau & le bol du jour',
+    'menu.title.html':    'La <i>carte</i>',
+    'menu.browseInst':    'Parcours ici · commande sur Just Eat pour retrait ou livraison',
+    'menu.itemsLabel':    'plats',
+    'menu.cta.eyebrow':   'Prêt à commander ?',
+    'menu.cta.title.html':'La commande passe par <i>Just Eat</i>.',
+    'menu.cta.body':      'Retrait en 25 min · Livraison autour de Binningen · Min. CHF 30',
+
+    'how.eyebrow':     'Comment commander',
+    'how.title.html':  'Trois <i>étapes</i>.',
+    'how.s1.title':    'Parcourir',
+    'how.s1.body':     'Lis la carte ci-dessus. Chaque bol et rouleau a ses ingrédients et une petite note du chef.',
+    'how.s2.title':    'Commander sur Just Eat',
+    'how.s2.body':     'Clique sur le bouton orange. Tu es redirigé vers just-eat.ch pour finaliser ta commande.',
+    'how.s3.title':    'Retrait ou livraison',
+    'how.s3.body':     'Ø 25 min. Livraison à Binningen / Bottmingen / Allschwil. Retrait au Paradiesstrasse 2.',
+
+    'feature.eyebrow':    '★ Le bol signature',
+    'feature.title.html': 'Le bol <i>Hiraya</i>',
+    'feature.body':       "Saumon atlantique, mangue mûre, calamansi de Laguna, avocat, ail croustillant. Sur riz à sushi ou base de verdure. Le bol qui nous a donné notre nom — l'éclat des Philippines sur des fondamentaux japonais.",
+    'feature.badge':      '★ COUP DE CŒUR',
+
+    'loc.eyebrow':       'Une cuisine · Paradiesstrasse',
+    'loc.title.html':    "Trouve-<i>nous</i>",
+    'loc.hint':          'Le retrait est le plus rapide. Livraison via Just Eat autour de Binningen.',
+    'loc.hours.label':   'Horaires',
+    'loc.hours.days':    'Mar–Sam',
+    'loc.hours.closed':  'Dim & Lun fermé',
+    'loc.kicker':        'BINNINGEN',
+    'loc.address.label': 'Paradiesstrasse 2',
+
+    'cat.eyebrow':    'Traiteur & chef privé',
+    'cat.title.html': 'On vient<br/><i>chez toi</i>.',
+    'cat.body':       "Anniversaires, déjeuners de bureau, mariages, soirées sushi à la maison — Gerwin roule en direct devant tes invités, ou dépose des plateaux prêts à servir. De 8 à 80 personnes. Le catering ne passe pas par Just Eat — écris-nous directement.",
+    'cat.packages':   'Forfaits · à partir de',
+    'cat.perPerson':  '/p.',
+    'cat.row1.name':  'Office Box',
+    'cat.row1.sub':   '5 rouleaux · 1 poke · pour 1 personne',
+    'cat.row1.price': 'CHF 28',
+    'cat.row2.name':  'Family Platter',
+    'cat.row2.sub':   '40 pièces · pour 4–6',
+    'cat.row2.price': 'CHF 145',
+    'cat.row3.name':  'Live Rolling',
+    'cat.row3.sub':   'Chef sur place · dès 12 invités',
+    'cat.row3.price': 'sur demande',
+
+    'story.eyebrow':     'Chef Gerwin',
+    'story.title.l1':    'Un chef.',
+    'story.title.l2':    'Une cuisine.',
+    'story.title.l3':    'Une maison simple.',
+    'story.body':        "Gerwin a grandi dans la région de la Cordillère, aux Philippines, et s'est formé derrière les comptoirs à sushis à Bâle. En 2024, il a ouvert une petite cuisine sur la Paradiesstrasse à Binningen et roule depuis des sushis fusion et des poke bowls où les saveurs philippines rencontrent le riz japonais. Chaque rouleau est encore coupé à la main. Chaque poke encore composé sur commande. Chaque jour un peu différent.",
+    'story.quote':       '„Frisch gerollt, mit Liebe gemacht und jeden Tag ein bisschen anders."',
+    'story.quoteGloss':  "« Roulé frais, fait avec amour, et un peu différent chaque jour. »",
+    'story.stat.founded':  'fondé',
+    'story.stat.rating':   'note Just Eat',
+    'story.stat.delivery': 'livraison moyenne',
+
+    'footer.tagline':    'ang bunga ng pangarap · 平屋 — sushis fusion et poke bowls, roulés à la main à Binningen par le chef Gerwin.',
+    'footer.col.order':  'Commander',
+    'footer.col.loc':    'Adresse',
+    'footer.col.follow': 'Suivez-nous',
+    'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
+    'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
+
+    'tag.bestseller': 'Favori',
+    'tag.spicy':      'piquant',
+    'tag.veg':        'végétarien',
+    'tag.vegan':      'végétalien',
+  },
+
+  it: {
+    'nav.menu':     'Menu',
+    'nav.about':    'Chi siamo',
+    'nav.catering': 'Catering',
+    'nav.find':     'Dove siamo',
+    'nav.poke':     'Poke Bowl',
+    'nav.home':     'Inizio',
+    'nav.cart':     'Menu',
+
+    'cta.order':       'Ordina su Just Eat',
+    'cta.viewMenu':    'Vedi il menu',
+    'cta.orderShort':  'Ordina su Just Eat',
+    'cta.request':     'Fai una richiesta',
+    'cta.examples':     'Vedi menu di esempio',
+    'cta.route':       'Vedi il percorso',
+    'cta.reserve':     'Prenota un tavolo',
+
+    'bar.openToday':  'Aperto oggi · 12–14 · 16–20',
+    'bar.viaJustEat': 'Ordini via Just Eat',
+
+    'hero.eyebrow':  'Binningen · dal 2024 · chef Gerwin',
+    'hero.subtitle': "Sushi fusion e poke bowl, arrotolati a mano oggi dallo chef Gerwin a Binningen. Sapori filippini, riso giapponese. Ordina su Just Eat — pronto in 25 minuti.",
+    'hero.reviews':  '230+ recensioni',
+    'hero.delivery': 'Ø 25 min consegna',
+    'hero.minOrder': 'Min. CHF 30',
+    'hero.floatFilLabel':  'Filippino',
+    'hero.floatFilGloss':  'frutto di un sogno',
+    'hero.floatJpLabel':   '日本語 · 平屋',
+    'hero.floatJpLine':    '<i>una casa<br/>semplice</i>',
+
+    'fs.eyebrow':       'Hiraya · n.',
+    'fs.title.html':    'La stessa parola, in due lingue, è <i>tutto</i> ciò che serviamo.',
+    'fs.fil.label':     'Filippino · n.',
+    'fs.fil.gloss':     '« Il frutto di un sogno<br/>e di una speranza. »',
+    'fs.jp.label':      '日本語 · 平屋',
+    'fs.jp.gloss':      '« Una casa a un piano —<br/>dove tutti si riuniscono. »',
+    'fs.closing.html':  'Una casa semplice, piena di sogni.<br/>È ciò che Gerwin cucina — filippino, giapponese, tutto in una scodella.',
+
+    'menu.eyebrow':       'Il menu · il rotolo & il bowl di oggi',
+    'menu.title.html':    'Il <i>menu</i>',
+    'menu.browseInst':    'Sfoglia qui · ordina su Just Eat per ritiro o consegna',
+    'menu.itemsLabel':    'piatti',
+    'menu.cta.eyebrow':   'Pronto a ordinare?',
+    'menu.cta.title.html':"L'ordine va su <i>Just Eat</i>.",
+    'menu.cta.body':      'Ritiro in 25 min · Consegna nella zona di Binningen · Min. CHF 30',
+
+    'how.eyebrow':     'Come ordinare',
+    'how.title.html':  'Tre <i>passi</i>.',
+    'how.s1.title':    'Sfoglia',
+    'how.s1.body':     'Leggi il menu sopra. Ogni bowl e ogni rotolo ha gli ingredienti e una breve nota dello chef.',
+    'how.s2.title':    'Ordina su Just Eat',
+    'how.s2.body':     'Clicca il pulsante arancione. Sarai reindirizzato su just-eat.ch per completare la tua ordine.',
+    'how.s3.title':    'Ritiro o consegna',
+    'how.s3.body':     'Ø 25 min. Consegna a Binningen / Bottmingen / Allschwil. Ritiro alla Paradiesstrasse 2.',
+
+    'feature.eyebrow':    '★ Il bowl signature',
+    'feature.title.html': 'Il bowl <i>Hiraya</i>',
+    'feature.body':       'Salmone atlantico, mango maturo, calamansi di Laguna, avocado, aglio croccante. Riso da sushi o base di verdure. Il bowl che ci ha dato il nome — luminosità filippina su fondamenta giapponesi.',
+    'feature.badge':      '★ SCELTA DI OGGI',
+
+    'loc.eyebrow':       'Una cucina · Paradiesstrasse',
+    'loc.title.html':    'Trova<i>ci</i>',
+    'loc.hint':          'Il ritiro è il più rapido. Consegna via Just Eat nella zona di Binningen.',
+    'loc.hours.label':   'Orari',
+    'loc.hours.days':    'Mar–Sab',
+    'loc.hours.closed':  'Dom & Lun chiuso',
+    'loc.kicker':        'BINNINGEN',
+    'loc.address.label': 'Paradiesstrasse 2',
+
+    'cat.eyebrow':    'Catering & chef privato',
+    'cat.title.html': 'Veniamo<br/><i>da te</i>.',
+    'cat.body':       'Compleanni, pranzi in ufficio, matrimoni, serate sushi a casa — Gerwin arrotola dal vivo davanti ai tuoi ospiti, o consegna piatti pronti. Da 8 a 80 persone. Il catering non passa da Just Eat — scrivici direttamente.',
+    'cat.packages':   'Pacchetti · da',
+    'cat.perPerson':  '/p.',
+    'cat.row1.name':  'Office Box',
+    'cat.row1.sub':   '5 rotoli · 1 poke · per 1 persona',
+    'cat.row1.price': 'CHF 28',
+    'cat.row2.name':  'Family Platter',
+    'cat.row2.sub':   '40 pezzi · per 4–6',
+    'cat.row2.price': 'CHF 145',
+    'cat.row3.name':  'Live Rolling',
+    'cat.row3.sub':   'Chef sul posto · da 12 ospiti',
+    'cat.row3.price': 'su richiesta',
+
+    'story.eyebrow':     'Chef Gerwin',
+    'story.title.l1':    'Uno chef.',
+    'story.title.l2':    'Una cucina.',
+    'story.title.l3':    'Una casa semplice.',
+    'story.body':        "Gerwin è cresciuto nella regione della Cordillera, nelle Filippine, e si è formato dietro i banchi di sushi a Basilea. Nel 2024 ha aperto una piccola cucina in Paradiesstrasse a Binningen e da allora arrotola sushi fusion e poke bowl in cui i sapori filippini incontrano il riso giapponese. Ogni rotolo è ancora tagliato a mano. Ogni poke ancora costruito su ordinazione. Ogni giorno un po' diverso.",
+    'story.quote':       '„Frisch gerollt, mit Liebe gemacht und jeden Tag ein bisschen anders."',
+    'story.quoteGloss':  "« Arrotolato fresco, fatto con amore, un po' diverso ogni giorno. »",
+    'story.stat.founded':  'fondato',
+    'story.stat.rating':   'voto Just Eat',
+    'story.stat.delivery': 'consegna media',
+
+    'footer.tagline':    'ang bunga ng pangarap · 平屋 — sushi fusion e poke bowl, arrotolati a mano a Binningen dallo chef Gerwin.',
+    'footer.col.order':  'Ordinare',
+    'footer.col.loc':    'Dove siamo',
+    'footer.col.follow': 'Seguici',
+    'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
+    'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
+
+    'tag.bestseller': 'preferito',
+    'tag.spicy':      'piccante',
+    'tag.veg':        'vegetariano',
+    'tag.vegan':      'vegano',
+  },
+
+  en: {
+    'nav.menu':     'Menu',
+    'nav.about':    'About',
+    'nav.catering': 'Catering',
+    'nav.find':     'Find us',
+    'nav.poke':     'Poke Bowls',
+    'nav.home':     'Home',
+    'nav.cart':     'Menu',
+
+    'cta.order':       'Order on Just Eat',
+    'cta.viewMenu':    'View the menu',
+    'cta.orderShort':  'Order on Just Eat',
+    'cta.request':     'Get in touch',
+    'cta.examples':    'See sample menus',
+    'cta.route':       'Get directions',
+    'cta.reserve':     'Reserve a table',
+
+    'bar.openToday':  'Open today · 12–14 · 16–20',
+    'bar.viaJustEat': 'Orders via Just Eat',
+
+    'hero.eyebrow':  'Binningen · since 2024 · chef Gerwin',
+    'hero.subtitle': "Fusion sushi and poke bowls, hand-rolled today by chef Gerwin in Binningen. Filipino flavours meet Japanese rice. Order on Just Eat — ready in 25 minutes.",
+    'hero.reviews':  '230+ reviews',
+    'hero.delivery': 'Ø 25 min delivery',
+    'hero.minOrder': 'Min. CHF 30',
+    'hero.floatFilLabel':  'Filipino',
+    'hero.floatFilGloss':  "fruit of one's dream",
+    'hero.floatJpLabel':   '日本語 · 平屋',
+    'hero.floatJpLine':    '<i>a simple<br/>house</i>',
+
+    'fs.eyebrow':       'Hiraya · n.',
+    'fs.title.html':    'The same word, in two languages, means <i>everything</i> we serve.',
+    'fs.fil.label':     'Filipino · n.',
+    'fs.fil.gloss':     '"The fruit of one\'s<br/>dream & aspirations."',
+    'fs.jp.label':      '日本語 · 平屋',
+    'fs.jp.gloss':      '"A single-story home —<br/>where everyone gathers."',
+    'fs.closing.html':  "A simple house, full of dreams.<br/>That's what Gerwin cooks — Filipino, Japanese, all in one bowl.",
+
+    'menu.eyebrow':       "Menu · today's roll & bowl",
+    'menu.title.html':    'The <i>menu</i>',
+    'menu.browseInst':    'Browse here · order on Just Eat for pickup or delivery',
+    'menu.itemsLabel':    'items',
+    'menu.cta.eyebrow':   'Ready to order?',
+    'menu.cta.title.html':'Orders go through <i>Just Eat</i>.',
+    'menu.cta.body':      'Pickup in 25 min · Delivery in the Binningen area · Min. CHF 30',
+
+    'how.eyebrow':     'How to order',
+    'how.title.html':  'Three <i>steps</i>.',
+    'how.s1.title':    'Browse',
+    'how.s1.body':     "Read the menu above. Each bowl and roll has its ingredients and a short note from the chef.",
+    'how.s2.title':    'Order on Just Eat',
+    'how.s2.body':     "Click the orange button. You'll be redirected to just-eat.ch to complete your order.",
+    'how.s3.title':    'Pickup or delivery',
+    'how.s3.body':     'Ø 25 min. Delivery in Binningen / Bottmingen / Allschwil. Pickup at Paradiesstrasse 2.',
+
+    'feature.eyebrow':    '★ The signature bowl',
+    'feature.title.html': 'The <i>Hiraya</i> Bowl',
+    'feature.body':       "Atlantic salmon, ripe mango, calamansi citrus from Laguna, avocado, crispy garlic. Sushi rice or greens base. The bowl that earned us the name — Filipino brightness on Japanese fundamentals.",
+    'feature.badge':      "★ TODAY'S PICK",
+
+    'loc.eyebrow':       'One kitchen · Paradiesstrasse',
+    'loc.title.html':    'Find <i>us</i>',
+    'loc.hint':          'Pickup is fastest. Delivery via Just Eat in the Binningen area.',
+    'loc.hours.label':   'Hours',
+    'loc.hours.days':    'Tue–Sat',
+    'loc.hours.closed':  'Closed Sun & Mon',
+    'loc.kicker':        'BINNINGEN',
+    'loc.address.label': 'Paradiesstrasse 2',
+
+    'cat.eyebrow':    'Catering & private chef',
+    'cat.title.html': 'We <i>roll up</i><br/>to your place.',
+    'cat.body':       "Birthdays, office lunches, weddings, sushi-making nights at home — Gerwin rolls live in front of your guests, or drops off platters chilled and ready. Anything from 8 to 80 people. Catering doesn't go through Just Eat — write to us directly.",
+    'cat.packages':   'Packages · from',
+    'cat.perPerson':  '/p.',
+    'cat.row1.name':  'Office Box',
+    'cat.row1.sub':   '5 rolls · 1 poke · for 1 person',
+    'cat.row1.price': 'CHF 28',
+    'cat.row2.name':  'Family Platter',
+    'cat.row2.sub':   '40 pieces · for 4–6',
+    'cat.row2.price': 'CHF 145',
+    'cat.row3.name':  'Live Rolling',
+    'cat.row3.sub':   'Chef on site · from 12 guests',
+    'cat.row3.price': 'on request',
+
+    'story.eyebrow':     'Chef Gerwin',
+    'story.title.l1':    'One chef.',
+    'story.title.l2':    'One kitchen.',
+    'story.title.l3':    'A simple house.',
+    'story.body':        "Gerwin grew up in the Cordillera region of the Philippines and trained behind sushi counters in Basel. In 2024 he opened a small kitchen on Paradiesstrasse in Binningen, rolling fusion sushi and poke bowls that take Filipino flavours and put them on Japanese rice. Every roll is still hand-cut. Every poke still built to order. Every day a little different.",
+    'story.quote':       '„Frisch gerollt, mit Liebe gemacht und jeden Tag ein bisschen anders."',
+    'story.quoteGloss':  '"Rolled fresh, made with love, a little different every day."',
+    'story.stat.founded':  'founded',
+    'story.stat.rating':   'Just Eat rating',
+    'story.stat.delivery': 'average delivery',
+
+    'footer.tagline':    'ang bunga ng pangarap · 平屋 — fusion sushi and poke bowls, hand-rolled fresh in Binningen by chef Gerwin.',
+    'footer.col.order':  'Order',
+    'footer.col.loc':    'Find us',
+    'footer.col.follow': 'Follow',
+    'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
+    'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
+
+    'tag.bestseller': 'bestseller',
+    'tag.spicy':      'spicy',
+    'tag.veg':        'vegetarian',
+    'tag.vegan':      'vegan',
+  },
+};
+
+export const MENU_I18N = {
+  poke: {
+    label: { de: 'Poke Bowls', fr: 'Bols Poké', it: 'Poke Bowl', en: 'Poke Bowls' },
+    sub: {
+      de: "Gerwins Hausschüsseln · oder bau am Tresen deine eigene",
+      fr: 'Les bols de Gerwin · ou compose le tien au comptoir',
+      it: "I bowl di Gerwin · oppure crea il tuo al banco",
+      en: "Gerwin's house bowls · build-your-own at the counter",
+    },
+    intro: {
+      de: 'Auf kurzkörnigem Niigata-Reis oder frischen Greens à la carte zubereitet. Wähle eine Schüssel aus der Liste oder baue dir am Tresen deine eigene — Basis, zwei Proteine, vier Toppings, eine Haussauce. Auf jede Schüssel kommt knuspriger Knoblauch.',
+      fr: "Préparés à la demande sur riz à grain court Niigata ou greens frais. Choisis un bol ci-dessous, ou compose le tien au comptoir — une base, deux protéines, quatre garnitures, une sauce maison. Toujours fini avec de l'ail croustillant.",
+      it: 'Preparati al momento su riso Niigata a chicco corto o verdure fresche. Scegli un bowl dalla lista oppure crea il tuo al banco — una base, due proteine, quattro condimenti, una salsa della casa. Sopra, sempre aglio croccante.',
+      en: "Built to order over short-grain Niigata rice or fresh greens. Choose a bowl from the list below, or build your own at the counter — pick a base, two proteins, four toppings, a house sauce. Every bowl gets crispy garlic on top.",
+    },
+  },
+  signatures: {
+    label: { de: 'Signature Rolls', fr: 'Rouleaux Signature', it: 'Rotoli Signature', en: 'Signature Rolls' },
+    sub: {
+      de: 'Filipinisch × japanisch · nur bei Hiraya',
+      fr: 'Philippin × japonais · uniquement chez Hiraya',
+      it: 'Filippino × giapponese · solo da Hiraya',
+      en: 'Filipino × Japanese · only at Hiraya',
+    },
+    intro: {
+      de: 'Filipinische Aromen in japanischem Reis gerollt. Diese gibt es nur bei uns — Adobo, Sisig, Calamansi, Ube. Frisch gerollt, acht Stücke pro Rolle.',
+      fr: "Saveurs philippines roulées dans du riz japonais. Tu ne les trouveras qu'ici — adobo, sisig, calamansi, ube. Roulées à la main, huit pièces par rouleau.",
+      it: 'Sapori filippini avvolti nel riso giapponese. Le trovi solo da noi — adobo, sisig, calamansi, ube. Arrotolate a mano, otto pezzi per rotolo.',
+      en: "Filipino flavours wrapped in Japanese rice. These are the ones you'll only find here — adobo, sisig, calamansi, ube. Hand-rolled, eight pieces per roll.",
+    },
+  },
+  classics: {
+    label: { de: 'Klassische Rolls', fr: 'Rouleaux classiques', it: 'Rotoli classici', en: 'Classic Rolls' },
+    sub: {
+      de: 'Die, die du kennst — gut gemacht',
+      fr: 'Celles que tu connais — bien faites',
+      it: 'Quelle che conosci — fatte bene',
+      en: 'The ones you know — done well',
+    },
+    intro: {
+      de: 'Vertraute Namen, gleicher Nori, gleicher Reis, gleiche Hand. Acht Stücke pro Rolle. Neu beim Sushi? Fang hier an.',
+      fr: "Des noms familiers, même nori, même riz, même main. Huit pièces par rouleau. Nouveau au sushi ? Commence ici.",
+      it: 'Nomi familiari, stesso nori, stesso riso, stessa mano. Otto pezzi per rotolo. Nuovo al sushi? Inizia da qui.',
+      en: 'Familiar names, same nori, same rice, same hand. Eight pieces per roll. New to sushi? Start here.',
+    },
+  },
+  sides: {
+    label: { de: 'Beilagen & Suppe', fr: 'Accompagnements & soupe', it: 'Contorni & zuppa', en: 'Sides & Soup' },
+    sub: {
+      de: 'Zum Teilen · zum Anfang',
+      fr: 'À partager · pour commencer',
+      it: 'Da condividere · per iniziare',
+      en: 'To share · to start',
+    },
+    intro: {
+      de: 'Kleine Sachen zum Anfang oder Teilen. Alles ausser dem Reis machen wir selbst, jeden Morgen.',
+      fr: "De petites choses pour commencer ou partager. Sauf le riz, tout est fait maison chaque matin.",
+      it: "Piccole cose per iniziare o condividere. Tutto, tranne il riso, è fatto in casa ogni mattina.",
+      en: "Small things to start with or share. Everything except the steamed rice is made in-house each morning.",
+    },
+  },
+};
+
+export const ITEM_I18N = {
+  'poke-hir': {
+    de: 'Die Schüssel, die uns den Namen gab. Filipinische Helligkeit — Calamansi, reife Mango — auf japanischem Reis.',
+    fr: "Le bol qui nous a donné notre nom. L'éclat des Philippines — calamansi, mangue mûre — sur riz japonais.",
+    it: 'Il bowl che ci ha dato il nome. Luce filippina — calamansi, mango maturo — su riso giapponese.',
+    en: "The bowl that earned us the name. Filipino brightness — calamansi citrus, ripe mango — on Japanese rice.",
+  },
+  'poke-sal': {
+    de: 'Die Einsteiger-Schüssel: klar, zurückhaltend — lässt den Lachs sprechen.',
+    fr: 'Le bol pour commencer : clair, retenu — laisse parler le saumon.',
+    it: 'Il bowl per iniziare: pulito, sobrio — lascia parlare il salmone.',
+    en: 'The starter bowl: clean, restrained, lets the salmon do the talking.',
+  },
+  'poke-tu': {
+    de: 'Hausgemachte Sriracha-Mayo und grosszügig mit dem Chili.',
+    fr: 'Mayo sriracha maison, généreuse en piment.',
+    it: 'Maionese sriracha della casa, generosa di peperoncino.',
+    en: 'House sriracha mayo and a generous hand with the chili.',
+  },
+  'poke-tof': {
+    de: 'Marinierter Tofu, scharfe Pickles, frischer Ingwer. Voll pflanzlich.',
+    fr: 'Tofu mariné, pickles vifs, gingembre frais. Entièrement végétal.',
+    it: 'Tofu marinato, pickle vivaci, zenzero fresco. Completamente vegetale.',
+    en: 'Marinated tofu, sharp pickles, fresh ginger. Fully plant-based.',
+  },
+  'poke-chi': {
+    de: 'Gerwins Adobo, langsam in Essig und Soja geschmort, auf Reis. Filipinisches Comfort Food in Schüsselform.',
+    fr: "L'adobo de Gerwin, mijoté lentement au vinaigre et au soja, sur riz. Réconfort philippin en version bol.",
+    it: "L'adobo di Gerwin, brasato lentamente in aceto e soia, su riso. Comfort food filippino in versione bowl.",
+    en: "Gerwin's adobo, slow-braised in vinegar and soy, on rice. Filipino comfort food, bowl form.",
+  },
+  'poke-mix': {
+    de: 'Was morgens am frischesten ist — drei oder vier Sorten, von Hand geschnitten.',
+    fr: 'Ce qu'il y a de plus frais le matin — trois ou quatre coupes, tranchées à la main.',
+    it: 'Quello che è più fresco al mattino — tre o quattro tagli, affettati a mano.',
+    en: "Whatever's freshest that morning — three or four cuts, hand-sliced.",
+  },
+  'hiraya': {
+    de: 'Die Signatur-Rolle. Selbe Aromen wie die Hiraya-Schüssel — gerollt, geschnitten, acht Stücke.',
+    fr: 'Le rouleau signature. Mêmes saveurs que le bol Hiraya — roulé, tranché, huit pièces.',
+    it: 'Il rotolo signature. Stessi sapori del bowl Hiraya — arrotolato, tagliato, otto pezzi.',
+    en: 'The signature roll. Same flavour family as the Hiraya Bowl — wrapped, sliced, eight pieces.',
+  },
+  'adobo': {
+    de: 'Langsam geschmortes Adobo-Schwein, scharfer Senfpickle, um die Tiefe zu durchbrechen.',
+    fr: 'Porc adobo mijoté, pickle de moutarde piquant pour casser la richesse.',
+    it: 'Maiale adobo brasato a lungo, pickle di senape per spezzare la ricchezza.',
+    en: 'Slow-braised pork adobo, sharp mustard pickle to cut the richness.',
+  },
+  'sisig': {
+    de: 'Sisig — knusprig, fettig, leicht sauer. Auf jedem Stück ein Wachtelei.',
+    fr: 'Sisig — croustillant, gras, légèrement acide. Un œuf de caille sur chaque pièce.',
+    it: 'Sisig — croccante, grasso, leggermente acido. Un uovo di quaglia su ogni pezzo.',
+    en: 'Sisig — crisp, fatty, slightly sour. A quail egg on top of every piece.',
+  },
+  'bicol': {
+    de: 'Benannt nach dem Gericht aus der Provinz Bicol — Kokosmilch und Chili, mit Krebsfleisch gepaart.',
+    fr: 'Du nom du plat de la province de Bicol — lait de coco et piment, accompagnés de crabe.',
+    it: 'Dal nome del piatto della provincia di Bicol — latte di cocco e peperoncino, abbinati al granchio.',
+    en: 'Named after the dish from Bicol province — coconut milk and chili, paired with crab.',
+  },
+  'ube': {
+    de: 'Süsse Purpur-Yamswurzel, gesalzenes Entenei, Kokos. Vegetarisch; leicht in Tempura ausgebacken.',
+    fr: 'Igname violette sucrée, œuf de cane salé, coco. Végétarien ; légèrement frit en tempura.',
+    it: 'Igname viola dolce, uovo d'anatra salato, cocco. Vegetariano; leggermente fritto in tempura.',
+    en: 'Sweet purple yam, salted duck egg, coconut. Vegetarian; lightly fried in tempura.',
+  },
+  'mango': {
+    de: 'Thunfisch, reife Mango, frische Jalapeño — Süsse trifft Hitze.',
+    fr: 'Thon, mangue mûre, jalapeño frais — la douceur rencontre la chaleur.',
+    it: 'Tonno, mango maturo, jalapeño fresco — il dolce incontra il piccante.',
+    en: 'Tuna, ripe mango, fresh jalapeño — sweet meets heat.',
+  },
+};
