@@ -490,7 +490,7 @@ const Menu = ({ lang }) => {
         <div>
           <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'menu.cta.eyebrow')}</div>
           <Rich as="div" html={t(lang, 'menu.cta.title.html')}
-                color="var(--ember")
+                color="var(--ember)"
                 style={{ fontFamily: 'var(--f-display)', fontSize: 36, lineHeight: 1.05, marginTop: 4 }} />
           <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'rgba(244,234,214,0.7)', marginTop: 6 }}>
             {t(lang, 'menu.cta.body')}
@@ -683,7 +683,7 @@ const Story = ({ lang }) => (
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'story.eyebrow')}</div>
         <div style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.98, marginTop: 14 }}>
           {t(lang, 'story.title.l1')}<br/>
-          <span style={{ fontStyle: 'italic', color: 'var(--clay) }}>{t(lang, 'story.title.l2')}</span><br/>
+          <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{t(lang, 'story.title.l2')}</span><br/>
           {t(lang, 'story.title.l3')}
         </div>
         <div style={{ marginTop: 28, width: 280 }}>
