@@ -15,6 +15,22 @@ const useIsMobile = () => {
   return mobile;
 };
 
+const useReveal = (threshold = 0.08) => {
+  const ref = useRef(null);
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setOn(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, on];
+};
+
 const MENU = {
   poke: {
     items: [
@@ -125,6 +141,60 @@ const FoodPlaceholder = ({ label = 'food photo', shape = 'square', size, ratio =
           background: 'var(--ink)', color: 'var(--paper)', padding: '3px 6px', borderRadius: 4,
         }}>{cornerNote}</div>
       )}
+    </div>
+  );
+};
+
+// ── Splash Intro ──
+const SplashIntro = ({ onDone }) => {
+  const [fading, setFading] = useState(false);
+  useEffect(() => {
+    const t1 = setTimeout(() => setFading(true), 1500);
+    const t2 = setTimeout(onDone, 2100);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, [onDone]);
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 1000,
+      background: 'var(--ink)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      opacity: fading ? 0 : 1,
+      transition: 'opacity 0.6s ease',
+      pointerEvents: fading ? 'none' : 'all',
+    }}>
+      <div style={{ textAlign: 'center', animation: 'splashFadeIn 0.8s ease both' }}>
+        <DualGlyph size={56} color="var(--ember)" />
+        <div style={{
+          fontFamily: 'var(--f-display)',
+          fontSize: 'clamp(64px, 10vw, 120px)',
+          lineHeight: 0.9, color: 'var(--paper)', marginTop: 20,
+        }}>
+          Hira<span style={{ fontStyle: 'italic', color: 'var(--ember)' }}>ya</span>
+        </div>
+        <div className="mono" style={{
+          color: 'rgba(244,234,214,0.45)', marginTop: 14,
+          letterSpacing: '0.2em', fontSize: 11,
+        }}>
+          FUSION SUSHI & POKE · BINNINGEN
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Marquee Strip ──
+const MARQUEE_ITEMS = [
+  'FUSION SUSHI', 'POKE BOWLS', 'BINNINGEN', 'CHEF GERWIN',
+  'HAND-ROLLED DAILY', 'FILIPINO × JAPANESE', 'THE HIRAYA BOWL', 'SINCE 2024',
+];
+const MarqueeStrip = () => {
+  const text = MARQUEE_ITEMS.join('  ·  ') + '  ·  ';
+  return (
+    <div style={{ overflow: 'hidden', background: 'var(--clay)', padding: '10px 0' }}>
+      <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marquee 32s linear infinite' }}>
+        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--linen)', flexShrink: 0 }}>{text}</span>
+        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--linen)', flexShrink: 0 }}>{text}</span>
+      </div>
     </div>
   );
 };
@@ -267,8 +337,11 @@ const Nav = ({ lang, onLang }) => {
 
 // ── Hero ──
 const Hero = ({ lang }) => (
-  <section id="top" style={{ position: 'relative', padding: '60px 56px 80px', background: 'var(--paper)', overflow: 'hidden' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center' }}>
+  <section id="top" style={{
+    position: 'relative', padding: '0 56px', background: 'var(--paper)', overflow: 'hidden',
+    minHeight: '100vh', display: 'flex', alignItems: 'center',
+  }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center', width: '100%', paddingTop: 60, paddingBottom: 80 }}>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
           <span className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'hero.eyebrow')}</span>
@@ -351,10 +424,16 @@ const Hero = ({ lang }) => (
 );
 
 // ── Fusion Story ──
-const FusionStory = ({ lang }) => (
+const FusionStory = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
     <Inabel height={26} variant="slim" seed={801} />
-    <div style={{ padding: '110px 56px', textAlign: 'center' }}>
+    <div ref={ref} style={{
+      padding: '110px 56px', textAlign: 'center',
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
       <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.eyebrow')}</div>
       <Rich
         as="div"
@@ -397,7 +476,8 @@ const FusionStory = ({ lang }) => (
     </div>
     <Inabel height={26} variant="slim" seed={802} />
   </section>
-);
+  );
+};
 
 // ── Menu ──
 const MenuCard = ({ item, lang, isMobile = false }) => {
@@ -605,9 +685,15 @@ const Menu = ({ lang }) => {
 };
 
 // ── How to Order ──
-const HowToOrder = ({ lang }) => (
+const HowToOrder = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section style={{ background: 'var(--paper-soft)', padding: '90px 56px' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: 56, alignItems: 'start' }}>
+    <div ref={ref} style={{
+      display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: 56, alignItems: 'start',
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
       <div>
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'how.eyebrow')}</div>
         <Rich as="div" html={t(lang, 'how.title.html')}
@@ -628,12 +714,19 @@ const HowToOrder = ({ lang }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // ── Featured Bowl ──
-const Featured = ({ lang }) => (
+const Featured = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section style={{ background: 'var(--clay)', color: 'var(--linen)' }}>
-    <div style={{ padding: '90px 56px', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 60, alignItems: 'center' }}>
+    <div ref={ref} style={{
+      padding: '90px 56px', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 60, alignItems: 'center',
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
       <div>
         <div className="mono" style={{ opacity: 0.85 }}>{t(lang, 'feature.eyebrow')}</div>
         <Rich as="div" html={t(lang, 'feature.title.html')}
@@ -671,11 +764,18 @@ const Featured = ({ lang }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // ── Location ──
-const LocationBlock = ({ lang }) => (
+const LocationBlock = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section id="find" style={{ background: 'var(--paper-soft)', padding: '100px 56px' }}>
+    <div ref={ref} style={{
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 36, gap: 24, flexWrap: 'wrap' }}>
       <div>
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'loc.eyebrow')}</div>
@@ -734,13 +834,21 @@ const LocationBlock = ({ lang }) => (
       </div>
       <FoodPlaceholder label="STOREFRONT — Paradiesstrasse 2" ratio="3/4" cornerNote="PHOTO" />
     </div>
+    </div>
   </section>
-);
+  );
+};
 
 // ── Catering ──
-const Catering = ({ lang }) => (
+const Catering = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section id="catering" style={{ background: 'var(--paper)', padding: '100px 56px' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 60, alignItems: 'center' }}>
+    <div ref={ref} style={{
+      display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 60, alignItems: 'center',
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
       <div>
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
         <Rich as="div" html={t(lang, 'cat.title.html')}
@@ -780,12 +888,19 @@ const Catering = ({ lang }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // ── Chef Story ──
-const Story = ({ lang }) => (
+const Story = ({ lang }) => {
+  const [ref, on] = useReveal();
+  return (
   <section id="about" style={{ background: 'var(--paper-soft)', padding: '100px 56px' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.4fr', gap: 80, alignItems: 'center' }}>
+    <div ref={ref} style={{
+      display: 'grid', gridTemplateColumns: '0.9fr 1.4fr', gap: 80, alignItems: 'center',
+      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+      transition: 'opacity 0.8s ease, transform 0.8s ease',
+    }}>
       <div>
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'story.eyebrow')}</div>
         <div style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.98, marginTop: 14 }}>
@@ -826,7 +941,8 @@ const Story = ({ lang }) => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // ── Footer ──
 const Footer = ({ lang }) => (
@@ -885,10 +1001,13 @@ const Footer = ({ lang }) => (
 // ── Top-level Website component ──
 export const Website = () => {
   const [lang, setLang] = useLang();
+  const [splashDone, setSplashDone] = useState(false);
   return (
     <div style={{ width: '100%', background: 'var(--paper)', fontFamily: 'var(--f-sans)', color: 'var(--ink)' }}>
+      {!splashDone && <SplashIntro onDone={() => setSplashDone(true)} />}
       <Nav lang={lang} onLang={setLang} />
       <Hero lang={lang} />
+      <MarqueeStrip />
       <FusionStory lang={lang} />
       <Menu lang={lang} />
       <HowToOrder lang={lang} />
