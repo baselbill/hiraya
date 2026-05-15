@@ -402,52 +402,51 @@ const FusionStory = ({ lang }) => (
 // ── Menu ──
 const MenuCard = ({ item, lang, isMobile = false }) => {
   const desc = ITEM_I18N[item.id] && ITEM_I18N[item.id][lang];
-  // Mobile: text left, small thumbnail right (Just Eat mobile pattern)
-  // Desktop: large thumbnail left, text right
+  const imgW = isMobile ? 88 : 120;
   return (
     <article style={{
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr 88px' : '160px 1fr',
-      gap: isMobile ? 12 : 18,
+      gridTemplateColumns: `1fr ${imgW}px`,
+      gap: isMobile ? 12 : 16,
       background: 'var(--linen)', borderRadius: 12, padding: isMobile ? 14 : 16,
       border: '1px solid rgba(26,20,16,0.06)',
     }}>
-      {!isMobile && <FoodPlaceholder label={item.name} />}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-          <h3 style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 20 : 28, lineHeight: 1.05, margin: 0, color: 'var(--ink)' }}>
-            {item.name}
-          </h3>
-          {!isMobile && (
-            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 15, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
-              CHF {item.price.toFixed(2)}
-            </span>
-          )}
-        </div>
+        <h3 style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 20 : 24, lineHeight: 1.05, margin: 0, color: 'var(--ink)' }}>
+          {item.name}
+        </h3>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 12, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
           {item.ingredients}
         </div>
         {desc && !isMobile && (
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 15, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
+          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 14, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
             {desc}
           </div>
         )}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: 6, flexWrap: 'wrap', gap: 6 }}>
-          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-            {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
-          </div>
-          {isMobile && (
-            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 14, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: 8, flexWrap: 'wrap', gap: 6 }}>
+          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', alignItems: 'center' }}>
+            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
               CHF {item.price.toFixed(2)}
             </span>
-          )}
+            {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
+          </div>
+          <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
+            fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.05em',
+            color: 'var(--clay)', textDecoration: 'none', whiteSpace: 'nowrap',
+            display: 'inline-flex', alignItems: 'center', gap: 4,
+            padding: '4px 9px', borderRadius: 999,
+            border: '1px solid rgba(194,73,42,0.35)',
+          }}>
+            {t(lang, 'cta.orderShort')}
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M7 17 L17 7 M9 7 H17 V15" />
+            </svg>
+          </a>
         </div>
       </div>
-      {isMobile && (
-        <div style={{ alignSelf: 'center' }}>
-          <FoodPlaceholder label={item.name} />
-        </div>
-      )}
+      <div style={{ alignSelf: 'stretch' }}>
+        <FoodPlaceholder label={item.name} ratio="1/1" />
+      </div>
     </article>
   );
 };
