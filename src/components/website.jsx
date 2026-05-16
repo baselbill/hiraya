@@ -292,8 +292,10 @@ const JustEatLink = ({ size = 'md', tone = 'solid', lang = 'de' }) => {
   );
 };
 
-// ── Navigation (Variant A — Classic refined, chosen by design direction) ──
+// ── Navigation ──
 const Nav = ({ lang, onLang }) => {
+  const isMobile = useIsMobile();
+  const px = isMobile ? '20px' : '56px';
   const links = [
     { id: 'menu',     key: 'nav.menu' },
     { id: 'about',    key: 'nav.about' },
@@ -303,32 +305,35 @@ const Nav = ({ lang, onLang }) => {
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'var(--paper)' }}>
       <div style={{
-        background: 'var(--ink)', color: 'var(--paper)', padding: '8px 56px',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, gap: 24,
-        flexWrap: 'wrap',
+        background: 'var(--ink)', color: 'var(--paper)', padding: `8px ${px}`,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, gap: 12,
       }}>
         <span className="mono" style={{ color: 'var(--ember)' }}>
           {t(lang, 'bar.openToday')} · {t(lang, 'bar.viaJustEat')}
         </span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
-          <span className="mono" style={{ color: 'rgba(244,234,214,0.6)' }}>
-            Paradiesstrasse 2 · 4102 Binningen · +41 61 421 0024
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {!isMobile && (
+            <span className="mono" style={{ color: 'rgba(244,234,214,0.6)' }}>
+              Paradiesstrasse 2 · 4102 Binningen · +41 61 421 0024
+            </span>
+          )}
           <LangPills lang={lang} onLang={onLang} tone="dark" />
         </div>
       </div>
       <nav style={{
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '18px 56px', borderBottom: '1px solid rgba(26,20,16,0.08)', gap: 24, flexWrap: 'wrap',
+        padding: `14px ${px}`, borderBottom: '1px solid rgba(26,20,16,0.08)', gap: 16,
       }}>
-        <a href="#top"><Wordmark size={18} /></a>
-        <div style={{ display: 'flex', gap: 36, fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink)', fontWeight: 500, flexWrap: 'wrap' }}>
-          {links.map(l => (
-            <a key={l.id} href={`#${l.id}`} style={{ color: 'var(--ink)', paddingBottom: 4 }}>
-              {t(lang, l.key)}
-            </a>
-          ))}
-        </div>
+        <a href="#top"><Wordmark size={isMobile ? 15 : 18} /></a>
+        {!isMobile && (
+          <div style={{ display: 'flex', gap: 36, fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink)', fontWeight: 500 }}>
+            {links.map(l => (
+              <a key={l.id} href={`#${l.id}`} style={{ color: 'var(--ink)', paddingBottom: 4 }}>
+                {t(lang, l.key)}
+              </a>
+            ))}
+          </div>
+        )}
         <JustEatLink size="sm" lang={lang} />
       </nav>
     </header>
@@ -336,146 +341,193 @@ const Nav = ({ lang, onLang }) => {
 };
 
 // ── Hero ──
-const Hero = ({ lang }) => (
-  <section id="top" style={{
-    position: 'relative', padding: '0 56px', background: 'var(--paper)', overflow: 'hidden',
-    minHeight: '100vh', display: 'flex', alignItems: 'center',
-  }}>
-    <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56, alignItems: 'center', width: '100%', paddingTop: 60, paddingBottom: 80 }}>
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28 }}>
-          <span className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'hero.eyebrow')}</span>
-        </div>
-        <h1 style={{
-          fontFamily: 'var(--f-display)', fontSize: 'clamp(72px, 10vw, 168px)', lineHeight: 0.82,
-          letterSpacing: '-0.02em', margin: 0, color: 'var(--ink)',
-        }}>
-          Two<br/>
-          <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>languages</span>,<br/>
-          one bowl.
-        </h1>
-        <div style={{
-          fontFamily: 'var(--f-sans)', fontSize: 'clamp(15px, 1.5vw, 21px)', lineHeight: 1.45,
-          marginTop: 24, color: 'var(--ink-soft)', maxWidth: 560,
-        }}>
-          {t(lang, 'hero.subtitle')}
-        </div>
-
-        <div style={{ display: 'flex', gap: 14, marginTop: 36, flexWrap: 'wrap', alignItems: 'center' }}>
-          <JustEatLink size="lg" lang={lang} />
-          <a href="#menu" style={{
-            fontFamily: 'var(--f-sans)', fontWeight: 600, fontSize: 14,
-            background: 'transparent', color: 'var(--ink)', padding: '18px 22px',
-            borderRadius: 999, border: '1.5px solid var(--ink)',
-            textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+const Hero = ({ lang }) => {
+  const isMobile = useIsMobile();
+  const px = isMobile ? '20px' : '56px';
+  return (
+    <section id="top" style={{
+      position: 'relative', padding: `0 ${px}`, background: 'var(--paper)', overflow: 'hidden',
+      minHeight: isMobile ? 'auto' : '100vh', display: 'flex', alignItems: 'center',
+    }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr',
+        gap: isMobile ? 36 : 56,
+        alignItems: 'center',
+        width: '100%',
+        paddingTop: isMobile ? 36 : 60,
+        paddingBottom: isMobile ? 52 : 80,
+      }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+            <span className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'hero.eyebrow')}</span>
+          </div>
+          <h1 style={{
+            fontFamily: 'var(--f-display)',
+            fontSize: isMobile ? 'clamp(64px, 18vw, 100px)' : 'clamp(72px, 10vw, 168px)',
+            lineHeight: 0.82,
+            letterSpacing: '-0.02em', margin: 0, color: 'var(--ink)',
           }}>
-            {t(lang, 'cta.viewMenu')}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M6 9 L12 15 L18 9" />
-            </svg>
-          </a>
-        </div>
-
-        <div style={{ display: 'flex', gap: 28, marginTop: 40, alignItems: 'center', fontFamily: 'var(--f-sans)', fontSize: 13, color: 'var(--ink-mute)', flexWrap: 'wrap' }}>
-          <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
-            <span style={{ color: 'var(--saffron)', fontSize: 16 }}>★★★★★</span> 4.9 · {t(lang, 'hero.reviews')}
-          </span>
-          <span>•</span>
-          <span>{t(lang, 'hero.delivery')}</span>
-          <span>•</span>
-          <span>{t(lang, 'hero.minOrder')}</span>
-        </div>
-      </div>
-
-      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <FoodPlaceholder label="HIRAYA BOWL — hero photo" shape="circle" size={460} cornerNote="HERO" />
-        <div style={{
-          position: 'absolute', top: 0, left: -20, padding: '14px 18px',
-          background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14,
-          transform: 'rotate(-4deg)', boxShadow: '0 14px 30px -10px rgba(0,0,0,0.4)',
-          maxWidth: 210,
-        }}>
-          <div className="mono" style={{ color: 'var(--ember)', fontSize: 9 }}>{t(lang, 'hero.floatFilLabel')}</div>
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 22, lineHeight: 1.05, marginTop: 4 }}>
-            ang bunga<br/>ng pangarap
+            Two<br/>
+            <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>languages</span>,<br/>
+            one bowl.
+          </h1>
+          <div style={{
+            fontFamily: 'var(--f-sans)', fontSize: 'clamp(15px, 1.5vw, 21px)', lineHeight: 1.45,
+            marginTop: 20, color: 'var(--ink-soft)', maxWidth: 560,
+          }}>
+            {t(lang, 'hero.subtitle')}
           </div>
-          <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', fontSize: 9, marginTop: 4 }}>{t(lang, 'hero.floatFilGloss')}</div>
-        </div>
-        <div style={{
-          position: 'absolute', bottom: 20, right: -10, padding: '14px 18px',
-          background: 'var(--clay)', color: 'var(--linen)', borderRadius: 14,
-          transform: 'rotate(5deg)', boxShadow: '0 14px 30px -10px rgba(0,0,0,0.4)',
-          display: 'flex', alignItems: 'center', gap: 12,
-        }}>
-          <DualGlyph size={38} color="var(--linen)" />
-          <div>
-            <div className="mono" style={{ opacity: 0.85, fontSize: 9 }}>{t(lang, 'hero.floatJpLabel')}</div>
-            <Rich
-              as="div"
-              html={t(lang, 'hero.floatJpLine')}
-              color="var(--linen)"
-              style={{ fontFamily: 'var(--f-display)', fontSize: 22, lineHeight: 1.1, marginTop: 2 }}
-            />
+
+          <div style={{ display: 'flex', gap: 14, marginTop: 32, flexWrap: 'wrap', alignItems: 'center' }}>
+            <JustEatLink size={isMobile ? 'md' : 'lg'} lang={lang} />
+            <a href="#menu" style={{
+              fontFamily: 'var(--f-sans)', fontWeight: 600, fontSize: 14,
+              background: 'transparent', color: 'var(--ink)',
+              padding: isMobile ? '12px 18px' : '18px 22px',
+              borderRadius: 999, border: '1.5px solid var(--ink)',
+              textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+            }}>
+              {t(lang, 'cta.viewMenu')}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M6 9 L12 15 L18 9" />
+              </svg>
+            </a>
+          </div>
+
+          <div style={{ display: 'flex', gap: 16, marginTop: 32, alignItems: 'center', fontFamily: 'var(--f-sans)', fontSize: 13, color: 'var(--ink-mute)', flexWrap: 'wrap' }}>
+            <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
+              <span style={{ color: 'var(--saffron)', fontSize: 16 }}>★★★★★</span> 4.9 · {t(lang, 'hero.reviews')}
+            </span>
+            <span>•</span>
+            <span>{t(lang, 'hero.delivery')}</span>
+            {!isMobile && <><span>•</span><span>{t(lang, 'hero.minOrder')}</span></>}
           </div>
         </div>
+
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <FoodPlaceholder
+            label="HIRAYA BOWL — hero photo"
+            shape="circle"
+            size={isMobile ? undefined : 460}
+            cornerNote="HERO"
+          />
+          {!isMobile && (
+            <>
+              <div style={{
+                position: 'absolute', top: 0, left: -20, padding: '14px 18px',
+                background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14,
+                transform: 'rotate(-4deg)', boxShadow: '0 14px 30px -10px rgba(0,0,0,0.4)',
+                maxWidth: 210,
+              }}>
+                <div className="mono" style={{ color: 'var(--ember)', fontSize: 9 }}>{t(lang, 'hero.floatFilLabel')}</div>
+                <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 22, lineHeight: 1.05, marginTop: 4 }}>
+                  ang bunga<br/>ng pangarap
+                </div>
+                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', fontSize: 9, marginTop: 4 }}>{t(lang, 'hero.floatFilGloss')}</div>
+              </div>
+              <div style={{
+                position: 'absolute', bottom: 20, right: -10, padding: '14px 18px',
+                background: 'var(--clay)', color: 'var(--linen)', borderRadius: 14,
+                transform: 'rotate(5deg)', boxShadow: '0 14px 30px -10px rgba(0,0,0,0.4)',
+                display: 'flex', alignItems: 'center', gap: 12,
+              }}>
+                <DualGlyph size={38} color="var(--linen)" />
+                <div>
+                  <div className="mono" style={{ opacity: 0.85, fontSize: 9 }}>{t(lang, 'hero.floatJpLabel')}</div>
+                  <Rich
+                    as="div"
+                    html={t(lang, 'hero.floatJpLine')}
+                    color="var(--linen)"
+                    style={{ fontFamily: 'var(--f-display)', fontSize: 22, lineHeight: 1.1, marginTop: 2 }}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ── Fusion Story ──
 const FusionStory = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
   return (
-  <section style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
-    <Inabel height={26} variant="slim" seed={801} />
-    <div ref={ref} style={{
-      padding: '110px 56px', textAlign: 'center',
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-      <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.eyebrow')}</div>
-      <Rich
-        as="div"
-        html={t(lang, 'fs.title.html')}
-        color="var(--saffron)"
-        style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(36px, 6vw, 88px)', lineHeight: 0.95, marginTop: 14, maxWidth: 1080, marginLeft: 'auto', marginRight: 'auto' }}
-      />
-      <div style={{
-        marginTop: 64, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 48,
-        alignItems: 'center', maxWidth: 1100, marginLeft: 'auto', marginRight: 'auto',
+    <section style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
+      <Inabel height={26} variant="slim" seed={801} />
+      <div ref={ref} style={{
+        padding: `${isMobile ? 72 : 110}px ${px}`, textAlign: 'center',
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
       }}>
-        <div style={{ textAlign: 'right' }}>
-          <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.fil.label')}</div>
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(28px, 4vw, 56px)', lineHeight: 1.1, marginTop: 12 }}>
-            ang bunga<br/>ng pangarap
+        <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.eyebrow')}</div>
+        <Rich
+          as="div"
+          html={t(lang, 'fs.title.html')}
+          color="var(--saffron)"
+          style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(32px, 6vw, 88px)', lineHeight: 0.95, marginTop: 14, maxWidth: 1080, marginLeft: 'auto', marginRight: 'auto' }}
+        />
+        {isMobile ? (
+          <div style={{ marginTop: 48, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.fil.label')}</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(24px, 7vw, 40px)', lineHeight: 1.1, marginTop: 10 }}>
+                ang bunga<br/>ng pangarap
+              </div>
+              <Rich as="div" html={t(lang, 'fs.fil.gloss')}
+                    style={{ fontFamily: 'var(--f-sans)', fontSize: 15, color: 'rgba(244,234,214,0.7)', marginTop: 10, lineHeight: 1.5 }} />
+            </div>
+            <DualGlyph size={100} color="var(--clay)" />
+            <div style={{ textAlign: 'center' }}>
+              <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.jp.label')}</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(24px, 7vw, 40px)', lineHeight: 1.1, marginTop: 10 }}>
+                hiraya<br/>(平屋)
+              </div>
+              <Rich as="div" html={t(lang, 'fs.jp.gloss')}
+                    style={{ fontFamily: 'var(--f-sans)', fontSize: 15, color: 'rgba(244,234,214,0.7)', marginTop: 10, lineHeight: 1.5 }} />
+            </div>
           </div>
-          <Rich as="div" html={t(lang, 'fs.fil.gloss')}
-                style={{ fontFamily: 'var(--f-sans)', fontSize: 17, color: 'rgba(244,234,214,0.7)', marginTop: 14, lineHeight: 1.5 }} />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 1, height: 40, background: 'rgba(244,234,214,0.3)' }} />
-          <DualGlyph size={140} color="var(--clay)" />
-          <div style={{ width: 1, height: 40, background: 'rgba(244,234,214,0.3)' }} />
-        </div>
-        <div style={{ textAlign: 'left' }}>
-          <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.jp.label')}</div>
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(28px, 4vw, 56px)', lineHeight: 1.1, marginTop: 12 }}>
-            hiraya<br/>(平屋)
+        ) : (
+          <div style={{
+            marginTop: 64, display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 48,
+            alignItems: 'center', maxWidth: 1100, marginLeft: 'auto', marginRight: 'auto',
+          }}>
+            <div style={{ textAlign: 'right' }}>
+              <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.fil.label')}</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(28px, 4vw, 56px)', lineHeight: 1.1, marginTop: 12 }}>
+                ang bunga<br/>ng pangarap
+              </div>
+              <Rich as="div" html={t(lang, 'fs.fil.gloss')}
+                    style={{ fontFamily: 'var(--f-sans)', fontSize: 17, color: 'rgba(244,234,214,0.7)', marginTop: 14, lineHeight: 1.5 }} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 1, height: 40, background: 'rgba(244,234,214,0.3)' }} />
+              <DualGlyph size={140} color="var(--clay)" />
+              <div style={{ width: 1, height: 40, background: 'rgba(244,234,214,0.3)' }} />
+            </div>
+            <div style={{ textAlign: 'left' }}>
+              <div className="mono" style={{ color: 'var(--ember)' }}>{t(lang, 'fs.jp.label')}</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 'clamp(28px, 4vw, 56px)', lineHeight: 1.1, marginTop: 12 }}>
+                hiraya<br/>(平屋)
+              </div>
+              <Rich as="div" html={t(lang, 'fs.jp.gloss')}
+                    style={{ fontFamily: 'var(--f-sans)', fontSize: 17, color: 'rgba(244,234,214,0.7)', marginTop: 14, lineHeight: 1.5 }} />
+            </div>
           </div>
-          <Rich as="div" html={t(lang, 'fs.jp.gloss')}
-                style={{ fontFamily: 'var(--f-sans)', fontSize: 17, color: 'rgba(244,234,214,0.7)', marginTop: 14, lineHeight: 1.5 }} />
-        </div>
+        )}
+        <Rich
+          as="div"
+          html={t(lang, 'fs.closing.html')}
+          color="var(--saffron)"
+          style={{ marginTop: 56, maxWidth: 760, marginLeft: 'auto', marginRight: 'auto', fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 22 : 28, lineHeight: 1.35, color: 'var(--saffron)' }}
+        />
       </div>
-      <Rich
-        as="div"
-        html={t(lang, 'fs.closing.html')}
-        color="var(--saffron)"
-        style={{ marginTop: 64, maxWidth: 760, marginLeft: 'auto', marginRight: 'auto', fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 28, lineHeight: 1.35, color: 'var(--saffron)' }}
-      />
-    </div>
-    <Inabel height={26} variant="slim" seed={802} />
-  </section>
+      <Inabel height={26} variant="slim" seed={802} />
+    </section>
   );
 };
 
@@ -686,317 +738,366 @@ const Menu = ({ lang }) => {
 
 // ── How to Order ──
 const HowToOrder = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
+  const py = isMobile ? '64px' : '90px';
   return (
-  <section style={{ background: 'var(--paper-soft)', padding: '90px 56px' }}>
-    <div ref={ref} style={{
-      display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: 56, alignItems: 'start',
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-      <div>
-        <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'how.eyebrow')}</div>
-        <Rich as="div" html={t(lang, 'how.title.html')}
-              style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.95, marginTop: 8 }} />
+    <section style={{ background: 'var(--paper-soft)', padding: `${py} ${px}` }}>
+      <div ref={ref} style={{
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}>
+        <div style={{ marginBottom: isMobile ? 32 : 48 }}>
+          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'how.eyebrow')}</div>
+          <Rich as="div" html={t(lang, 'how.title.html')}
+                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.95, marginTop: 8 }} />
+        </div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? 14 : 20,
+        }}>
+          {['s1', 's2', 's3'].map((s, i) => (
+            <div key={s} style={{
+              background: 'var(--linen)', borderRadius: 14, padding: isMobile ? '20px 18px' : '24px 22px',
+              display: 'flex', flexDirection: 'column', gap: 10,
+              minHeight: isMobile ? 'auto' : 240,
+              border: '1px solid rgba(26,20,16,0.06)',
+            }}>
+              <span style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 48, color: 'var(--clay)', lineHeight: 1 }}>{'0' + (i + 1)}</span>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: 24, lineHeight: 1.1, color: 'var(--ink)' }}>{t(lang, 'how.' + s + '.title')}</div>
+              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.5 }}>{t(lang, 'how.' + s + '.body')}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-        {['s1', 's2', 's3'].map((s, i) => (
-          <div key={s} style={{
-            background: 'var(--linen)', borderRadius: 14, padding: '24px 22px',
-            display: 'flex', flexDirection: 'column', gap: 10, minHeight: 240,
-            border: '1px solid rgba(26,20,16,0.06)',
-          }}>
-            <span style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 56, color: 'var(--clay)', lineHeight: 1 }}>{'0' + (i + 1)}</span>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 26, lineHeight: 1.1, color: 'var(--ink)' }}>{t(lang, 'how.' + s + '.title')}</div>
-            <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.5 }}>{t(lang, 'how.' + s + '.body')}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
 // ── Featured Bowl ──
 const Featured = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
+  const py = isMobile ? '64px' : '90px';
   return (
-  <section style={{ background: 'var(--clay)', color: 'var(--linen)' }}>
-    <div ref={ref} style={{
-      padding: '90px 56px', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 60, alignItems: 'center',
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-      <div>
-        <div className="mono" style={{ opacity: 0.85 }}>{t(lang, 'feature.eyebrow')}</div>
-        <Rich as="div" html={t(lang, 'feature.title.html')}
-              color="var(--linen)"
-              style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 104px)', lineHeight: 0.9, marginTop: 8 }} />
-        <p style={{ fontFamily: 'var(--f-sans)', fontSize: 19, lineHeight: 1.55, marginTop: 18, maxWidth: 520, opacity: 0.92 }}>
-          {t(lang, 'feature.body')}
-        </p>
-        <div style={{ marginTop: 28, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
-          <span style={{ fontFamily: 'var(--f-display)', fontSize: 64 }}>CHF 22.50</span>
-          <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
-            fontFamily: 'var(--f-sans)', fontWeight: 700, fontSize: 14,
-            background: 'var(--linen)', color: 'var(--ink)', padding: '14px 22px',
-            borderRadius: 999, letterSpacing: '0.04em', textDecoration: 'none',
-            display: 'inline-flex', alignItems: 'center', gap: 10,
+    <section style={{ background: 'var(--clay)', color: 'var(--linen)' }}>
+      <div ref={ref} style={{
+        padding: `${py} ${px}`,
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
+        gap: isMobile ? 36 : 60,
+        alignItems: 'center',
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}>
+        <div>
+          <div className="mono" style={{ opacity: 0.85 }}>{t(lang, 'feature.eyebrow')}</div>
+          <Rich as="div" html={t(lang, 'feature.title.html')}
+                color="var(--linen)"
+                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 104px)', lineHeight: 0.9, marginTop: 8 }} />
+          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 19, lineHeight: 1.55, marginTop: 18, maxWidth: 520, opacity: 0.92 }}>
+            {t(lang, 'feature.body')}
+          </p>
+          <div style={{ marginTop: 28, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 48 : 64 }}>CHF 22.50</span>
+            <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
+              fontFamily: 'var(--f-sans)', fontWeight: 700, fontSize: 14,
+              background: 'var(--linen)', color: 'var(--ink)', padding: '14px 22px',
+              borderRadius: 999, letterSpacing: '0.04em', textDecoration: 'none',
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+            }}>
+              {t(lang, 'cta.orderShort')}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M7 17 L17 7 M9 7 H17 V15" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+          <div style={{ width: isMobile ? '80%' : 440, maxWidth: '100%' }}>
+            <FoodPlaceholder label="HIRAYA BOWL — feature photo" shape="circle" cornerNote="FEATURED" />
+          </div>
+          <div style={{
+            position: 'absolute', top: 8, right: isMobile ? 0 : 24, transform: 'rotate(8deg)',
+            background: 'var(--saffron)', color: 'var(--ink)', padding: '8px 14px',
+            borderRadius: 999, fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
           }}>
-            {t(lang, 'cta.orderShort')}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M7 17 L17 7 M9 7 H17 V15" />
-            </svg>
-          </a>
+            {t(lang, 'feature.badge')}
+          </div>
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-        <div style={{ width: 440, maxWidth: '100%' }}>
-          <FoodPlaceholder label="HIRAYA BOWL — feature photo" shape="circle" cornerNote="FEATURED" />
-        </div>
-        <div style={{
-          position: 'absolute', top: 8, right: 24, transform: 'rotate(8deg)',
-          background: 'var(--saffron)', color: 'var(--ink)', padding: '8px 14px',
-          borderRadius: 999, fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-        }}>
-          {t(lang, 'feature.badge')}
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
 // ── Location ──
 const LocationBlock = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
+  const py = isMobile ? '64px' : '100px';
   return (
-  <section id="find" style={{ background: 'var(--paper-soft)', padding: '100px 56px' }}>
-    <div ref={ref} style={{
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 36, gap: 24, flexWrap: 'wrap' }}>
-      <div>
-        <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'loc.eyebrow')}</div>
-        <Rich as="div" html={t(lang, 'loc.title.html')}
-              style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 6vw, 88px)', lineHeight: 0.95, marginTop: 4 }} />
-      </div>
-      <div className="mono" style={{ color: 'var(--ink-mute)', maxWidth: 360, textAlign: 'right', lineHeight: 1.7 }}>
-        {t(lang, 'loc.hint')}
-      </div>
-    </div>
+    <section id="find" style={{ background: 'var(--paper-soft)', padding: `${py} ${px}` }}>
+      <div ref={ref} style={{
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}>
+        <div style={{ marginBottom: 28 }}>
+          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'loc.eyebrow')}</div>
+          <Rich as="div" html={t(lang, 'loc.title.html')}
+                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 4 }} />
+          {!isMobile && (
+            <div className="mono" style={{ color: 'var(--ink-mute)', maxWidth: 360, lineHeight: 1.7, marginTop: 12 }}>
+              {t(lang, 'loc.hint')}
+            </div>
+          )}
+        </div>
 
-    <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24 }}>
-      <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ height: 300, background: 'var(--teal-deep)', position: 'relative', overflow: 'hidden' }}>
-          <svg width="100%" height="100%" viewBox="0 0 800 300" preserveAspectRatio="none">
-            <path d="M0 130 L800 150" stroke="rgba(244,234,214,0.14)" strokeWidth="22" />
-            <path d="M0 220 L800 200" stroke="rgba(244,234,214,0.08)" strokeWidth="14" />
-            <path d="M340 0 L380 300" stroke="rgba(244,234,214,0.1)" strokeWidth="18" />
-            <path d="M120 0 L140 300" stroke="rgba(244,234,214,0.06)" strokeWidth="10" />
-            <path d="M580 0 L600 300" stroke="rgba(244,234,214,0.05)" strokeWidth="8" />
-            <path d="M0 260 Q220 232 420 268 T800 248" stroke="#5b6c3a" strokeWidth="7" fill="none" opacity="0.45" />
-            <text x="40" y="40" fontSize="11" fill="rgba(244,234,214,0.4)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">{t(lang, 'loc.kicker')}</text>
-            <text x="40" y="56" fontSize="9" fill="rgba(244,234,214,0.3)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">47.5440° N · 7.5705° E</text>
-            <g transform="translate(360 140)">
-              <circle r="44" fill="var(--clay)" opacity="0.18" />
-              <circle r="22" fill="var(--clay)" opacity="0.35" />
-              <circle r="12" fill="var(--clay)" />
-              <circle r="3.5" fill="var(--linen)" />
-            </g>
-            <text x="380" y="118" fontSize="11" fill="var(--ember)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">PARADIESSTR. 2</text>
-          </svg>
-        </div>
-        <div style={{ padding: '28px 32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          <div>
-            <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 56, lineHeight: 1 }}>Binningen</div>
-            <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>Paradiesstrasse 2 · 4102</div>
-            <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>+41 61 421 0024</div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr',
+          gap: 24,
+        }}>
+          <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ height: 240, background: 'var(--teal-deep)', position: 'relative', overflow: 'hidden' }}>
+              <svg width="100%" height="100%" viewBox="0 0 800 300" preserveAspectRatio="none">
+                <path d="M0 130 L800 150" stroke="rgba(244,234,214,0.14)" strokeWidth="22" />
+                <path d="M0 220 L800 200" stroke="rgba(244,234,214,0.08)" strokeWidth="14" />
+                <path d="M340 0 L380 300" stroke="rgba(244,234,214,0.1)" strokeWidth="18" />
+                <path d="M120 0 L140 300" stroke="rgba(244,234,214,0.06)" strokeWidth="10" />
+                <path d="M580 0 L600 300" stroke="rgba(244,234,214,0.05)" strokeWidth="8" />
+                <path d="M0 260 Q220 232 420 268 T800 248" stroke="#5b6c3a" strokeWidth="7" fill="none" opacity="0.45" />
+                <text x="40" y="40" fontSize="11" fill="rgba(244,234,214,0.4)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">{t(lang, 'loc.kicker')}</text>
+                <text x="40" y="56" fontSize="9" fill="rgba(244,234,214,0.3)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">47.5440° N · 7.5705° E</text>
+                <g transform="translate(360 140)">
+                  <circle r="44" fill="var(--clay)" opacity="0.18" />
+                  <circle r="22" fill="var(--clay)" opacity="0.35" />
+                  <circle r="12" fill="var(--clay)" />
+                  <circle r="3.5" fill="var(--linen)" />
+                </g>
+                <text x="380" y="118" fontSize="11" fill="var(--ember)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">PARADIESSTR. 2</text>
+              </svg>
+            </div>
+            <div style={{
+              padding: '24px 28px',
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: isMobile ? 20 : 24,
+            }}>
+              <div>
+                <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 40 : 56, lineHeight: 1 }}>Binningen</div>
+                <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>Paradiesstrasse 2 · 4102</div>
+                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>+41 61 421 0024</div>
+              </div>
+              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
+                <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
+                <div>{t(lang, 'loc.hours.days')}</div>
+                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>12:00–14:00 &nbsp; 16:00–20:00</div>
+                <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
+              </div>
+            </div>
+            <div style={{ padding: '0 28px 24px', display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer"
+                 style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
+                {t(lang, 'cta.route')} →
+              </a>
+              <a href="tel:+41614210024"
+                 style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
+                {t(lang, 'cta.reserve')}
+              </a>
+            </div>
           </div>
-          <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
-            <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
-            <div>{t(lang, 'loc.hours.days')}</div>
-            <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>12:00–14:00 &nbsp; 16:00–20:00</div>
-            <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
-          </div>
-        </div>
-        <div style={{ padding: '0 32px 28px', display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          <a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer"
-             style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
-            {t(lang, 'cta.route')} →
-          </a>
-          <a href="tel:+41614210024"
-             style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
-            {t(lang, 'cta.reserve')}
-          </a>
+          {!isMobile && (
+            <FoodPlaceholder label="STOREFRONT — Paradiesstrasse 2" ratio="3/4" cornerNote="PHOTO" />
+          )}
         </div>
       </div>
-      <FoodPlaceholder label="STOREFRONT — Paradiesstrasse 2" ratio="3/4" cornerNote="PHOTO" />
-    </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
 // ── Catering ──
 const Catering = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
+  const py = isMobile ? '64px' : '100px';
   return (
-  <section id="catering" style={{ background: 'var(--paper)', padding: '100px 56px' }}>
-    <div ref={ref} style={{
-      display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 60, alignItems: 'center',
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-      <div>
-        <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
-        <Rich as="div" html={t(lang, 'cat.title.html')}
-              style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 6vw, 88px)', lineHeight: 0.95, marginTop: 8 }} />
-        <p style={{ fontFamily: 'var(--f-sans)', fontSize: 18, lineHeight: 1.55, marginTop: 18, maxWidth: 540, color: 'var(--ink-soft)' }}>
-          {t(lang, 'cat.body')}
-        </p>
-        <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-          <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
-            {t(lang, 'cta.request')} →
-          </a>
-          <a href="#menu" style={{ background: 'transparent', color: 'var(--ink)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, border: '1.5px solid var(--ink)', textDecoration: 'none' }}>
-            {t(lang, 'cta.examples')}
-          </a>
-        </div>
-      </div>
-      <div style={{ position: 'relative', background: 'var(--bone)', borderRadius: 18, padding: 36, overflow: 'hidden' }}>
-        <Inabel height={20} variant="slim" seed={901} style={{ position: 'absolute', top: 0, left: 0, right: 0 }} />
-        <div style={{ paddingTop: 30 }}>
-          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.packages')}</div>
-          <div style={{ fontFamily: 'var(--f-display)', fontSize: 96, lineHeight: 1, color: 'var(--ink)' }}>
-            CHF 28<span style={{ fontSize: 28, color: 'var(--ink-mute)' }}>{t(lang, 'cat.perPerson')}</span>
+    <section id="catering" style={{ background: 'var(--paper)', padding: `${py} ${px}` }}>
+      <div ref={ref} style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr',
+        gap: isMobile ? 40 : 60,
+        alignItems: 'center',
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}>
+        <div>
+          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
+          <Rich as="div" html={t(lang, 'cat.title.html')}
+                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 8 }} />
+          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 18, lineHeight: 1.55, marginTop: 18, maxWidth: 540, color: 'var(--ink-soft)' }}>
+            {t(lang, 'cat.body')}
+          </p>
+          <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
+            <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+              {t(lang, 'cta.request')} →
+            </a>
+            <a href="#menu" style={{ background: 'transparent', color: 'var(--ink)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, border: '1.5px solid var(--ink)', textDecoration: 'none' }}>
+              {t(lang, 'cta.examples')}
+            </a>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, marginTop: 28 }}>
-            {['row1', 'row2', 'row3'].map((row, i) => (
-              <div key={row} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '12px 0', borderBottom: i < 2 ? '1px solid rgba(26,20,16,0.12)' : 'none', gap: 16 }}>
-                <div>
-                  <div style={{ fontFamily: 'var(--f-sans)', fontSize: 16, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, 'cat.' + row + '.name')}</div>
-                  <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2 }}>{t(lang, 'cat.' + row + '.sub')}</div>
+        </div>
+        <div style={{ position: 'relative', background: 'var(--bone)', borderRadius: 18, padding: isMobile ? 24 : 36, overflow: 'hidden' }}>
+          <Inabel height={20} variant="slim" seed={901} style={{ position: 'absolute', top: 0, left: 0, right: 0 }} />
+          <div style={{ paddingTop: 28 }}>
+            <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.packages')}</div>
+            <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 72 : 96, lineHeight: 1, color: 'var(--ink)' }}>
+              CHF 28<span style={{ fontSize: 24, color: 'var(--ink-mute)' }}>{t(lang, 'cat.perPerson')}</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, marginTop: 24 }}>
+              {['row1', 'row2', 'row3'].map((row, i) => (
+                <div key={row} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '12px 0', borderBottom: i < 2 ? '1px solid rgba(26,20,16,0.12)' : 'none', gap: 16 }}>
+                  <div>
+                    <div style={{ fontFamily: 'var(--f-sans)', fontSize: 16, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, 'cat.' + row + '.name')}</div>
+                    <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2 }}>{t(lang, 'cat.' + row + '.sub')}</div>
+                  </div>
+                  <span style={{ fontFamily: 'var(--f-display)', fontSize: 24, color: 'var(--clay)', whiteSpace: 'nowrap' }}>{t(lang, 'cat.' + row + '.price')}</span>
                 </div>
-                <span style={{ fontFamily: 'var(--f-display)', fontSize: 24, color: 'var(--clay)', whiteSpace: 'nowrap' }}>{t(lang, 'cat.' + row + '.price')}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          <Inabel height={20} variant="slim" seed={902} style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }} />
         </div>
-        <Inabel height={20} variant="slim" seed={902} style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }} />
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
 // ── Chef Story ──
 const Story = ({ lang }) => {
+  const isMobile = useIsMobile();
   const [ref, on] = useReveal();
+  const px = isMobile ? '24px' : '56px';
+  const py = isMobile ? '64px' : '100px';
   return (
-  <section id="about" style={{ background: 'var(--paper-soft)', padding: '100px 56px' }}>
-    <div ref={ref} style={{
-      display: 'grid', gridTemplateColumns: '0.9fr 1.4fr', gap: 80, alignItems: 'center',
-      opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-      transition: 'opacity 0.8s ease, transform 0.8s ease',
-    }}>
-      <div>
-        <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'story.eyebrow')}</div>
-        <div style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.98, marginTop: 14 }}>
-          {t(lang, 'story.title.l1')}<br/>
-          <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{t(lang, 'story.title.l2')}</span><br/>
-          {t(lang, 'story.title.l3')}
+    <section id="about" style={{ background: 'var(--paper-soft)', padding: `${py} ${px}` }}>
+      <div ref={ref} style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '0.9fr 1.4fr',
+        gap: isMobile ? 36 : 80,
+        alignItems: isMobile ? 'start' : 'center',
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
+        transition: 'opacity 0.8s ease, transform 0.8s ease',
+      }}>
+        <div>
+          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'story.eyebrow')}</div>
+          <div style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(36px, 5vw, 72px)', lineHeight: 0.98, marginTop: 14 }}>
+            {t(lang, 'story.title.l1')}<br/>
+            <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{t(lang, 'story.title.l2')}</span><br/>
+            {t(lang, 'story.title.l3')}
+          </div>
+          <div style={{ marginTop: 24, width: isMobile ? '60%' : 280 }}>
+            <FoodPlaceholder label="GERWIN — chef portrait" ratio="3/4" cornerNote="PHOTO" />
+          </div>
         </div>
-        <div style={{ marginTop: 28, width: 280 }}>
-          <FoodPlaceholder label="GERWIN — chef portrait" ratio="3/4" cornerNote="PHOTO" />
-        </div>
-      </div>
-      <div>
-        <p style={{ fontFamily: 'var(--f-sans)', fontSize: 19, lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0 }}>
-          {t(lang, 'story.body')}
-        </p>
-        <p style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 30, color: 'var(--clay)', marginTop: 24, lineHeight: 1.25, marginBottom: 8 }}>
-          {t(lang, 'story.quote')}
-        </p>
-        {t(lang, 'story.quoteGloss') && (
-          <p className="mono" style={{ color: 'var(--ink-mute)', margin: 0 }}>
-            {t(lang, 'story.quoteGloss')}
+        <div>
+          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 19, lineHeight: 1.6, color: 'var(--ink-soft)', margin: 0 }}>
+            {t(lang, 'story.body')}
           </p>
-        )}
-        <div style={{ display: 'flex', gap: 32, marginTop: 32, flexWrap: 'wrap' }}>
-          <div>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 56, lineHeight: 1, color: 'var(--ink)' }}>2024</div>
-            <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.founded')}</div>
-          </div>
-          <div>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 56, lineHeight: 1, color: 'var(--clay)' }}>4.9★</div>
-            <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.rating')}</div>
-          </div>
-          <div>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 56, lineHeight: 1, color: 'var(--ink)' }}>25<span style={{ fontSize: 28 }}>min</span></div>
-            <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.delivery')}</div>
+          <p style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 22 : 30, color: 'var(--clay)', marginTop: 24, lineHeight: 1.25, marginBottom: 8 }}>
+            {t(lang, 'story.quote')}
+          </p>
+          {t(lang, 'story.quoteGloss') && (
+            <p className="mono" style={{ color: 'var(--ink-mute)', margin: 0 }}>
+              {t(lang, 'story.quoteGloss')}
+            </p>
+          )}
+          <div style={{ display: 'flex', gap: isMobile ? 20 : 32, marginTop: 32, flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--ink)' }}>2024</div>
+              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.founded')}</div>
+            </div>
+            <div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--clay)' }}>4.9★</div>
+              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.rating')}</div>
+            </div>
+            <div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--ink)' }}>25<span style={{ fontSize: 22 }}>min</span></div>
+              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.delivery')}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 
 // ── Footer ──
-const Footer = ({ lang }) => (
-  <footer style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
-    <Inabel height={32} variant="full" seed={951} />
-    <div style={{ padding: '60px 56px 30px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48 }}>
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <DualGlyph size={48} color="var(--ember)" />
-          <div>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 44, lineHeight: 1 }}>
-              Hira<span style={{ fontStyle: 'italic', color: 'var(--ember)' }}>ya</span>
+const Footer = ({ lang }) => {
+  const isMobile = useIsMobile();
+  const px = isMobile ? '24px' : '56px';
+  return (
+    <footer style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
+      <Inabel height={32} variant="full" seed={951} />
+      <div style={{
+        padding: `${isMobile ? 48 : 60}px ${px} 30px`,
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr 1fr' : '2fr 1fr 1fr 1fr',
+        gap: isMobile ? 32 : 48,
+      }}>
+        <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <DualGlyph size={isMobile ? 36 : 48} color="var(--ember)" />
+            <div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 36 : 44, lineHeight: 1 }}>
+                Hira<span style={{ fontStyle: 'italic', color: 'var(--ember)' }}>ya</span>
+              </div>
+              <div className="mono" style={{ color: 'var(--ember)', fontSize: 9, marginTop: 4 }}>fusion sushi &amp; poke</div>
             </div>
-            <div className="mono" style={{ color: 'var(--ember)', fontSize: 9, marginTop: 4 }}>fusion sushi &amp; poke</div>
           </div>
+          <p style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'rgba(244,234,214,0.6)', lineHeight: 1.55, marginTop: 18, maxWidth: 380 }}>
+            {t(lang, 'footer.tagline')}
+          </p>
         </div>
-        <p style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'rgba(244,234,214,0.6)', lineHeight: 1.55, marginTop: 18, maxWidth: 380 }}>
-          {t(lang, 'footer.tagline')}
-        </p>
+        <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
+          <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
+          <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
+          <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
+          <div><a href="tel:+41614210024" style={{ color: 'inherit', textDecoration: 'none' }}>+41 61 421 0024</a></div>
+        </div>
+        <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
+          <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
+          <div>Paradiesstrasse 2</div>
+          <div>4102 Binningen</div>
+          <div>{t(lang, 'loc.hours.days')} 12–14 · 16–20</div>
+          <div><a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
+        </div>
+        <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
+          <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.follow')}</div>
+          <div><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
+          <div><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
+          <div><a href="https://g.co/kgs/hiraya-binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Google</a></div>
+        </div>
       </div>
-      <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
-        <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
-        <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
-        <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
-        <div><a href="tel:+41614210024" style={{ color: 'inherit', textDecoration: 'none' }}>+41 61 421 0024</a></div>
+      <div style={{
+        padding: `24px ${px}`, textAlign: 'center',
+        borderTop: '1px solid rgba(244,234,214,0.1)',
+        fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 22,
+        color: 'var(--ember)', letterSpacing: '0.01em',
+      }}>
+        {t(lang, 'footer.thanksAll')}
       </div>
-      <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
-        <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
-        <div>Paradiesstrasse 2</div>
-        <div>4102 Binningen</div>
-        <div>{t(lang, 'loc.hours.days')} 12–14 · 16–20</div>
-        <div><a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
+      <div style={{ padding: `16px ${px} 28px`, display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(244,234,214,0.06)', color: 'rgba(244,234,214,0.45)', flexWrap: 'wrap', gap: 12 }}>
+        <span className="mono">{t(lang, 'footer.copy')}</span>
+        <span className="mono">{LANG_LIST.map(l => l.greeting).join(' · ')}</span>
       </div>
-      <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
-        <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.follow')}</div>
-        <div><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
-        <div><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
-        <div><a href="https://g.co/kgs/hiraya-binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Google</a></div>
-      </div>
-    </div>
-    <div style={{
-      padding: '24px 56px', textAlign: 'center',
-      borderTop: '1px solid rgba(244,234,214,0.1)',
-      fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 22,
-      color: 'var(--ember)', letterSpacing: '0.01em',
-    }}>
-      {t(lang, 'footer.thanksAll')}
-    </div>
-    <div style={{ padding: '16px 56px 28px', display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(244,234,214,0.06)', color: 'rgba(244,234,214,0.45)', flexWrap: 'wrap', gap: 12 }}>
-      <span className="mono">{t(lang, 'footer.copy')}</span>
-      <span className="mono">{LANG_LIST.map(l => l.greeting).join(' · ')}</span>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 // ── Top-level Website component ──
 export const Website = () => {
