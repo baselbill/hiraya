@@ -862,24 +862,17 @@ const LocationBlock = ({ lang }) => {
           gap: 24,
         }}>
           <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ height: 240, background: 'var(--teal-deep)', position: 'relative', overflow: 'hidden' }}>
-              <svg width="100%" height="100%" viewBox="0 0 800 300" preserveAspectRatio="none">
-                <path d="M0 130 L800 150" stroke="rgba(244,234,214,0.14)" strokeWidth="22" />
-                <path d="M0 220 L800 200" stroke="rgba(244,234,214,0.08)" strokeWidth="14" />
-                <path d="M340 0 L380 300" stroke="rgba(244,234,214,0.1)" strokeWidth="18" />
-                <path d="M120 0 L140 300" stroke="rgba(244,234,214,0.06)" strokeWidth="10" />
-                <path d="M580 0 L600 300" stroke="rgba(244,234,214,0.05)" strokeWidth="8" />
-                <path d="M0 260 Q220 232 420 268 T800 248" stroke="#5b6c3a" strokeWidth="7" fill="none" opacity="0.45" />
-                <text x="40" y="40" fontSize="11" fill="rgba(244,234,214,0.4)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">{t(lang, 'loc.kicker')}</text>
-                <text x="40" y="56" fontSize="9" fill="rgba(244,234,214,0.3)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">47.5440° N · 7.5705° E</text>
-                <g transform="translate(360 140)">
-                  <circle r="44" fill="var(--clay)" opacity="0.18" />
-                  <circle r="22" fill="var(--clay)" opacity="0.35" />
-                  <circle r="12" fill="var(--clay)" />
-                  <circle r="3.5" fill="var(--linen)" />
-                </g>
-                <text x="380" y="118" fontSize="11" fill="var(--ember)" fontFamily="DM Mono, monospace" letterSpacing="0.12em">PARADIESSTR. 2</text>
-              </svg>
+            <div style={{ height: 240, position: 'relative', overflow: 'hidden' }}>
+              <iframe
+                title="Hiraya location"
+                src="https://maps.google.com/maps?q=Paradiesstrasse+2,+4102+Binningen,+Switzerland&output=embed&z=16"
+                width="100%"
+                height="100%"
+                style={{ border: 0, display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
             <div style={{
               padding: '24px 28px',
