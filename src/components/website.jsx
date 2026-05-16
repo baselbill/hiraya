@@ -34,42 +34,42 @@ const useReveal = (threshold = 0.08) => {
 const MENU = {
   poke: {
     items: [
-      { id: 'poke-hir', name: 'Hiraya Bowl',    ingredients: 'salmon · mango · calamansi · avocado · crispy garlic', price: 22.50, kind: 'bowl', tags: ['bestseller'] },
-      { id: 'poke-sal', name: 'Salmon Classic', ingredients: 'salmon · edamame · cucumber · sesame · ponzu',         price: 19.50, kind: 'bowl', tags: [] },
-      { id: 'poke-tu',  name: 'Tuna Spicy',     ingredients: 'tuna · sriracha mayo · avocado · seaweed · scallion', price: 21.00, kind: 'bowl', tags: ['spicy'] },
-      { id: 'poke-tof', name: 'Tofu Garden',    ingredients: 'tofu · edamame · radish · carrot · ginger · sesame', price: 17.00, kind: 'bowl', tags: ['vegan'] },
-      { id: 'poke-chi', name: 'Adobo Chicken',  ingredients: 'chicken adobo · pickled mustard · scallion · sesame', price: 19.00, kind: 'bowl', tags: [] },
-      { id: 'poke-mix', name: 'Mixed Sashimi',  ingredients: "chef's selection · sushi rice · house dressing",      price: 26.00, kind: 'bowl', tags: [] },
+      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'] },
+      { id: 'poke-tu',  name: 'Tuna Poke Bowl',   ingredients: 'tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 17, kind: 'bowl', tags: [] },
+      { id: 'poke-pr',  name: 'Prawn Poke Bowl',  ingredients: 'tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                         price: 17, kind: 'bowl', tags: [] },
+      { id: 'poke-vg',  name: 'Vegan Poke Bowl',  ingredients: 'avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 15, kind: 'bowl', tags: ['vegan'] },
     ],
   },
-  signatures: {
+  rolls: {
     items: [
-      { id: 'hiraya', name: 'Hiraya Roll',    ingredients: 'salmon · mango · calamansi · crispy garlic',  price: 18.50, kind: 'maki', tags: ['bestseller'] },
-      { id: 'adobo',  name: 'Adobo Maki',    ingredients: 'pork adobo · pickled mustard · scallion',     price: 17.00, kind: 'maki', tags: [] },
-      { id: 'sisig',  name: 'Sisig Crunch',  ingredients: 'crispy pork · quail egg · chili mayo',        price: 17.50, kind: 'maki', tags: [] },
-      { id: 'bicol',  name: 'Bicol Express', ingredients: 'coconut · chili · crab · cucumber',           price: 18.00, kind: 'maki', tags: ['spicy'] },
-      { id: 'ube',    name: 'Ube Tempura',   ingredients: 'purple yam · salted egg · coconut',           price: 16.00, kind: 'maki', tags: ['veg'] },
-      { id: 'mango',  name: 'Manggo Spice',  ingredients: 'tuna · mango · jalapeño · sesame',            price: 17.50, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-spsal',  name: 'Spicy Salmon Roll', ingredients: 'spicy salmon · cream cheese · avocado · topped with marinated salmon · chili · sesame',                     price: 18, kind: 'maki', tags: ['spicy', 'bestseller'] },
+      { id: 'roll-crunch', name: 'Crunch Roll',        ingredients: 'salmon · avocado · topped with cream cheese · tempura flakes',                                              price: 16, kind: 'maki', tags: [] },
+      { id: 'roll-king',   name: 'King Prawn Roll',    ingredients: 'tempura king prawn · cream cheese · avocado · topped with avocado · sesame',                               price: 17, kind: 'maki', tags: [] },
+      { id: 'roll-volc',   name: 'Volcano Roll',       ingredients: 'tuna · salmon · king prawn tempura · avocado · cream cheese · topped with chili sauce · sesame',           price: 19, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-drag',   name: 'Dragon Roll',        ingredients: 'tempura king prawn · cream cheese · topped with avocado · sesame',                                         price: 17, kind: 'maki', tags: [] },
+      { id: 'roll-ebiko',  name: 'Ebiko Roll',         ingredients: 'king prawn · avocado · cream cheese · topped with ebiko · chili',                                          price: 17, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-spider', name: 'Spider Roll',        ingredients: 'soft shell crab tempura · avocado · cream cheese · topped with sesame',                                    price: 18, kind: 'maki', tags: [] },
+      { id: 'roll-vgf',    name: 'Vegan Fusion Roll',  ingredients: 'avocado · cucumber · cream cheese · topped with avocado · sesame',                                         price: 14, kind: 'maki', tags: ['vegan'] },
     ],
   },
-  classics: {
+  sets: {
     items: [
-      { id: 'cali',    name: 'California',     ingredients: 'crab · avocado · cucumber',             price: 12.00, kind: 'maki', tags: [] },
-      { id: 'spicy',   name: 'Spicy Tuna',     ingredients: 'tuna · sriracha mayo · cucumber',       price: 14.00, kind: 'maki', tags: ['spicy'] },
-      { id: 'salav',   name: 'Salmon Avocado', ingredients: 'salmon · avocado · sesame',             price: 13.50, kind: 'maki', tags: [] },
-      { id: 'crispy',  name: 'Crispy Chicken', ingredients: 'panko chicken · cucumber · teriyaki',   price: 13.00, kind: 'maki', tags: [] },
-      { id: 'volcano', name: 'Volcano',        ingredients: 'tuna · spicy mayo · tempura crunch',   price: 15.00, kind: 'maki', tags: ['spicy'] },
-      { id: 'veggie',  name: 'Veggie Garden',  ingredients: 'avocado · cucumber · carrot · radish', price: 11.00, kind: 'maki', tags: ['vegan'] },
+      { id: 'set-hir',  name: 'Hiraya Set',           ingredients: '30 pcs · hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki',                    price: 39, priceFrom: true, kind: 'set', tags: ['bestseller'] },
+      { id: 'set-sal',  name: 'Salmon & Tuna Set',    ingredients: '20 pcs · 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna',                           price: 25, kind: 'set', tags: [] },
+      { id: 'set-rain', name: 'Rainbow Set',          ingredients: '20 pcs · nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna',                   price: 25, kind: 'set', tags: [] },
+      { id: 'set-vg',   name: 'Vegan Set',            ingredients: '20 pcs · hosomaki avocado/cucumber · nigiri avocado · hosomaki inari',                                      price: 20, kind: 'set', tags: ['vegan'] },
+      { id: 'set-two',  name: 'Maki & Sushi for Two', ingredients: "40 pcs · chef's selection of rolls and nigiri",                                                             price: 45, priceFrom: true, kind: 'set', tags: [] },
     ],
   },
-  sides: {
+  starters: {
     items: [
-      { id: 'gyoza',   name: 'Pork Gyoza · 6', ingredients: 'house-folded · ponzu',          price: 9.50, kind: 'side', tags: [] },
-      { id: 'edamame', name: 'Edamame',         ingredients: 'sea salt · chili flakes',       price: 5.50, kind: 'side', tags: ['vegan'] },
-      { id: 'miso',    name: 'Miso Soup',       ingredients: 'tofu · wakame · scallion',      price: 4.50, kind: 'side', tags: ['veg'] },
-      { id: 'lumpia',  name: 'Lumpia · 4',      ingredients: 'crispy pork rolls · sweet chili', price: 8.50, kind: 'side', tags: [] },
-      { id: 'salad',   name: 'Wakame Salad',    ingredients: 'seaweed · sesame · ginger',     price: 6.50, kind: 'side', tags: ['vegan'] },
-      { id: 'rice',    name: 'Steamed Rice',    ingredients: 'niigata · short-grain',          price: 3.50, kind: 'side', tags: ['vegan'] },
+      { id: 'start-edm', name: 'Edamame',       ingredients: 'steamed soybeans · sea salt',                                                                                   price: 7,  kind: 'side', tags: ['vegan'] },
+      { id: 'start-wak', name: 'Wakame Salad',  ingredients: 'seaweed salad · sesame',                                                                                         price: 5,  kind: 'side', tags: ['vegan'] },
+      { id: 'start-mis', name: 'Miso Soup',     ingredients: 'traditional japanese miso · tofu · wakame',                                                                      price: 6,  kind: 'side', tags: ['veg'] },
+      { id: 'start-gun', name: 'Gunkan',        ingredients: 'spicy salmon · spicy tuna · red caviar · wakame · crab or shellfish',                                            price: 8,  kind: 'side', tags: ['spicy'] },
+      { id: 'start-tem', name: 'Temaki',        ingredients: 'hand roll · salmon · tuna · crab or veggie',                                                                     price: 10, kind: 'side', tags: [] },
+      { id: 'start-tat', name: 'Fish Tataki',   ingredients: 'seared fish · ponzu dressing',                                                                                   price: 16, kind: 'side', tags: [] },
+      { id: 'start-tar', name: 'Fish Tartare',  ingredients: 'raw fish · house seasoning · dressing',                                                                          price: 16, kind: 'side', tags: [] },
     ],
   },
 };
@@ -558,7 +558,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: 8, flexWrap: 'wrap', gap: 6 }}>
           <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', alignItems: 'center' }}>
             <span style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
-              CHF {item.price.toFixed(2)}
+              {item.priceFrom && <span style={{ opacity: 0.7, fontSize: 11 }}>{t(lang, 'menu.from')} </span>}CHF {item.price.toFixed(2)}
             </span>
             {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
           </div>
@@ -585,7 +585,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
 
 const Menu = ({ lang }) => {
   const isMobile = useIsMobile();
-  const [activeKey, setActiveKey] = useState('poke');
+  const [activeKey, setActiveKey] = useState('rolls');
   const [headerH, setHeaderH] = useState(110);
   const catNavRef = useRef(null);
   const sectionRefs = useRef({});
@@ -994,7 +994,11 @@ const Story = ({ lang }) => {
             {t(lang, 'story.title.l3')}
           </div>
           <div style={{ marginTop: 24, width: isMobile ? '60%' : 280 }}>
-            <FoodPlaceholder label="GERWIN — chef portrait" ratio="3/4" cornerNote="PHOTO" />
+            <img
+              src="/hiraya/gerwin.jpg"
+              alt="Chef Gerwin"
+              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', borderRadius: 14, display: 'block' }}
+            />
           </div>
         </div>
         <div>
