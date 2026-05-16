@@ -58,7 +58,7 @@ export const T = {
 
     'hero.eyebrow':  'Binningen · seit 2024 · chef Gerwin',
     'hero.subtitle': 'Fusion-Sushi und Poke Bowls, heute frisch gerollt von Chef Gerwin in Binningen. Filipinische Aromen treffen japanischen Reis. Bestellung über Just Eat — bereit in 25 Minuten.',
-    'hero.reviews':  '230+ Bewertungen',
+    'hero.reviews':  'Google-Bewertungen',
     'hero.delivery': 'Ø 25 min Lieferung',
     'hero.minOrder': 'Min. CHF 30',
     'hero.floatFilLabel':  'Filipino',
@@ -166,7 +166,7 @@ export const T = {
 
     'hero.eyebrow':  'Binningen · depuis 2024 · chef Gerwin',
     'hero.subtitle': "Sushis fusion et poke bowls, roulés à la main aujourd'hui par le chef Gerwin à Binningen. Saveurs philippines, riz japonais. Commande sur Just Eat — prêt en 25 minutes.",
-    'hero.reviews':  '230+ avis',
+    'hero.reviews':  'Avis Google',
     'hero.delivery': 'Ø 25 min livraison',
     'hero.minOrder': 'Min. CHF 30',
     'hero.floatFilLabel':  'Philippin',
@@ -274,7 +274,7 @@ export const T = {
 
     'hero.eyebrow':  'Binningen · dal 2024 · chef Gerwin',
     'hero.subtitle': "Sushi fusion e poke bowl, arrotolati a mano oggi dallo chef Gerwin a Binningen. Sapori filippini, riso giapponese. Ordina su Just Eat — pronto in 25 minuti.",
-    'hero.reviews':  '230+ recensioni',
+    'hero.reviews':  'Recensioni Google',
     'hero.delivery': 'Ø 25 min consegna',
     'hero.minOrder': 'Min. CHF 30',
     'hero.floatFilLabel':  'Filippino',
@@ -382,7 +382,7 @@ export const T = {
 
     'hero.eyebrow':  'Binningen · since 2024 · chef Gerwin',
     'hero.subtitle': "Fusion sushi and poke bowls, hand-rolled today by chef Gerwin in Binningen. Filipino flavours meet Japanese rice. Order on Just Eat — ready in 25 minutes.",
-    'hero.reviews':  '230+ reviews',
+    'hero.reviews':  'Google Reviews',
     'hero.delivery': 'Ø 25 min delivery',
     'hero.minOrder': 'Min. CHF 30',
     'hero.floatFilLabel':  'Filipino',

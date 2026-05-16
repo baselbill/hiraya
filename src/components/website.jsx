@@ -397,7 +397,7 @@ const Hero = ({ lang }) => {
 
           <div style={{ display: 'flex', gap: 16, marginTop: 32, alignItems: 'center', fontFamily: 'var(--f-sans)', fontSize: 13, color: 'var(--ink-mute)', flexWrap: 'wrap' }}>
             <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
-              <span style={{ color: 'var(--saffron)', fontSize: 16 }}>★★★★★</span> 4.9 · {t(lang, 'hero.reviews')}
+              <span style={{ color: 'var(--saffron)', fontSize: 16 }}>★★★★★</span> 4.8 · {t(lang, 'hero.reviews')}
             </span>
             <span>•</span>
             <span>{t(lang, 'hero.delivery')}</span>
@@ -865,7 +865,7 @@ const LocationBlock = ({ lang }) => {
             <div style={{ height: 240, position: 'relative', overflow: 'hidden' }}>
               <iframe
                 title="Hiraya location"
-                src="https://maps.google.com/maps?q=Paradiesstrasse+2,+4102+Binningen,+Switzerland&output=embed&z=16"
+                src="https://maps.google.com/maps?q=Hiraya+Asian+Fusion+Sushi,+Paradiesstrasse+2,+4102+Binningen,+Switzerland&output=embed&z=17"
                 width="100%"
                 height="100%"
                 style={{ border: 0, display: 'block' }}
@@ -1015,7 +1015,7 @@ const Story = ({ lang }) => {
               <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.founded')}</div>
             </div>
             <div>
-              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--clay)' }}>4.9★</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--clay)' }}>4.8★</div>
               <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.rating')}</div>
             </div>
             <div>
