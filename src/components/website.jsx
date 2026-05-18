@@ -34,14 +34,18 @@ const useReveal = (threshold = 0.15) => {
 const MENU = {
   rolls: {
     items: [
-      { id: 'roll-spsal',  name: 'Spicy Salmon Roll', ingredients: 'spicy salmon · cream cheese · avocado · topped with marinated salmon · chili · sesame',                     price: 18, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true },
-      { id: 'roll-crunch', name: 'Crunch Roll',        ingredients: 'salmon · avocado · topped with cream cheese · tempura flakes',                                              price: 16, kind: 'maki', tags: [] },
-      { id: 'roll-king',   name: 'King Prawn Roll',    ingredients: 'tempura king prawn · cream cheese · avocado · topped with avocado · sesame',                               price: 17, kind: 'maki', tags: [] },
-      { id: 'roll-volc',   name: 'Volcano Roll',       ingredients: 'tuna · salmon · king prawn tempura · avocado · cream cheese · topped with chili sauce · sesame',           price: 19, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-drag',   name: 'Dragon Roll',        ingredients: 'tempura king prawn · cream cheese · topped with avocado · sesame',                                         price: 17, kind: 'maki', tags: [] },
-      { id: 'roll-ebiko',  name: 'Ebiko Roll',         ingredients: 'king prawn · avocado · cream cheese · topped with ebiko · chili',                                          price: 17, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-spider', name: 'Spider Roll',        ingredients: 'soft shell crab tempura · avocado · cream cheese · topped with sesame',                                    price: 18, kind: 'maki', tags: [] },
-      { id: 'roll-vgf',    name: 'Vegan Fusion Roll',  ingredients: 'avocado · cucumber · cream cheese · topped with avocado · sesame',                                         price: 14, kind: 'maki', tags: ['vegan'] },
+      { id: 'roll-dyn',  name: 'Dynamite Roll',         ingredients: 'salmon · mango · surimi · caviar · onion · sauce',                                                        price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true },
+      { id: 'roll-spl',  name: 'Spicy Lachs',           ingredients: 'salmon · onion · cucumber',                                                                                price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-spt',  name: 'Spicy Tuna',            ingredients: 'tuna · onion · cucumber',                                                                                  price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-tmp',  name: 'Tempura Roll',          ingredients: 'shrimp tempura · avocado · sesame · onion · mayo · sauce',                                                  price:  9.50, priceFrom: true, kind: 'maki', tags: [] },
+      { id: 'roll-cat',  name: 'Caterpillar Roll',      ingredients: 'shrimp tempura · cucumber · avocado · sesame · sauce',                                                      price: 10.50, priceFrom: true, kind: 'maki', tags: [] },
+      { id: 'roll-tbl',  name: 'Tuna Blast',            ingredients: 'tuna · cucumber · avocado · mango · spicy sauce',                                                           price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-swi',  name: 'Swish Roll',            ingredients: 'flambéed salmon · avocado · mango · surimi · jalapeño · sesame · sauce',                                    price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'] },
+      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki',  ingredients: 'apple · avocado · carrot · pistachio · kiwi · cucumber · sauce',                                            price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
+      { id: 'roll-vip',  name: 'Vip Roll',              ingredients: 'scallops · carrot · avocado · cucumber · sauce',                                                            price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
+      { id: 'roll-mix',  name: 'Mix Big Roll',          ingredients: 'salmon · tuna · mango · avocado · sesame · sauce',                                                          price: 10.00, priceFrom: true, kind: 'maki', tags: [] },
+      { id: 'roll-una',  name: 'Unagi Rainbow Roll',    ingredients: 'eel · avocado · cucumber · surimi · sesame · sauce',                                                        price: 10.50, priceFrom: true, kind: 'maki', tags: [] },
+      { id: 'roll-vfm',  name: 'Veggie Fotomaki',       ingredients: 'avocado · cucumber · mango · radish · apple · kampyo',                                                      price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
     ],
   },
   poke: {
