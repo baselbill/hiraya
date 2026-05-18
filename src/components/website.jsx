@@ -50,10 +50,12 @@ const MENU = {
   },
   poke: {
     items: [
-      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'], teaser: true },
-      { id: 'poke-tu',  name: 'Tuna Poke Bowl',   ingredients: 'tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 17, kind: 'bowl', tags: [] },
-      { id: 'poke-pr',  name: 'Prawn Poke Bowl',  ingredients: 'tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                         price: 17, kind: 'bowl', tags: [] },
-      { id: 'poke-vg',  name: 'Vegan Poke Bowl',  ingredients: 'avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 15, kind: 'bowl', tags: ['vegan'] },
+      { id: 'poke-sal',  name: 'Lachs Poke Bowl',   ingredients: 'salmon · avocado · cucumber · radish · edamame · mango · poke sauce',                  price: 20.00, kind: 'bowl',  tags: ['bestseller'], teaser: true, img: '/hiraya/menu/poke-sal.png' },
+      { id: 'poke-tu',   name: 'Tuna Poke Bowl',    ingredients: 'tuna · avocado · cucumber · radish · edamame · mango · poke sauce',                    price: 20.50, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-tu.png'  },
+      { id: 'poke-shr',  name: 'Shrimp Poke Bowl',  ingredients: 'shrimp · avocado · cucumber · radish · edamame · mango · poke sauce',                  price: 20.00, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-shr.png' },
+      { id: 'poke-veg',  name: 'Veggie Poke Bowl',  ingredients: 'avocado · mango · cucumber · edamame · wakame salad · takuan · tamago',                price: 20.00, kind: 'bowl',  tags: ['veg'],                         img: '/hiraya/menu/poke-veg.png' },
+      { id: 'bento-lac', name: 'Lachs Bento Box',   ingredients: 'sushi rice · flambéed salmon · market salad · 4 nigiri · wakame salad · sauce',        price: 20.00, kind: 'bento', tags: [] },
+      { id: 'bento-tu',  name: 'Tuna Bento Box',    ingredients: 'sushi rice · flambéed tuna · 4 nigiri · market salad · wakame salad · sauce',          price: 20.00, kind: 'bento', tags: [] },
     ],
   },
   sets: {
