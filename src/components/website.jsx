@@ -34,15 +34,15 @@ const useReveal = (threshold = 0.15) => {
 const MENU = {
   rolls: {
     items: [
-      { id: 'roll-dyn',  name: 'Dynamite Roll',         ingredients: 'salmon · mango · surimi · caviar · onion · sauce',                                                        price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true },
-      { id: 'roll-spl',  name: 'Spicy Lachs',           ingredients: 'salmon · onion · cucumber',                                                                                price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-spt',  name: 'Spicy Tuna',            ingredients: 'tuna · onion · cucumber',                                                                                  price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-tmp',  name: 'Tempura Roll',          ingredients: 'shrimp tempura · avocado · sesame · onion · mayo · sauce',                                                  price:  9.50, priceFrom: true, kind: 'maki', tags: [] },
-      { id: 'roll-cat',  name: 'Caterpillar Roll',      ingredients: 'shrimp tempura · cucumber · avocado · sesame · sauce',                                                      price: 10.50, priceFrom: true, kind: 'maki', tags: [] },
-      { id: 'roll-tbl',  name: 'Tuna Blast',            ingredients: 'tuna · cucumber · avocado · mango · spicy sauce',                                                           price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-swi',  name: 'Swish Roll',            ingredients: 'flambéed salmon · avocado · mango · surimi · jalapeño · sesame · sauce',                                    price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'] },
-      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki',  ingredients: 'apple · avocado · carrot · pistachio · kiwi · cucumber · sauce',                                            price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
-      { id: 'roll-vip',  name: 'Vip Roll',              ingredients: 'scallops · carrot · avocado · cucumber · sauce',                                                            price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
+      { id: 'roll-dyn',  name: 'Dynamite Roll',         ingredients: 'salmon · mango · surimi · caviar · onion · sauce',                                                        price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true, img: '/hiraya/menu/roll-dyn.png' },
+      { id: 'roll-spl',  name: 'Spicy Lachs',           ingredients: 'salmon · onion · cucumber',                                                                                price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-spl.png' },
+      { id: 'roll-spt',  name: 'Spicy Tuna',            ingredients: 'tuna · onion · cucumber',                                                                                  price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-spt.png' },
+      { id: 'roll-tmp',  name: 'Tempura Roll',          ingredients: 'shrimp tempura · avocado · sesame · onion · mayo · sauce',                                                  price:  9.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-tmp.png' },
+      { id: 'roll-cat',  name: 'Caterpillar Roll',      ingredients: 'shrimp tempura · cucumber · avocado · sesame · sauce',                                                      price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-cat.png' },
+      { id: 'roll-tbl',  name: 'Tuna Blast',            ingredients: 'tuna · cucumber · avocado · mango · spicy sauce',                                                           price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-tbl.png' },
+      { id: 'roll-swi',  name: 'Swish Roll',            ingredients: 'flambéed salmon · avocado · mango · surimi · jalapeño · sesame · sauce',                                    price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-swi.png' },
+      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki',  ingredients: 'apple · avocado · carrot · pistachio · kiwi · cucumber · sauce',                                            price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-kru.png' },
+      { id: 'roll-vip',  name: 'Vip Roll',              ingredients: 'scallops · carrot · avocado · cucumber · sauce',                                                            price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-vip.png' },
       { id: 'roll-mix',  name: 'Mix Big Roll',          ingredients: 'salmon · tuna · mango · avocado · sesame · sauce',                                                          price: 10.00, priceFrom: true, kind: 'maki', tags: [] },
       { id: 'roll-una',  name: 'Unagi Rainbow Roll',    ingredients: 'eel · avocado · cucumber · surimi · sesame · sauce',                                                        price: 10.50, priceFrom: true, kind: 'maki', tags: [] },
       { id: 'roll-vfm',  name: 'Veggie Fotomaki',       ingredients: 'avocado · cucumber · mango · radish · apple · kampyo',                                                      price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'] },
@@ -634,7 +634,9 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
         </div>
       </div>
       <div style={{ alignSelf: 'stretch' }}>
-        <FoodPlaceholder label={item.name} ratio="1/1" />
+        {item.img
+          ? <img src={item.img} alt={item.name} style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: 8, display: 'block' }} />
+          : <FoodPlaceholder label={item.name} ratio="1/1" />}
       </div>
     </article>
   );
