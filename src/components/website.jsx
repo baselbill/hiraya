@@ -586,9 +586,12 @@ const Menu = ({ lang }) => {
   const isMobile = useIsMobile();
   const [activeKey, setActiveKey] = useState('rolls');
   const [headerH, setHeaderH] = useState(110);
+  const [expanded, setExpanded] = useState({});
   const catNavRef = useRef(null);
   const sectionRefs = useRef({});
   const px = isMobile ? '20px' : '56px';
+
+  const toggleExpand = (key) => setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
 
   useEffect(() => {
     const header = document.querySelector('header');
@@ -673,6 +676,9 @@ const Menu = ({ lang }) => {
       <div style={{ padding: `0 ${px}` }}>
         {Object.entries(MENU).map(([k, cat]) => {
           const catMeta = MENU_I18N[k];
+          const isExpanded = !!expanded[k];
+          const visibleItems = isExpanded ? cat.items : [cat.items[0]];
+          const hiddenCount = cat.items.length - 1;
           return (
             <div key={k} id={`menu-${k}`} ref={el => { sectionRefs.current[k] = el; }} style={{ paddingTop: 52, paddingBottom: 12 }}>
 
@@ -698,14 +704,36 @@ const Menu = ({ lang }) => {
                 </span>
               </div>
 
-              {/* Items */}
+              {/* Teaser / full items */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(460px, 1fr))',
                 gap: 12,
               }}>
-                {cat.items.map(item => <MenuCard key={item.id} item={item} lang={lang} isMobile={isMobile} />)}
+                {visibleItems.map((item, idx) => (
+                  <div key={item.id} style={idx === 0 && !isExpanded ? { borderRadius: 14, outline: '2px solid var(--clay)', outlineOffset: 2 } : {}}>
+                    <MenuCard item={item} lang={lang} isMobile={isMobile} />
+                  </div>
+                ))}
               </div>
+
+              {/* Expand / collapse toggle */}
+              <button
+                onClick={() => toggleExpand(k)}
+                style={{
+                  marginTop: 12, display: 'flex', alignItems: 'center', gap: 8,
+                  background: isExpanded ? 'transparent' : 'var(--clay)',
+                  color: isExpanded ? 'var(--ink-soft)' : 'var(--linen)',
+                  border: isExpanded ? '1px solid rgba(26,20,16,0.18)' : 'none',
+                  borderRadius: 999, padding: '10px 18px', cursor: 'pointer',
+                  fontFamily: 'var(--f-mono)', fontSize: 12, letterSpacing: '0.06em',
+                  transition: 'background 0.15s, color 0.15s',
+                }}
+              >
+                {isExpanded
+                  ? `↑ ${t(lang, 'menu.collapse')}`
+                  : `↓ ${t(lang, 'menu.showAll')} · ${hiddenCount} ${t(lang, 'menu.more')}`}
+              </button>
             </div>
           );
         })}
@@ -920,49 +948,20 @@ const Catering = ({ lang }) => {
   return (
     <section id="catering" style={{ background: 'var(--paper)', padding: `${py} ${px}` }}>
       <div ref={ref} style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr',
-        gap: isMobile ? 40 : 60,
-        alignItems: 'center',
+        maxWidth: 680,
         opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
         transition: 'opacity 0.8s ease, transform 0.8s ease',
       }}>
-        <div>
-          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'cat.title.html')}
-                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 8 }} />
-          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 18, lineHeight: 1.55, marginTop: 18, maxWidth: 540, color: 'var(--ink-soft)' }}>
-            {t(lang, 'cat.body')}
-          </p>
-          <div style={{ display: 'flex', gap: 12, marginTop: 32, flexWrap: 'wrap' }}>
-            <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
-              {t(lang, 'cta.request')} →
-            </a>
-            <a href="#menu" style={{ background: 'transparent', color: 'var(--ink)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, border: '1.5px solid var(--ink)', textDecoration: 'none' }}>
-              {t(lang, 'cta.examples')}
-            </a>
-          </div>
-        </div>
-        <div style={{ position: 'relative', background: 'var(--bone)', borderRadius: 18, padding: isMobile ? 24 : 36, overflow: 'hidden' }}>
-          <Inabel height={20} variant="slim" seed={901} style={{ position: 'absolute', top: 0, left: 0, right: 0 }} />
-          <div style={{ paddingTop: 28 }}>
-            <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.packages')}</div>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 72 : 96, lineHeight: 1, color: 'var(--ink)' }}>
-              CHF 28<span style={{ fontSize: 24, color: 'var(--ink-mute)' }}>{t(lang, 'cat.perPerson')}</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 10, marginTop: 24 }}>
-              {['row1', 'row2', 'row3'].map((row, i) => (
-                <div key={row} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '12px 0', borderBottom: i < 2 ? '1px solid rgba(26,20,16,0.12)' : 'none', gap: 16 }}>
-                  <div>
-                    <div style={{ fontFamily: 'var(--f-sans)', fontSize: 16, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, 'cat.' + row + '.name')}</div>
-                    <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2 }}>{t(lang, 'cat.' + row + '.sub')}</div>
-                  </div>
-                  <span style={{ fontFamily: 'var(--f-display)', fontSize: 24, color: 'var(--clay)', whiteSpace: 'nowrap' }}>{t(lang, 'cat.' + row + '.price')}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <Inabel height={20} variant="slim" seed={902} style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }} />
+        <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
+        <Rich as="div" html={t(lang, 'cat.title.html')}
+              style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 8 }} />
+        <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 18, lineHeight: 1.55, marginTop: 18, color: 'var(--ink-soft)' }}>
+          {t(lang, 'cat.body')}
+        </p>
+        <div style={{ marginTop: 32 }}>
+          <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+            {t(lang, 'cta.request')} →
+          </a>
         </div>
       </div>
     </section>
@@ -1108,7 +1107,6 @@ export const Website = () => {
       <FusionStory lang={lang} />
       <Menu lang={lang} />
       <HowToOrder lang={lang} />
-      <Featured lang={lang} />
       <LocationBlock lang={lang} />
       <Catering lang={lang} />
       <Story lang={lang} />
