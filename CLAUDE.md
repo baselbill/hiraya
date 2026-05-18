@@ -26,3 +26,15 @@ These 4 poke bowls were on the website before being replaced by the Just Eat Pok
 | poke-tu | Tuna Poke Bowl | tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | CHF 17 | — |
 | poke-pr | Prawn Poke Bowl | tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | CHF 17 | — |
 | poke-vg | Vegan Poke Bowl | avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy | CHF 15 | vegan |
+
+## Original website sets menu (pre–Just Eat sync, archived for evaluation)
+
+These 5 sets were on the website before being replaced by the Just Eat Sushi Set Menu on 2026-05-18.
+
+| ID | Name | Ingredients | Price | Tags |
+|---|---|---|---|---|
+| set-hir | Hiraya Set | 30 pcs · hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki | CHF 39 | bestseller |
+| set-sal | Salmon & Tuna Set | 20 pcs · 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna | CHF 25 | — |
+| set-rain | Rainbow Set | 20 pcs · nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna | CHF 25 | — |
+| set-vg | Vegan Set | 20 pcs · hosomaki avocado/cucumber · nigiri avocado · hosomaki inari | CHF 20 | vegan |
+| set-two | Maki & Sushi for Two | 40 pcs · chef's selection of rolls and nigiri | CHF 45 | — |

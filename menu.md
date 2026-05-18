@@ -47,16 +47,20 @@ A living document for tracking what's on the menu, what's been removed, and idea
 
 ---
 
-### Sets
-*All priceFrom*
+### Sushi Sets
+*CHF 20–32 · Party Platters from CHF 105*
 
-| Name | Pieces | Ingredients | Tags | From |
+| Name | Pieces | Ingredients | Tags | Price |
 |---|---|---|---|---|
-| Hiraya Set ★ | 30 pcs | hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki | bestseller | CHF 39 |
-| Salmon & Tuna Set | 20 pcs | 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna | — | CHF 25 |
-| Rainbow Set | 20 pcs | nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna | — | CHF 25 |
-| Vegan Set | 20 pcs | hosomaki avocado/cucumber · nigiri avocado · hosomaki inari | vegan | CHF 20 |
-| Maki & Sushi for Two | 40 pcs | chef's selection of rolls and nigiri | — | CHF 45 |
+| Mix Sushi 1 | 11 pcs | 4 uramaki (california, rainbow lachs) · 3 nigiri (lachs, ebi, thon) · 4 hosomaki (lachs, avo) | — | CHF 22 |
+| Mix Sushi 2 ★ | 14 pcs | 4 uramaki · 4 nigiri (2 lachs, ebi, thon) · 6 hosomaki (lachs, avo) | — | CHF 24 |
+| Mix Sushi Nr. 3 | 18 pcs | 8 uramaki · 4 sashimi lachs · 6 hosomaki (avo, lachs) | — | CHF 30 |
+| Mix Vegi | 11 pcs | 4 veggi roll · 4 vegi maki · 3 vegi nigiri · avo · mango · cucumber · inari | vegetarian | CHF 20 |
+| 24 Stück Veggie Hosomaki | 24 pcs | 6 avocado maki · 6 mango maki · 6 cucumber maki · 6 pickled radish maki | vegan | CHF 25 |
+| Hana Mix | 14 pcs | 4 california · 4 tuna-mousse · 2 cucumber maki · 2 avo maki · 1 inari nigiri · 1 tamago nigiri | no raw fish | CHF 24 |
+| Shohuko Teller | 18 pcs | 4 rainbow lachs · 4 rainbow tuna · 3 salmon maki · 3 tuna maki · 4 nigiri | — | CHF 32 |
+| Nigiri Supreme | 8 pcs | 4 nigiri lachs · 4 nigiri thon | — | CHF 24 |
+| Sushi Party Platter | varies | uramaki · hosomaki · nigiri · sashimi or gunkan — chef's selection | — | from CHF 105 |
 
 ---
 
@@ -92,6 +96,18 @@ A living document for tracking what's on the menu, what's been removed, and idea
 | Ebiko Roll | king prawn · avocado · cream cheese · ebiko · chili | spicy | CHF 17 | |
 | Spider Roll | soft shell crab tempura · avocado · cream cheese · sesame | — | CHF 18 | |
 | Vegan Fusion Roll | avocado · cucumber · cream cheese · avocado · sesame | vegan | CHF 14 | |
+
+### Original Sets (replaced 2026-05-18 by Just Eat Sushi Set Menu)
+
+| Name | Pieces | Ingredients | Tags | Price |
+|---|---|---|---|---|
+| Hiraya Set | 30 pcs | hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki | bestseller | CHF 39 |
+| Salmon & Tuna Set | 20 pcs | 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna | — | CHF 25 |
+| Rainbow Set | 20 pcs | nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna | — | CHF 25 |
+| Vegan Set | 20 pcs | hosomaki avocado/cucumber · nigiri avocado · hosomaki inari | vegan | CHF 20 |
+| Maki & Sushi for Two | 40 pcs | chef's selection of rolls and nigiri | — | CHF 45 |
+
+---
 
 ### Original Poke Bowls (replaced 2026-05-18 by Just Eat Poke & Bento)
 *Old pricing CHF 15–17 · 4 items · no bento*
@@ -143,4 +159,4 @@ A living document for tracking what's on the menu, what's been removed, and idea
 
 ---
 
-*Last updated: 2026-05-18 (poke & bento sync)*
+*Last updated: 2026-05-18 (sets sync)*
