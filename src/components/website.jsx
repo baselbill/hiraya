@@ -60,11 +60,15 @@ const MENU = {
   },
   sets: {
     items: [
-      { id: 'set-hir',  name: 'Hiraya Set',           ingredients: '30 pcs · hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki',                    price: 39, priceFrom: true, kind: 'set', tags: ['bestseller'], teaser: true },
-      { id: 'set-sal',  name: 'Salmon & Tuna Set',    ingredients: '20 pcs · 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna',                           price: 25, kind: 'set', tags: [] },
-      { id: 'set-rain', name: 'Rainbow Set',          ingredients: '20 pcs · nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna',                   price: 25, kind: 'set', tags: [] },
-      { id: 'set-vg',   name: 'Vegan Set',            ingredients: '20 pcs · hosomaki avocado/cucumber · nigiri avocado · hosomaki inari',                                      price: 20, kind: 'set', tags: ['vegan'] },
-      { id: 'set-two',  name: 'Maki & Sushi for Two', ingredients: "40 pcs · chef's selection of rolls and nigiri",                                                             price: 45, priceFrom: true, kind: 'set', tags: [] },
+      { id: 'set-mix1',  name: 'Mix Sushi 1',             ingredients: '11 pcs · 4 uramaki (california, rainbow lachs) · 3 nigiri (lachs, ebi, thon) · 4 hosomaki (lachs, avo)',           price: 22, kind: 'set', tags: [],                              img: '/hiraya/menu/set-mix1.png' },
+      { id: 'set-mix2',  name: 'Mix Sushi 2',             ingredients: '14 pcs · 4 uramaki (california, rainbow lachs) · 4 nigiri (2 lachs, ebi, thon) · 6 hosomaki (lachs, avo)',         price: 24, kind: 'set', tags: [],           teaser: true,        img: '/hiraya/menu/set-mix2.png' },
+      { id: 'set-mix3',  name: 'Mix Sushi Nr. 3',         ingredients: '18 pcs · 8 uramaki (california, rainbow lachs) · 4 sashimi lachs · 6 hosomaki (avo, lachs)',                       price: 30, kind: 'set', tags: [],                              img: '/hiraya/menu/set-mix3.png' },
+      { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 pcs · 4 veggi roll · 4 vegi maki · 3 vegi nigiri · avo · mango · cucumber · inari',                             price: 20, kind: 'set', tags: ['veg'],                         img: '/hiraya/menu/set-vegi.png' },
+      { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 pcs · 6 avocado maki · 6 mango maki · 6 cucumber maki · 6 pickled radish maki',                                price: 25, kind: 'set', tags: ['vegan'],                       img: '/hiraya/menu/set-vhoso.png' },
+      { id: 'set-hana',  name: 'Hana Mix',                ingredients: '14 pcs · 4 california · 4 tuna-mousse · 2 cucumber maki · 2 avo maki · 1 inari nigiri · 1 tamago nigiri',         price: 24, kind: 'set', tags: [] },
+      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 pcs · 4 rainbow lachs · 4 rainbow tuna · 3 salmon maki · 3 tuna maki · 4 nigiri',                              price: 32, kind: 'set', tags: [] },
+      { id: 'set-nig',   name: 'Nigiri Supreme',          ingredients: '8 pcs · 4 nigiri lachs · 4 nigiri thon',                                                                           price: 24, kind: 'set', tags: [] },
+      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'uramaki · hosomaki · nigiri · sashimi or gunkan — chef\'s mixed selection',                                        price: 105, priceFrom: true, kind: 'set', tags: [],            img: '/hiraya/menu/set-party.png' },
     ],
   },
   starters: {

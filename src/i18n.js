@@ -547,16 +547,16 @@ export const MENU_I18N = {
   sets: {
     label: { de: 'Sushi Sets', fr: 'Sets Sushi', it: 'Set Sushi', en: 'Sushi Sets' },
     sub: {
-      de: 'Für 1–2 Personen · Nigiri & Maki',
-      fr: 'Pour 1–2 personnes · nigiri & maki',
-      it: 'Per 1–2 persone · nigiri & maki',
-      en: 'For 1–2 people · nigiri & maki',
+      de: 'Ab CHF 20 · 11–24 Stück · Party-Platten auf Anfrage',
+      fr: 'Dès CHF 20 · 11–24 pièces · plateaux festifs sur demande',
+      it: 'Da CHF 20 · 11–24 pezzi · vassoi party su richiesta',
+      en: 'From CHF 20 · 11–24 pieces · party platters on request',
     },
     intro: {
-      de: 'Zusammengestellte Sets für einfaches Bestellen — Nigiri, Hosomaki und Maki in sorgfältig ausgewählten Kombinationen.',
-      fr: "Sets composés pour commander facilement — nigiri, hosomaki et maki en combinaisons soigneusement choisies.",
-      it: 'Set composti per ordinare facilmente — nigiri, hosomaki e maki in combinazioni selezionate con cura.',
-      en: "Curated sets for easy ordering — nigiri, hosomaki and maki in carefully chosen combinations.",
+      de: 'Zusammengestellte Sets für 1–2 Personen — von leichten Mix-Sets bis zum Party-Platter. Nigiri, Hosomaki, Uramaki und Sashimi in ausgewählten Kombinationen.',
+      fr: "Sets composés pour 1–2 personnes — des mix légers aux plateaux festifs. Nigiri, hosomaki, uramaki et sashimi en combinaisons soigneusement choisies.",
+      it: 'Set composti per 1–2 persone — dai mix leggeri ai vassoi party. Nigiri, hosomaki, uramaki e sashimi in combinazioni selezionate.',
+      en: 'Curated sets for 1–2 people — from light mix sets to party platters. Nigiri, hosomaki, uramaki and sashimi in carefully chosen combinations.',
     },
   },
   starters: {
@@ -607,16 +607,22 @@ export const ITEM_I18N = {
     it: 'Granchio dal guscio morbido in tempura — croccante, tenero, con sesamo.',
     en: 'Soft shell crab in tempura — crisp, tender, finished with sesame.',
   },
-  'set-hir': {
-    de: 'Das Beste aus unserem Hosomaki und Nigiri in einem Set. Ideal für zwei.',
-    fr: 'Le meilleur de nos hosomaki et nigiri en un set. Idéal pour deux.',
-    it: 'Il meglio dei nostri hosomaki e nigiri in un set. Ideale per due.',
-    en: 'The best of our hosomaki and nigiri in one set. Ideal for two.',
+  'set-mix2': {
+    de: 'Unser meistbestelltes Set — Uramaki, Nigiri und Hosomaki in einer perfekten Portion.',
+    fr: 'Notre set le plus commandé — uramaki, nigiri et hosomaki en portion parfaite.',
+    it: 'Il nostro set più ordinato — uramaki, nigiri e hosomaki in porzione perfetta.',
+    en: 'Our most-ordered set — uramaki, nigiri and hosomaki in one perfect portion.',
   },
-  'set-two': {
-    de: 'Gerwins Auswahl für zwei — grosse Portion, alles dabei.',
-    fr: 'La sélection de Gerwin pour deux — grande portion, tout compris.',
-    it: 'La selezione di Gerwin per due — porzione abbondante, tutto incluso.',
-    en: "Gerwin's selection for two — large portion, everything included.",
+  'set-hana': {
+    de: 'Kein roher Fisch — ideal für Einsteiger oder alle, die es lieber durchgegart mögen.',
+    fr: 'Sans poisson cru — idéal pour les débutants ou ceux qui préfèrent tout cuit.',
+    it: 'Senza pesce crudo — ideale per i principianti o chi preferisce tutto cotto.',
+    en: 'No raw fish — ideal for newcomers or anyone who prefers everything cooked.',
+  },
+  'set-party': {
+    de: 'Für Gruppen und Events — gemischte Teller mit Uramaki, Hosomaki, Nigiri und Sashimi.',
+    fr: 'Pour groupes et événements — plateaux mélangés avec uramaki, hosomaki, nigiri et sashimi.',
+    it: 'Per gruppi ed eventi — vassoi misti con uramaki, hosomaki, nigiri e sashimi.',
+    en: 'For groups and events — mixed platters with uramaki, hosomaki, nigiri and sashimi.',
   },
 };
