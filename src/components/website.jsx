@@ -15,7 +15,7 @@ const useIsMobile = () => {
   return mobile;
 };
 
-const useReveal = (threshold = 0.08) => {
+const useReveal = (threshold = 0.15) => {
   const ref = useRef(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
@@ -34,7 +34,7 @@ const useReveal = (threshold = 0.08) => {
 const MENU = {
   rolls: {
     items: [
-      { id: 'roll-spsal',  name: 'Spicy Salmon Roll', ingredients: 'spicy salmon · cream cheese · avocado · topped with marinated salmon · chili · sesame',                     price: 18, kind: 'maki', tags: ['spicy', 'bestseller'] },
+      { id: 'roll-spsal',  name: 'Spicy Salmon Roll', ingredients: 'spicy salmon · cream cheese · avocado · topped with marinated salmon · chili · sesame',                     price: 18, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true },
       { id: 'roll-crunch', name: 'Crunch Roll',        ingredients: 'salmon · avocado · topped with cream cheese · tempura flakes',                                              price: 16, kind: 'maki', tags: [] },
       { id: 'roll-king',   name: 'King Prawn Roll',    ingredients: 'tempura king prawn · cream cheese · avocado · topped with avocado · sesame',                               price: 17, kind: 'maki', tags: [] },
       { id: 'roll-volc',   name: 'Volcano Roll',       ingredients: 'tuna · salmon · king prawn tempura · avocado · cream cheese · topped with chili sauce · sesame',           price: 19, kind: 'maki', tags: ['spicy'] },
@@ -46,7 +46,7 @@ const MENU = {
   },
   poke: {
     items: [
-      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'] },
+      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'], teaser: true },
       { id: 'poke-tu',  name: 'Tuna Poke Bowl',   ingredients: 'tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 17, kind: 'bowl', tags: [] },
       { id: 'poke-pr',  name: 'Prawn Poke Bowl',  ingredients: 'tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                         price: 17, kind: 'bowl', tags: [] },
       { id: 'poke-vg',  name: 'Vegan Poke Bowl',  ingredients: 'avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 15, kind: 'bowl', tags: ['vegan'] },
@@ -54,7 +54,7 @@ const MENU = {
   },
   sets: {
     items: [
-      { id: 'set-hir',  name: 'Hiraya Set',           ingredients: '30 pcs · hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki',                    price: 39, priceFrom: true, kind: 'set', tags: ['bestseller'] },
+      { id: 'set-hir',  name: 'Hiraya Set',           ingredients: '30 pcs · hosomaki salmon & tuna · nigiri salmon & tuna · ebi nigiri · california maki',                    price: 39, priceFrom: true, kind: 'set', tags: ['bestseller'], teaser: true },
       { id: 'set-sal',  name: 'Salmon & Tuna Set',    ingredients: '20 pcs · 4 nigiri salmon · 4 nigiri tuna · 6 hosomaki salmon · 6 hosomaki tuna',                           price: 25, kind: 'set', tags: [] },
       { id: 'set-rain', name: 'Rainbow Set',          ingredients: '20 pcs · nigiri salmon · nigiri tuna · nigiri avocado · hosomaki salmon · hosomaki tuna',                   price: 25, kind: 'set', tags: [] },
       { id: 'set-vg',   name: 'Vegan Set',            ingredients: '20 pcs · hosomaki avocado/cucumber · nigiri avocado · hosomaki inari',                                      price: 20, kind: 'set', tags: ['vegan'] },
@@ -68,7 +68,7 @@ const MENU = {
       { id: 'start-mis', name: 'Miso Soup',     ingredients: 'traditional japanese miso · tofu · wakame',                                                                      price: 6,  kind: 'side', tags: ['veg'] },
       { id: 'start-gun', name: 'Gunkan',        ingredients: 'spicy salmon · spicy tuna · red caviar · wakame · crab or shellfish',                                            price: 8,  kind: 'side', tags: ['spicy'] },
       { id: 'start-tem', name: 'Temaki',        ingredients: 'hand roll · salmon · tuna · crab or veggie',                                                                     price: 10, kind: 'side', tags: [] },
-      { id: 'start-tat', name: 'Fish Tataki',   ingredients: 'seared fish · ponzu dressing',                                                                                   price: 16, kind: 'side', tags: [] },
+      { id: 'start-tat', name: 'Fish Tataki',   ingredients: 'seared fish · ponzu dressing',                                                                                   price: 16, kind: 'side', tags: [], teaser: true },
       { id: 'start-tar', name: 'Fish Tartare',  ingredients: 'raw fish · house seasoning · dressing',                                                                          price: 16, kind: 'side', tags: [] },
     ],
   },
@@ -148,20 +148,25 @@ const FoodPlaceholder = ({ label = 'food photo', shape = 'square', size, ratio =
 // ── Splash Intro ──
 const SplashIntro = ({ onDone }) => {
   const [fading, setFading] = useState(false);
+  const dismiss = () => { setFading(true); setTimeout(onDone, 600); };
   useEffect(() => {
     const t1 = setTimeout(() => setFading(true), 1500);
     const t2 = setTimeout(onDone, 2100);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, [onDone]);
   return (
-    <div style={{
-      position: 'fixed', inset: 0, zIndex: 1000,
-      background: 'var(--ink)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      opacity: fading ? 0 : 1,
-      transition: 'opacity 0.6s ease',
-      pointerEvents: fading ? 'none' : 'all',
-    }}>
+    <div
+      onClick={dismiss}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 1000,
+        background: 'var(--ink)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        opacity: fading ? 0 : 1,
+        transition: 'opacity 0.6s ease',
+        pointerEvents: fading ? 'none' : 'all',
+        cursor: 'pointer',
+      }}
+    >
       <div style={{ textAlign: 'center', animation: 'splashFadeIn 0.8s ease both' }}>
         <DualGlyph size={56} color="var(--ember)" />
         <div style={{
@@ -294,6 +299,7 @@ const JustEatLink = ({ size = 'md', tone = 'solid', lang = 'de' }) => {
 // ── Navigation ──
 const Nav = ({ lang, onLang }) => {
   const isMobile = useIsMobile();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const px = isMobile ? '20px' : '56px';
   const links = [
     { id: 'menu',     key: 'nav.menu' },
@@ -301,6 +307,7 @@ const Nav = ({ lang, onLang }) => {
     { id: 'catering', key: 'nav.catering' },
     { id: 'find',     key: 'nav.find' },
   ];
+  const closeDrawer = () => setDrawerOpen(false);
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'var(--paper)' }}>
       <div style={{
@@ -333,8 +340,69 @@ const Nav = ({ lang, onLang }) => {
             ))}
           </div>
         )}
-        <JustEatLink size="sm" lang={lang} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <JustEatLink size="sm" lang={lang} />
+          {isMobile && (
+            <button
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Open menu"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px', display: 'flex', flexDirection: 'column', gap: 5 }}
+            >
+              {[0,1,2].map(i => <span key={i} style={{ display: 'block', width: 22, height: 2, background: 'var(--ink)', borderRadius: 2 }} />)}
+            </button>
+          )}
+        </div>
       </nav>
+
+      {/* Mobile drawer */}
+      {isMobile && (
+        <>
+          <div
+            onClick={closeDrawer}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 200,
+              background: 'rgba(26,20,16,0.5)',
+              opacity: drawerOpen ? 1 : 0,
+              pointerEvents: drawerOpen ? 'all' : 'none',
+              transition: 'opacity 0.25s ease',
+            }}
+          />
+          <div style={{
+            position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 201,
+            width: 280, background: 'var(--paper)',
+            transform: drawerOpen ? 'translateX(0)' : 'translateX(100%)',
+            transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1)',
+            display: 'flex', flexDirection: 'column',
+            boxShadow: '-8px 0 32px rgba(26,20,16,0.18)',
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 24px', borderBottom: '1px solid rgba(26,20,16,0.08)' }}>
+              <Wordmark size={14} />
+              <button onClick={closeDrawer} aria-label="Close menu" style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, lineHeight: 1, color: 'var(--ink)', padding: 4 }}>×</button>
+            </div>
+            <div style={{ flex: 1, padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {links.map(l => (
+                <a
+                  key={l.id}
+                  href={`#${l.id}`}
+                  onClick={closeDrawer}
+                  style={{
+                    display: 'block', padding: '14px 0',
+                    fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 28, lineHeight: 1.1,
+                    color: 'var(--ink)', textDecoration: 'none',
+                    borderBottom: '1px solid rgba(26,20,16,0.07)',
+                  }}
+                >
+                  {t(lang, l.key)}
+                </a>
+              ))}
+            </div>
+            <div style={{ padding: '24px', borderTop: '1px solid rgba(26,20,16,0.08)', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <LangPills lang={lang} onLang={(l) => { onLang(l); closeDrawer(); }} tone="light" />
+              <JustEatLink size="md" lang={lang} />
+            </div>
+          </div>
+        </>
+      )}
     </header>
   );
 };
@@ -549,30 +617,16 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 12, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
           {item.ingredients}
         </div>
-        {desc && !isMobile && (
-          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 14, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
+        {desc && (
+          <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 12 : 14, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
             {desc}
           </div>
         )}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: 8, flexWrap: 'wrap', gap: 6 }}>
-          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', alignItems: 'center' }}>
-            <span style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
-              {item.priceFrom && <span style={{ opacity: 0.7, fontSize: 11 }}>{t(lang, 'menu.from')} </span>}CHF {item.price.toFixed(2)}
-            </span>
-            {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
-          </div>
-          <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
-            fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.05em',
-            color: 'var(--clay)', textDecoration: 'none', whiteSpace: 'nowrap',
-            display: 'inline-flex', alignItems: 'center', gap: 4,
-            padding: '4px 9px', borderRadius: 999,
-            border: '1px solid rgba(194,73,42,0.35)',
-          }}>
-            {t(lang, 'cta.orderShort')}
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M7 17 L17 7 M9 7 H17 V15" />
-            </svg>
-          </a>
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: 'auto', paddingTop: 8, flexWrap: 'wrap', gap: 6 }}>
+          <span style={{ fontFamily: 'var(--f-mono)', fontSize: 13, color: 'var(--clay)', fontWeight: 500, whiteSpace: 'nowrap' }}>
+            {item.priceFrom && <span style={{ opacity: 0.7, fontSize: 11 }}>{t(lang, 'menu.from')} </span>}CHF {item.price.toFixed(2)}
+          </span>
+          {item.tags && item.tags.map(tag => <TagChip key={tag} tag={tag} lang={lang} small />)}
         </div>
       </div>
       <div style={{ alignSelf: 'stretch' }}>
@@ -586,12 +640,18 @@ const Menu = ({ lang }) => {
   const isMobile = useIsMobile();
   const [activeKey, setActiveKey] = useState('rolls');
   const [headerH, setHeaderH] = useState(110);
-  const [expanded, setExpanded] = useState({});
+  const [expanded, setExpanded] = useState(() => {
+    try { return JSON.parse(sessionStorage.getItem('menu-expanded') || '{}'); } catch { return {}; }
+  });
   const catNavRef = useRef(null);
   const sectionRefs = useRef({});
   const px = isMobile ? '20px' : '56px';
 
-  const toggleExpand = (key) => setExpanded(prev => ({ ...prev, [key]: !prev[key] }));
+  const toggleExpand = (key) => setExpanded(prev => {
+    const next = { ...prev, [key]: !prev[key] };
+    try { sessionStorage.setItem('menu-expanded', JSON.stringify(next)); } catch {}
+    return next;
+  });
 
   useEffect(() => {
     const header = document.querySelector('header');
@@ -677,7 +737,8 @@ const Menu = ({ lang }) => {
         {Object.entries(MENU).map(([k, cat]) => {
           const catMeta = MENU_I18N[k];
           const isExpanded = !!expanded[k];
-          const visibleItems = isExpanded ? cat.items : [cat.items[0]];
+          const teaserItem = cat.items.find(i => i.teaser) || cat.items[0];
+          const visibleItems = isExpanded ? cat.items : [teaserItem];
           const hiddenCount = cat.items.length - 1;
           return (
             <div key={k} id={`menu-${k}`} ref={el => { sectionRefs.current[k] = el; }} style={{ paddingTop: 52, paddingBottom: 12 }}>
@@ -767,37 +828,30 @@ const Menu = ({ lang }) => {
 const HowToOrder = ({ lang }) => {
   const isMobile = useIsMobile();
   const [ref, on] = useReveal();
-  const px = isMobile ? '24px' : '56px';
-  const py = isMobile ? '64px' : '90px';
+  const px = isMobile ? '20px' : '56px';
   return (
-    <section style={{ background: 'var(--paper-soft)', padding: `${py} ${px}` }}>
+    <section style={{ background: 'var(--paper-soft)', borderTop: '1px solid rgba(26,20,16,0.07)', borderBottom: '1px solid rgba(26,20,16,0.07)' }}>
       <div ref={ref} style={{
-        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-        transition: 'opacity 0.8s ease, transform 0.8s ease',
+        padding: `28px ${px}`,
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row',
+        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(16px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
       }}>
-        <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-          <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'how.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'how.title.html')}
-                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(40px, 5vw, 72px)', lineHeight: 0.95, marginTop: 8 }} />
-        </div>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: isMobile ? 14 : 20,
-        }}>
-          {['s1', 's2', 's3'].map((s, i) => (
-            <div key={s} style={{
-              background: 'var(--linen)', borderRadius: 14, padding: isMobile ? '20px 18px' : '24px 22px',
-              display: 'flex', flexDirection: 'column', gap: 10,
-              minHeight: isMobile ? 'auto' : 240,
-              border: '1px solid rgba(26,20,16,0.06)',
-            }}>
-              <span style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 48, color: 'var(--clay)', lineHeight: 1 }}>{'0' + (i + 1)}</span>
-              <div style={{ fontFamily: 'var(--f-display)', fontSize: 24, lineHeight: 1.1, color: 'var(--ink)' }}>{t(lang, 'how.' + s + '.title')}</div>
-              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, color: 'var(--ink-soft)', lineHeight: 1.5 }}>{t(lang, 'how.' + s + '.body')}</div>
+        {['s1', 's2', 's3'].map((s, i) => (
+          <div key={s} style={{
+            flex: 1,
+            padding: isMobile ? '14px 0' : '0 28px',
+            borderLeft: !isMobile && i > 0 ? '1px solid rgba(26,20,16,0.1)' : 'none',
+            borderTop: isMobile && i > 0 ? '1px solid rgba(26,20,16,0.1)' : 'none',
+            display: 'flex', alignItems: 'center', gap: 14,
+          }}>
+            <span style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 32, color: 'var(--clay)', lineHeight: 1, flexShrink: 0 }}>{'0' + (i + 1)}</span>
+            <div>
+              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, 'how.' + s + '.title')}</div>
+              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2, fontSize: 11 }}>{t(lang, 'how.' + s + '.body')}</div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -955,7 +1009,18 @@ const Catering = ({ lang }) => {
         <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'cat.eyebrow')}</div>
         <Rich as="div" html={t(lang, 'cat.title.html')}
               style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 8 }} />
-        <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 18, lineHeight: 1.55, marginTop: 18, color: 'var(--ink-soft)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 20 }}>
+          {['cat.use.birthday', 'cat.use.office', 'cat.use.wedding', 'cat.use.sushi'].map(key => (
+            <span key={key} style={{
+              fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.07em',
+              padding: '6px 14px', borderRadius: 999,
+              border: '1px solid rgba(194,73,42,0.4)', color: 'var(--clay)',
+            }}>
+              {t(lang, key)}
+            </span>
+          ))}
+        </div>
+        <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 18, lineHeight: 1.55, marginTop: 20, color: 'var(--ink-soft)' }}>
           {t(lang, 'cat.body')}
         </p>
         <div style={{ marginTop: 32 }}>
@@ -1032,7 +1097,7 @@ const Story = ({ lang }) => {
 };
 
 // ── Footer ──
-const Footer = ({ lang }) => {
+const Footer = ({ lang, onLang }) => {
   const isMobile = useIsMobile();
   const px = isMobile ? '24px' : '56px';
   return (
@@ -1086,9 +1151,9 @@ const Footer = ({ lang }) => {
       }}>
         {t(lang, 'footer.thanksAll')}
       </div>
-      <div style={{ padding: `16px ${px} 28px`, display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(244,234,214,0.06)', color: 'rgba(244,234,214,0.45)', flexWrap: 'wrap', gap: 12 }}>
+      <div style={{ padding: `16px ${px} 28px`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(244,234,214,0.06)', color: 'rgba(244,234,214,0.45)', flexWrap: 'wrap', gap: 12 }}>
         <span className="mono">{t(lang, 'footer.copy')}</span>
-        <span className="mono">{LANG_LIST.map(l => l.greeting).join(' · ')}</span>
+        <LangPills lang={lang} onLang={onLang} tone="dark" />
       </div>
     </footer>
   );
@@ -1097,10 +1162,16 @@ const Footer = ({ lang }) => {
 // ── Top-level Website component ──
 export const Website = () => {
   const [lang, setLang] = useLang();
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone] = useState(() => {
+    try { return !!sessionStorage.getItem('splash-seen'); } catch { return false; }
+  });
+  const handleSplashDone = () => {
+    try { sessionStorage.setItem('splash-seen', '1'); } catch {}
+    setSplashDone(true);
+  };
   return (
     <div style={{ width: '100%', background: 'var(--paper)', fontFamily: 'var(--f-sans)', color: 'var(--ink)' }}>
-      {!splashDone && <SplashIntro onDone={() => setSplashDone(true)} />}
+      {!splashDone && <SplashIntro onDone={handleSplashDone} />}
       <Nav lang={lang} onLang={setLang} />
       <Hero lang={lang} />
       <MarqueeStrip />
@@ -1110,7 +1181,7 @@ export const Website = () => {
       <LocationBlock lang={lang} />
       <Catering lang={lang} />
       <Story lang={lang} />
-      <Footer lang={lang} />
+      <Footer lang={lang} onLang={setLang} />
     </div>
   );
 };
