@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { t, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
 import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
@@ -32,14 +32,6 @@ const useReveal = (threshold = 0.08) => {
 };
 
 const MENU = {
-  poke: {
-    items: [
-      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'] },
-      { id: 'poke-tu',  name: 'Tuna Poke Bowl',   ingredients: 'tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 17, kind: 'bowl', tags: [] },
-      { id: 'poke-pr',  name: 'Prawn Poke Bowl',  ingredients: 'tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                         price: 17, kind: 'bowl', tags: [] },
-      { id: 'poke-vg',  name: 'Vegan Poke Bowl',  ingredients: 'avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 15, kind: 'bowl', tags: ['vegan'] },
-    ],
-  },
   rolls: {
     items: [
       { id: 'roll-spsal',  name: 'Spicy Salmon Roll', ingredients: 'spicy salmon · cream cheese · avocado · topped with marinated salmon · chili · sesame',                     price: 18, kind: 'maki', tags: ['spicy', 'bestseller'] },
@@ -50,6 +42,14 @@ const MENU = {
       { id: 'roll-ebiko',  name: 'Ebiko Roll',         ingredients: 'king prawn · avocado · cream cheese · topped with ebiko · chili',                                          price: 17, kind: 'maki', tags: ['spicy'] },
       { id: 'roll-spider', name: 'Spider Roll',        ingredients: 'soft shell crab tempura · avocado · cream cheese · topped with sesame',                                    price: 18, kind: 'maki', tags: [] },
       { id: 'roll-vgf',    name: 'Vegan Fusion Roll',  ingredients: 'avocado · cucumber · cream cheese · topped with avocado · sesame',                                         price: 14, kind: 'maki', tags: ['vegan'] },
+    ],
+  },
+  poke: {
+    items: [
+      { id: 'poke-sal', name: 'Salmon Poke Bowl', ingredients: 'salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                      price: 17, kind: 'bowl', tags: ['bestseller'] },
+      { id: 'poke-tu',  name: 'Tuna Poke Bowl',   ingredients: 'tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 17, kind: 'bowl', tags: [] },
+      { id: 'poke-pr',  name: 'Prawn Poke Bowl',  ingredients: 'tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy',                         price: 17, kind: 'bowl', tags: [] },
+      { id: 'poke-vg',  name: 'Vegan Poke Bowl',  ingredients: 'avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy',                                        price: 15, kind: 'bowl', tags: ['vegan'] },
     ],
   },
   sets: {
@@ -234,10 +234,9 @@ const LangPills = ({ lang, onLang, tone = 'light' }) => {
       fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em',
     }}>
       {LANG_LIST.map((l, i) => (
-        <>
-          {i > 0 && <span key={`sep-${l.code}`} aria-hidden style={{ color: baseFg, opacity: 0.4 }}>·</span>}
+        <Fragment key={l.code}>
+          {i > 0 && <span aria-hidden style={{ color: baseFg, opacity: 0.4 }}>·</span>}
           <button
-            key={l.code}
             type="button"
             onClick={() => onLang(l.code)}
             aria-pressed={lang === l.code}
@@ -253,7 +252,7 @@ const LangPills = ({ lang, onLang, tone = 'light' }) => {
             }}>
             {l.label}
           </button>
-        </>
+        </Fragment>
       ))}
     </div>
   );
@@ -368,9 +367,9 @@ const Hero = ({ lang }) => {
             lineHeight: 0.82,
             letterSpacing: '-0.02em', margin: 0, color: 'var(--ink)',
           }}>
-            Two<br/>
-            <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>languages</span>,<br/>
-            one bowl.
+            {t(lang, 'hero.h1.l1')}<br/>
+            <span style={{ fontStyle: 'italic', color: 'var(--clay)' }}>{t(lang, 'hero.h1.l2i')}</span>,<br/>
+            {t(lang, 'hero.h1.l3')}
           </h1>
           <div style={{
             fontFamily: 'var(--f-sans)', fontSize: 'clamp(15px, 1.5vw, 21px)', lineHeight: 1.45,

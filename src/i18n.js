@@ -56,6 +56,9 @@ export const T = {
     'bar.openToday':  'Heute geöffnet · 12–14 · 16–20',
     'bar.viaJustEat': 'Bestellung via Just Eat',
 
+    'hero.h1.l1':    'Zwei',
+    'hero.h1.l2i':   'Sprachen',
+    'hero.h1.l3':    'eine Schüssel.',
     'hero.eyebrow':  'Binningen · seit 2024 · chef Gerwin',
     'hero.subtitle': 'Fusion-Sushi und Poke Bowls, heute frisch gerollt von Chef Gerwin in Binningen. Filipinische Aromen treffen japanischen Reis. Bestellung über Just Eat — bereit in 25 Minuten.',
     'hero.reviews':  'Google-Bewertungen',
@@ -165,6 +168,9 @@ export const T = {
     'bar.openToday':  "Aujourd'hui ouvert · 12–14 · 16–20",
     'bar.viaJustEat': 'Commande via Just Eat',
 
+    'hero.h1.l1':    'Deux',
+    'hero.h1.l2i':   'langues',
+    'hero.h1.l3':    'un bol.',
     'hero.eyebrow':  'Binningen · depuis 2024 · chef Gerwin',
     'hero.subtitle': "Sushis fusion et poke bowls, roulés à la main aujourd'hui par le chef Gerwin à Binningen. Saveurs philippines, riz japonais. Commande sur Just Eat — prêt en 25 minutes.",
     'hero.reviews':  'Avis Google',
@@ -274,6 +280,9 @@ export const T = {
     'bar.openToday':  'Aperto oggi · 12–14 · 16–20',
     'bar.viaJustEat': 'Ordini via Just Eat',
 
+    'hero.h1.l1':    'Due',
+    'hero.h1.l2i':   'lingue',
+    'hero.h1.l3':    'una ciotola.',
     'hero.eyebrow':  'Binningen · dal 2024 · chef Gerwin',
     'hero.subtitle': "Sushi fusion e poke bowl, arrotolati a mano oggi dallo chef Gerwin a Binningen. Sapori filippini, riso giapponese. Ordina su Just Eat — pronto in 25 minuti.",
     'hero.reviews':  'Recensioni Google',
@@ -383,6 +392,9 @@ export const T = {
     'bar.openToday':  'Open today · 12–14 · 16–20',
     'bar.viaJustEat': 'Orders via Just Eat',
 
+    'hero.h1.l1':    'Two',
+    'hero.h1.l2i':   'languages',
+    'hero.h1.l3':    'one bowl.',
     'hero.eyebrow':  'Binningen · since 2024 · chef Gerwin',
     'hero.subtitle': "Fusion sushi and poke bowls, hand-rolled today by chef Gerwin in Binningen. Filipino flavours meet Japanese rice. Order on Just Eat — ready in 25 minutes.",
     'hero.reviews':  'Google Reviews',
