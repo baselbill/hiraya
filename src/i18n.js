@@ -530,18 +530,18 @@ export const MENU_I18N = {
     },
   },
   poke: {
-    label: { de: 'Poke Bowls', fr: 'Bols Poké', it: 'Poke Bowl', en: 'Poke Bowls' },
+    label: { de: 'Poke & Bento', fr: 'Poké & Bento', it: 'Poke & Bento', en: 'Poke & Bento' },
     sub: {
-      de: 'Frisch · leicht · auf Sushi-Reis',
-      fr: 'Frais · léger · sur riz sushi',
-      it: 'Fresco · leggero · su riso sushi',
-      en: 'Fresh · light · on sushi rice',
+      de: 'Bowls & Bento-Boxen · frisch täglich',
+      fr: 'Bowls & boîtes bento · frais chaque jour',
+      it: 'Bowl e bento box · freschi ogni giorno',
+      en: 'Bowls & bento boxes · fresh daily',
     },
     intro: {
-      de: 'Auf kurzkörnigem Sushi-Reis mit frischem Gemüse, süsser Sojasauce und Sesam. Täglich von Gerwin zubereitet.',
-      fr: "Sur riz sushi à grain court avec légumes frais, sauce soja sucrée et sésame. Préparés chaque jour par Gerwin.",
-      it: 'Su riso sushi a chicco corto con verdure fresche, salsa di soia dolce e sesamo. Preparati ogni giorno da Gerwin.',
-      en: "On short-grain sushi rice with fresh vegetables, sweet soy sauce and sesame. Prepared daily by Gerwin.",
+      de: 'Poke Bowls auf Sushi-Reis mit Mango, Avocado und Poke-Sauce. Bento-Boxen mit flambierten Fisch, Nigiri und Marktsalat.',
+      fr: "Poke bowls sur riz sushi avec mangue, avocat et sauce poké. Boîtes bento avec poisson flambé, nigiri et salade du marché.",
+      it: 'Poke bowl su riso sushi con mango, avocado e salsa poke. Bento box con pesce flambé, nigiri e insalata di mercato.',
+      en: 'Poke bowls on sushi rice with mango, avocado and poke sauce. Bento boxes with flambéed fish, nigiri and market salad.',
     },
   },
   sets: {
@@ -578,16 +578,16 @@ export const MENU_I18N = {
 
 export const ITEM_I18N = {
   'poke-sal': {
-    de: 'Der Klassiker — frischer Lachs auf Sushi-Reis mit Avocado und Edamame.',
-    fr: 'Le classique — saumon frais sur riz sushi avec avocat et edamame.',
-    it: 'Il classico — salmone fresco su riso sushi con avocado ed edamame.',
-    en: 'The classic — fresh salmon on sushi rice with avocado and edamame.',
+    de: 'Frischer Lachs mit Mango, Rettich und Poke-Sauce auf Sushi-Reis.',
+    fr: 'Saumon frais avec mangue, radis et sauce poké sur riz sushi.',
+    it: 'Salmone fresco con mango, ravanello e salsa poke su riso sushi.',
+    en: 'Fresh salmon with mango, radish and poke sauce on sushi rice.',
   },
-  'poke-vg': {
-    de: 'Vollständig pflanzlich — Avocado, Tofu, Edamame, rotes Kraut.',
-    fr: 'Entièrement végétal — avocat, tofu, edamame, chou rouge.',
-    it: 'Completamente vegetale — avocado, tofu, edamame, cavolo rosso.',
-    en: 'Fully plant-based — avocado, tofu, edamame, red cabbage.',
+  'poke-veg': {
+    de: 'Vegetarisch — Avocado, Mango, Tamago, Wakame und Takuan.',
+    fr: 'Végétarien — avocat, mangue, tamago, wakame et takuan.',
+    it: 'Vegetariano — avocado, mango, tamago, wakame e takuan.',
+    en: 'Vegetarian — avocado, mango, tamago, wakame and takuan.',
   },
   'roll-spsal': {
     de: 'Unsere meistbestellte Rolle. Doppelter Lachs — innen würzig, oben mariniert.',

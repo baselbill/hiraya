@@ -26,15 +26,24 @@ A living document for tracking what's on the menu, what's been removed, and idea
 
 ---
 
-### Poke Bowls
-*All CHF 15–17*
+### Poke & Bento
+*Poke bowls CHF 20–20.50 · Bento boxes CHF 20*
+
+#### Poke Bowls
 
 | Name | Ingredients | Tags | Price |
 |---|---|---|---|
-| Salmon Poke Bowl ★ | salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | bestseller | CHF 17 |
-| Tuna Poke Bowl | tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | — | CHF 17 |
-| Prawn Poke Bowl | tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | — | CHF 17 |
-| Vegan Poke Bowl | avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy | vegan | CHF 15 |
+| Lachs Poke Bowl ★ | salmon · avocado · cucumber · radish · edamame · mango · poke sauce | bestseller | CHF 20 |
+| Tuna Poke Bowl | tuna · avocado · cucumber · radish · edamame · mango · poke sauce | — | CHF 20.50 |
+| Shrimp Poke Bowl | shrimp · avocado · cucumber · radish · edamame · mango · poke sauce | — | CHF 20 |
+| Veggie Poke Bowl | avocado · mango · cucumber · edamame · wakame salad · takuan · tamago | vegetarian | CHF 20 |
+
+#### Bento Boxes
+
+| Name | Ingredients | Tags | Price |
+|---|---|---|---|
+| Lachs Bento Box | sushi rice · flambéed salmon · market salad · 4 nigiri · wakame salad · sauce | — | CHF 20 |
+| Tuna Bento Box | sushi rice · flambéed tuna · 4 nigiri · market salad · wakame salad · sauce | — | CHF 20 |
 
 ---
 
@@ -84,6 +93,18 @@ A living document for tracking what's on the menu, what's been removed, and idea
 | Spider Roll | soft shell crab tempura · avocado · cream cheese · sesame | — | CHF 18 | |
 | Vegan Fusion Roll | avocado · cucumber · cream cheese · avocado · sesame | vegan | CHF 14 | |
 
+### Original Poke Bowls (replaced 2026-05-18 by Just Eat Poke & Bento)
+*Old pricing CHF 15–17 · 4 items · no bento*
+
+| Name | Ingredients | Tags | Price |
+|---|---|---|---|
+| Salmon Poke Bowl | salmon · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | bestseller | CHF 17 |
+| Tuna Poke Bowl | tuna · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | — | CHF 17 |
+| Prawn Poke Bowl | tiger prawn tempura · avocado · edamame · cucumber · red cabbage · sesame · sweet soy | — | CHF 17 |
+| Vegan Poke Bowl | avocado · tofu · edamame · cucumber · red cabbage · sesame · sweet soy | vegan | CHF 15 |
+
+---
+
 ### Signature Bowl (removed from page, 2026-05-18)
 *Was a featured section between HowToOrder and LocationBlock*
 
@@ -122,4 +143,4 @@ A living document for tracking what's on the menu, what's been removed, and idea
 
 ---
 
-*Last updated: 2026-05-18*
+*Last updated: 2026-05-18 (poke & bento sync)*
