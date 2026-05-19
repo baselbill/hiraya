@@ -88,6 +88,11 @@ export const T = {
     'menu.cta.eyebrow':   'Bereit zum Bestellen?',
     'menu.cta.title.html':'Bestellung läuft über <i>Just Eat</i>.',
     'menu.cta.body':      'Abholung in 25 min · Lieferung im Umkreis Binningen · Min. CHF 30',
+    'menu.justeat.note':  'Nigiri & Hosomaki auch einzeln erhältlich — vollständiges Sortiment auf Just Eat',
+
+    'cooking.R': 'roh',
+    'cooking.G': 'gegart',
+    'cooking.F': 'flambiert',
 
     'how.eyebrow':     'So bestellst du',
     'how.title.html':  'Drei <i>Schritte</i>.',
@@ -207,6 +212,11 @@ export const T = {
     'menu.cta.eyebrow':   'Prêt à commander ?',
     'menu.cta.title.html':'La commande passe par <i>Just Eat</i>.',
     'menu.cta.body':      'Retrait en 25 min · Livraison autour de Binningen · Min. CHF 30',
+    'menu.justeat.note':  "Nigiri & hosomaki aussi à l'unité — gamme complète sur Just Eat",
+
+    'cooking.R': 'cru',
+    'cooking.G': 'cuit',
+    'cooking.F': 'flambé',
 
     'how.eyebrow':     'Comment commander',
     'how.title.html':  'Trois <i>étapes</i>.',
@@ -326,6 +336,11 @@ export const T = {
     'menu.cta.eyebrow':   'Pronto a ordinare?',
     'menu.cta.title.html':"L'ordine va su <i>Just Eat</i>.",
     'menu.cta.body':      'Ritiro in 25 min · Consegna nella zona di Binningen · Min. CHF 30',
+    'menu.justeat.note':  'Nigiri & hosomaki anche singoli — gamma completa su Just Eat',
+
+    'cooking.R': 'crudo',
+    'cooking.G': 'cotto',
+    'cooking.F': 'flambato',
 
     'how.eyebrow':     'Come ordinare',
     'how.title.html':  'Tre <i>passi</i>.',
@@ -445,6 +460,11 @@ export const T = {
     'menu.cta.eyebrow':   'Ready to order?',
     'menu.cta.title.html':'Orders go through <i>Just Eat</i>.',
     'menu.cta.body':      'Pickup in 25 min · Delivery in the Binningen area · Min. CHF 30',
+    'menu.justeat.note':  'Nigiri & hosomaki also individually — full selection on Just Eat',
+
+    'cooking.R': 'raw',
+    'cooking.G': 'cooked',
+    'cooking.F': 'flambéed',
 
     'how.eyebrow':     'How to order',
     'how.title.html':  'Three <i>steps</i>.',
@@ -514,34 +534,34 @@ export const T = {
 };
 
 export const MENU_I18N = {
-  rolls: {
-    label: { de: 'Fusion Rolls', fr: 'Rouleaux Fusion', it: 'Rotoli Fusion', en: 'Fusion Rolls' },
+  starters: {
+    label: { de: 'Vorspeisen & Specials', fr: 'Entrées & Spécialités', it: 'Antipasti & Speciali', en: 'Starters & Specials' },
     sub: {
-      de: '8 Stücke · handgerollt · Hiraya-Spezialitäten',
-      fr: '8 pièces · roulés à la main · spécialités Hiraya',
-      it: '8 pezzi · arrotolati a mano · specialità Hiraya',
-      en: '8 pcs · hand-rolled · Hiraya originals',
+      de: 'CHF 6–16 · zum Teilen · zum Anfang',
+      fr: 'CHF 6–16 · à partager · pour commencer',
+      it: 'CHF 6–16 · da condividere · per iniziare',
+      en: 'CHF 6–16 · to share · to start',
     },
     intro: {
-      de: 'Unsere Hausrollen — in Binningen handgerollt von Gerwin. Jede Rolle acht Stücke, jeden Tag frisch zubereitet.',
-      fr: "Nos rouleaux maison — roulés à la main par Gerwin à Binningen. Huit pièces par rouleau, préparés frais chaque jour.",
-      it: 'I nostri rotoli della casa — arrotolati a mano da Gerwin a Binningen. Otto pezzi per rotolo, preparati freschi ogni giorno.',
-      en: "Our house rolls — hand-rolled by Gerwin in Binningen. Eight pieces per roll, prepared fresh daily.",
+      de: 'Klassische Vorspeisen und Spezialitäten — ideal zum Teilen oder als Einstieg vor den Hiraya Rolls.',
+      fr: "Entrées classiques et spécialités — idéal à partager ou en mise en bouche avant les rouleaux Hiraya.",
+      it: 'Antipasti classici e specialità — ideali da condividere o come apertura prima dei rotoli Hiraya.',
+      en: 'Classic starters and specialities — ideal for sharing or as an opener before the Hiraya Rolls.',
     },
   },
-  poke: {
-    label: { de: 'Poke & Bento', fr: 'Poké & Bento', it: 'Poke & Bento', en: 'Poke & Bento' },
+  rolls: {
+    label: { de: 'Hiraya Rolls', fr: 'Hiraya Rolls', it: 'Hiraya Rolls', en: 'Hiraya Rolls' },
     sub: {
-      de: 'Bowls & Bento-Boxen · frisch täglich',
-      fr: 'Bowls & boîtes bento · frais chaque jour',
-      it: 'Bowl e bento box · freschi ogni giorno',
-      en: 'Bowls & bento boxes · fresh daily',
+      de: '8 Stücke · handgerollt von Gerwin · täglich frisch',
+      fr: '8 pièces · roulés à la main par Gerwin · frais chaque jour',
+      it: '8 pezzi · arrotolati a mano da Gerwin · freschi ogni giorno',
+      en: '8 pcs · hand-rolled by Gerwin · fresh daily',
     },
     intro: {
-      de: 'Poke Bowls auf Sushi-Reis mit Mango, Avocado und Poke-Sauce. Bento-Boxen mit flambierten Fisch, Nigiri und Marktsalat.',
-      fr: "Poke bowls sur riz sushi avec mangue, avocat et sauce poké. Boîtes bento avec poisson flambé, nigiri et salade du marché.",
-      it: 'Poke bowl su riso sushi con mango, avocado e salsa poke. Bento box con pesce flambé, nigiri e insalata di mercato.',
-      en: 'Poke bowls on sushi rice with mango, avocado and poke sauce. Bento boxes with flambéed fish, nigiri and market salad.',
+      de: 'Die Flaggschiff-Kategorie. Jede Rolle ist ein Grund, sich für Hiraya zu entscheiden — filipinische Aromen, japanische Technik, von Gerwin handgerollt.',
+      fr: "La catégorie phare. Chaque rouleau est une raison de choisir Hiraya — saveurs philippines, technique japonaise, roulés à la main par Gerwin.",
+      it: 'La categoria di punta. Ogni rotolo è un motivo per scegliere Hiraya — sapori filippini, tecnica giapponese, arrotolati a mano da Gerwin.',
+      en: 'The flagship category. Every roll is a reason to choose Hiraya — Filipino flavours, Japanese technique, hand-rolled by Gerwin.',
     },
   },
   sets: {
@@ -553,25 +573,25 @@ export const MENU_I18N = {
       en: 'From CHF 20 · 11–24 pieces · party platters on request',
     },
     intro: {
-      de: 'Zusammengestellte Sets für 1–2 Personen — von leichten Mix-Sets bis zum Party-Platter. Nigiri, Hosomaki, Uramaki und Sashimi in ausgewählten Kombinationen.',
-      fr: "Sets composés pour 1–2 personnes — des mix légers aux plateaux festifs. Nigiri, hosomaki, uramaki et sashimi en combinaisons soigneusement choisies.",
-      it: 'Set composti per 1–2 persone — dai mix leggeri ai vassoi party. Nigiri, hosomaki, uramaki e sashimi in combinazioni selezionate.',
-      en: 'Curated sets for 1–2 people — from light mix sets to party platters. Nigiri, hosomaki, uramaki and sashimi in carefully chosen combinations.',
+      de: 'Fünf klare Entscheidungen — Einstieg, Premium, vegetarisch, vegan und Grossformat. Jedes Set ein vollständiges Erlebnis.',
+      fr: "Cinq choix clairs — entrée de gamme, premium, végétarien, vegan et grand format. Chaque set est une expérience complète.",
+      it: 'Cinque scelte chiare — entry level, premium, vegetariano, vegano e grande formato. Ogni set è un\'esperienza completa.',
+      en: 'Five clear decisions — entry, premium, vegetarian, vegan and large format. Each set is a complete experience.',
     },
   },
-  starters: {
-    label: { de: 'Starters & Specials', fr: 'Entrées & Spécialités', it: 'Antipasti & Speciali', en: 'Starters & Specials' },
+  poke: {
+    label: { de: 'Poke & Bento', fr: 'Poké & Bento', it: 'Poke & Bento', en: 'Poke & Bento' },
     sub: {
-      de: 'Zum Anfang · zum Teilen',
-      fr: 'Pour commencer · à partager',
-      it: 'Per iniziare · da condividere',
-      en: 'To start · to share',
+      de: 'Bowls & Bento-Boxen · täglich frisch',
+      fr: 'Bowls & boîtes bento · frais chaque jour',
+      it: 'Bowl e bento box · freschi ogni giorno',
+      en: 'Bowls & bento boxes · fresh daily',
     },
     intro: {
-      de: 'Klassische japanische Vorspeisen und Spezialitäten — ideal zum Teilen oder als Einstieg vor den Hauptrollen.',
-      fr: "Entrées japonaises classiques et spécialités — idéal à partager ou en mise en bouche avant les rouleaux.",
-      it: 'Antipasti giapponesi classici e specialità — ideali da condividere o come apertura prima dei rotoli principali.',
-      en: "Classic Japanese starters and specialities — ideal for sharing or as an opener before the main rolls.",
+      de: 'Poke Bowls auf Sushi-Reis mit Mango, Avocado und Poke-Sauce. Bento-Boxen mit flambiertem Fisch, Nigiri und Marktsalat.',
+      fr: "Poke bowls sur riz sushi avec mangue, avocat et sauce poké. Boîtes bento avec poisson flambé, nigiri et salade du marché.",
+      it: 'Poke bowl su riso sushi con mango, avocado e salsa poke. Bento box con pesce flambé, nigiri e insalata di mercato.',
+      en: 'Poke bowls on sushi rice with mango, avocado and poke sauce. Bento boxes with flambéed fish, nigiri and market salad.',
     },
   },
 };
@@ -589,23 +609,29 @@ export const ITEM_I18N = {
     it: 'Vegetariano — avocado, mango, tamago, wakame e takuan.',
     en: 'Vegetarian — avocado, mango, tamago, wakame and takuan.',
   },
-  'roll-spsal': {
-    de: 'Unsere meistbestellte Rolle. Doppelter Lachs — innen würzig, oben mariniert.',
-    fr: 'Notre rouleau le plus commandé. Double saumon — épicé à l\'intérieur, mariné dessus.',
-    it: 'Il nostro rotolo più ordinato. Doppio salmone — speziato dentro, marinato sopra.',
-    en: 'Our most-ordered roll. Double salmon — spicy inside, marinated on top.',
+  'roll-dyn': {
+    de: 'Unser Klassiker. Lachs, Mango und Kaviar — der Grund, warum Gerwin Hiraya eröffnet hat.',
+    fr: 'Notre classique. Saumon, mangue et caviar — la raison pour laquelle Gerwin a ouvert Hiraya.',
+    it: 'Il nostro classico. Salmone, mango e caviale — il motivo per cui Gerwin ha aperto Hiraya.',
+    en: 'Our classic. Salmon, mango and caviar — the reason Gerwin opened Hiraya.',
   },
-  'roll-volc': {
-    de: 'Vier Meeresfrüchte in einer Rolle. Die schärfste auf der Karte.',
-    fr: 'Quatre fruits de mer dans un rouleau. Le plus piquant de la carte.',
-    it: 'Quattro frutti di mare in un rotolo. Il più piccante del menu.',
-    en: 'Four seafood in one roll. The hottest one on the menu.',
+  'roll-swi': {
+    de: 'Flambierter Lachs direkt auf der Rolle. Warm, rauchig, mit Schärfe.',
+    fr: 'Saumon flambé directement sur le rouleau. Chaud, fumé, relevé.',
+    it: 'Salmone flambé direttamente sul rotolo. Caldo, affumicato, piccante.',
+    en: 'Salmon flambéed directly on the roll. Warm, smoky, with a kick.',
   },
-  'roll-spider': {
-    de: 'Weichschalenkrabbe in Tempura — knusprig, zart, mit Sesam.',
-    fr: 'Crabe à carapace molle en tempura — croustillant, tendre, avec sésame.',
-    it: 'Granchio dal guscio morbido in tempura — croccante, tenero, con sesamo.',
-    en: 'Soft shell crab in tempura — crisp, tender, finished with sesame.',
+  'roll-vip': {
+    de: 'Jakobsmuscheln, Karotten, Avocado — elegant und leicht. Unser Premium-Roll.',
+    fr: 'Noix de Saint-Jacques, carottes, avocat — élégant et léger. Notre rouleau premium.',
+    it: 'Capesante, carote, avocado — elegante e leggero. Il nostro rotolo premium.',
+    en: 'Scallops, carrot, avocado — elegant and light. Our premium roll.',
+  },
+  'roll-mix': {
+    de: 'Lachs und Thun, Mango und Avocado — die Hiraya-Kombination in einer Rolle.',
+    fr: 'Saumon et thon, mangue et avocat — la combinaison Hiraya dans un rouleau.',
+    it: 'Salmone e tonno, mango e avocado — la combinazione Hiraya in un rotolo.',
+    en: 'Salmon and tuna, mango and avocado — the Hiraya combination in one roll.',
   },
   'set-mix2': {
     de: 'Unser meistbestelltes Set — Uramaki, Nigiri und Hosomaki in einer perfekten Portion.',
@@ -613,16 +639,28 @@ export const ITEM_I18N = {
     it: 'Il nostro set più ordinato — uramaki, nigiri e hosomaki in porzione perfetta.',
     en: 'Our most-ordered set — uramaki, nigiri and hosomaki in one perfect portion.',
   },
-  'set-hana': {
-    de: 'Kein roher Fisch — ideal für Einsteiger oder alle, die es lieber durchgegart mögen.',
-    fr: 'Sans poisson cru — idéal pour les débutants ou ceux qui préfèrent tout cuit.',
-    it: 'Senza pesce crudo — ideale per i principianti o chi preferisce tutto cotto.',
-    en: 'No raw fish — ideal for newcomers or anyone who prefers everything cooked.',
+  'set-sho': {
+    de: 'Das Premium-Set — Rainbow Rolls, Maki und Nigiri. Das Beeindruckendste auf der Karte.',
+    fr: 'Le set premium — rainbow rolls, maki et nigiri. Le plus impressionnant de la carte.',
+    it: 'Il set premium — rainbow roll, maki e nigiri. Il più impressionante del menu.',
+    en: 'The premium set — rainbow rolls, maki and nigiri. The most impressive on the menu.',
   },
   'set-party': {
     de: 'Für Gruppen und Events — gemischte Teller mit Uramaki, Hosomaki, Nigiri und Sashimi.',
     fr: 'Pour groupes et événements — plateaux mélangés avec uramaki, hosomaki, nigiri et sashimi.',
     it: 'Per gruppi ed eventi — vassoi misti con uramaki, hosomaki, nigiri e sashimi.',
     en: 'For groups and events — mixed platters with uramaki, hosomaki, nigiri and sashimi.',
+  },
+  'start-gun': {
+    de: 'Scharf, frisch, expressiv — der beste Einstieg in ein Hiraya-Menü.',
+    fr: 'Piquant, frais, expressif — la meilleure entrée dans un repas Hiraya.',
+    it: 'Piccante, fresco, espressivo — il miglior inizio per un pasto Hiraya.',
+    en: 'Spicy, fresh, expressive — the best way to start a Hiraya meal.',
+  },
+  'start-sas': {
+    de: 'Frischer Fisch, dünn aufgeschnitten. Einfach, rein, ohne Schnörkel.',
+    fr: 'Poisson frais tranché finement. Simple, pur, sans fioritures.',
+    it: 'Pesce fresco tagliato sottile. Semplice, puro, senza fronzoli.',
+    en: 'Fresh fish, thinly sliced. Simple, pure, no frills.',
   },
 };
