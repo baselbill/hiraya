@@ -34,47 +34,47 @@ const useReveal = (threshold = 0.15) => {
 const MENU = {
   starters: {
     items: [
-      { id: 'start-edm', name: 'Edamame',       ingredients: 'gedämpfte Sojabohnen · Meersalz',                                          price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G' },
-      { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Brühe · Tofu · Wakame',                                               price: 6,  kind: 'side', tags: ['veg'],  cooking: 'G' },
-      { id: 'start-gun', name: 'Gunkan',        ingredients: 'Lachs scharf · Thun scharf · roter Kaviar · Wakame · Surimi',               price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true },
-      { id: 'start-tem', name: 'Temaki',        ingredients: 'Handrollen · Lachs · Thun · Surimi oder Gemüse',                           price: 10, kind: 'side', tags: [], cooking: 'R' },
-      { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'angebratener Fisch · Ponzu-Dressing',                                      price: 16, kind: 'side', tags: [], cooking: 'G' },
-      { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'frischer Fisch, in Scheiben · Wasabi · Ingwer',                            price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true },
+      { id: 'start-edm', name: 'Edamame',       ingredients: 'Gedämpfte Sojabohnen · Meersalz',                                                              price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G' },
+      { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Paste · Tofu · Wakame · Frühlingszwiebeln',                                               price: 6,  kind: 'side', tags: ['veg'],  cooking: 'G' },
+      { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true },
+      { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 10, kind: 'side', tags: [], cooking: 'R' },
+      { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen',                                      price: 16, kind: 'side', tags: [], cooking: 'F' },
+      { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen',                         price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true },
     ],
   },
   rolls: {
     items: [
       { id: 'roll-dyn',  name: 'Dynamite Roll',        ingredients: 'Lachs · Mango · Surimi · Kaviar · Zwiebeln · Sauce',                                   price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true, img: '/hiraya/menu/roll-dyn.png', cooking: 'R' },
       { id: 'roll-spl',  name: 'Spicy Lachs',          ingredients: 'Lachs · Zwiebeln · Gurke',                                                             price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-spl.png', cooking: 'R' },
-      { id: 'roll-spt',  name: 'Spicy Tuna',           ingredients: 'Thun · Zwiebeln · Gurke',                                                              price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-spt.png', cooking: 'R' },
-      { id: 'roll-tmp',  name: 'Tempura Roll',         ingredients: 'Crevetten Tempura · Avocado · Sesam · Zwiebeln · Mayo · Sauce',                         price:  9.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-tmp.png', cooking: 'G' },
-      { id: 'roll-cat',  name: 'Caterpillar Roll',     ingredients: 'Crevetten Tempura · Gurke · Avocado · Sesam · Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-cat.png', cooking: 'G' },
-      { id: 'roll-tbl',  name: 'Tuna Blast',           ingredients: 'Thun · Gurke · Avocado · Mango · Scharfe Sauce',                                       price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-tbl.png', cooking: 'R' },
-      { id: 'roll-swi',  name: 'Swish Roll',           ingredients: 'Flambierter Lachs · Avocado · Mango · Surimi · Jalapeño · Sesam · Sauce',              price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-swi.png', cooking: 'F' },
-      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotten · Pistazie · Kiwi · Gurke · Sauce',                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-kru.png', cooking: 'G' },
-      { id: 'roll-vip',  name: 'Patron Roll',          ingredients: 'Jakobsmuscheln · Karotten · Avocado · Gurke · Sauce',                                  price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-vip.png', cooking: 'R' },
+      { id: 'roll-spt',  name: 'Spicy Thun',           ingredients: 'Thunfisch · Zwiebeln · Gurke',                                                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-spt.png', cooking: 'R' },
+      { id: 'roll-tmp',  name: 'Tempura Roll',         ingredients: 'Crevetten-Tempura · Avocado · Sesam · Zwiebeln · Mayo · Sauce',                        price:  9.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-tmp.png', cooking: 'G' },
+      { id: 'roll-cat',  name: 'Caterpillar Roll',     ingredients: 'Crevetten-Tempura · Gurke · Avocado · Sesam · Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/hiraya/menu/roll-cat.png', cooking: 'G' },
+      { id: 'roll-tbl',  name: 'Tuna Blast',           ingredients: 'Thunfisch · Gurke · Avocado · Mango · Scharfe Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-tbl.png', cooking: 'R' },
+      { id: 'roll-swi',  name: 'Swish Roll',           ingredients: 'Flambierter Lachs · Avocado · Mango · Surimi · Jalapeño · Sesam · Sauce',             price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/hiraya/menu/roll-swi.png', cooking: 'F' },
+      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce',                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-kru.png', cooking: 'G' },
+      { id: 'roll-vip',  name: 'Patron Roll',          ingredients: 'Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce',                                   price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/hiraya/menu/roll-vip.png', cooking: 'R' },
       { id: 'roll-mix',  name: 'Hausmix Roll',         ingredients: 'Lachs · Thun · Mango · Avocado · Sesam · Sauce',                                       price: 10.00, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'R' },
       { id: 'roll-una',  name: 'Unagi Rainbow Roll',   ingredients: 'Aal · Avocado · Gurke · Surimi · Sesam · Sauce',                                       price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'G' },
-      { id: 'roll-vfm',  name: 'Veggie Fotomaki',      ingredients: 'Avocado · Gurke · Mango · Radieschen · Apfel · Kampyo',                                price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               cooking: 'G' },
+      { id: 'roll-vfm',  name: 'Veggie Fotomaki',      ingredients: 'Avocado · Gurke · Mango · Rettich · Apfel · Kampyo',                                   price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               cooking: 'G' },
     ],
   },
   sets: {
     items: [
-      { id: 'set-mix2',  name: 'Mix Sushi 2',             ingredients: '14 Stück · 4 Uramaki · 4 Nigiri (2 Lachs, Crevetten, Thun) · 6 Hosomaki (Lachs, Avocado)', price: 24, kind: 'set', tags: [], teaser: true, img: '/hiraya/menu/set-mix2.png', cooking: 'R' },
-      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',      price: 32, kind: 'set', tags: [],                                                    cooking: 'R' },
-      { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 Stück · 4 Veggi Rolls · 4 Vegi Maki · 3 Vegi Nigiri · Avocado · Mango · Gurke · Inari', price: 20, kind: 'set', tags: ['veg'],                         img: '/hiraya/menu/set-vegi.png', cooking: 'G' },
-      { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 Stück · 6 Avocado Maki · 6 Mango Maki · 6 Gurken Maki · 6 eingelegte Rettich Maki',    price: 25, kind: 'set', tags: ['vegan'],                       img: '/hiraya/menu/set-vhoso.png', cooking: 'G' },
-      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: "Uramaki · Hosomaki · Nigiri · Sashimi oder Gunkan — Chefs Auswahl",                         price: 105, priceFrom: true, kind: 'set', tags: [],            img: '/hiraya/menu/set-party.png', cooking: 'R' },
+      { id: 'set-mix2',  name: 'Mix Sushi 2',             ingredients: '14 Stück · 4 Uramaki · 4 Nigiri (2× Lachs, Ebi, Thun) · 6 Hosomaki (Lachs, Avo) — unser meistbestelltes Set', price: 24, kind: 'set', tags: [], teaser: true, img: '/hiraya/menu/set-mix2.png', cooking: 'R' },
+      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',                         price: 32, kind: 'set', tags: [],                                                    cooking: 'R' },
+      { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 Stück · 4 Veggi Roll · 4 Vegi Maki · 3 Vegi Nigiri · Avo, Mango, Gurke, Inari',                            price: 20, kind: 'set', tags: ['veg'],                         img: '/hiraya/menu/set-vegi.png', cooking: 'G' },
+      { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 Stück · 6× Avocado · 6× Mango · 6× Gurke · 6× Eingelegter Rettich',                                       price: 25, kind: 'set', tags: ['vegan'],                       img: '/hiraya/menu/set-vhoso.png', cooking: 'G' },
+      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Gerwins Auswahl · 3 Variationen', price: 105, priceFrom: true, kind: 'set', tags: [], img: '/hiraya/menu/set-party.png', cooking: 'R' },
     ],
   },
   poke: {
     items: [
-      { id: 'poke-sal',  name: 'Lachs Poke Bowl',      ingredients: 'Lachs · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',              price: 20.00, kind: 'bowl',  tags: ['bestseller'], teaser: true, img: '/hiraya/menu/poke-sal.png', cooking: 'R' },
-      { id: 'poke-tu',   name: 'Thun Poke Bowl',       ingredients: 'Thun · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',               price: 20.50, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-tu.png',  cooking: 'R' },
-      { id: 'poke-shr',  name: 'Crevetten Poke Bowl',  ingredients: 'Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',          price: 20.00, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-shr.png', cooking: 'G' },
-      { id: 'poke-veg',  name: 'Veggie Poke Bowl',     ingredients: 'Avocado · Mango · Gurke · Edamame · Wakame Salat · Takuan · Tamago',            price: 20.00, kind: 'bowl',  tags: ['veg'],                         img: '/hiraya/menu/poke-veg.png', cooking: 'G' },
-      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · flambierter Lachs · Marktsalat · 4 Nigiri · Wakame Salat · Sauce', price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F' },
-      { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · flambierter Thun · 4 Nigiri · Marktsalat · Wakame Salat · Sauce',  price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F' },
+      { id: 'poke-sal',  name: 'Lachs Poke Bowl',      ingredients: 'Lachs · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',                price: 20.00, kind: 'bowl',  tags: ['bestseller'], teaser: true, img: '/hiraya/menu/poke-sal.png', cooking: 'R' },
+      { id: 'poke-tu',   name: 'Thun Poke Bowl',       ingredients: 'Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.50, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-tu.png',  cooking: 'R' },
+      { id: 'poke-shr',  name: 'Crevetten Poke Bowl',  ingredients: 'Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.00, kind: 'bowl',  tags: [],                              img: '/hiraya/menu/poke-shr.png', cooking: 'G' },
+      { id: 'poke-veg',  name: 'Veggie Poke Bowl',     ingredients: 'Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago',               price: 20.00, kind: 'bowl',  tags: ['veg'],                         img: '/hiraya/menu/poke-veg.png', cooking: 'G' },
+      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F' },
+      { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce', price: 20.00, kind: 'bento', tags: [],                                                      cooking: 'F' },
     ],
   },
 };
@@ -719,6 +719,31 @@ const Menu = ({ lang }) => {
               {t(lang, 'menu.browseInst')}
             </div>
           )}
+        </div>
+
+        {/* Cooking + tag legend */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 20, alignItems: 'center' }}>
+          <span className="mono" style={{ color: 'var(--ink-mute)', fontSize: 9, letterSpacing: '0.1em', marginRight: 4 }}>
+            {t(lang, 'menu.legend.label')}:
+          </span>
+          {[
+            { key: 'R', label: t(lang, 'cooking.R'), color: 'var(--clay)',  bg: 'rgba(194,73,42,0.1)' },
+            { key: 'G', label: t(lang, 'cooking.G'), color: 'var(--moss)',  bg: 'rgba(74,114,70,0.1)' },
+            { key: 'F', label: t(lang, 'cooking.F'), color: '#b38a00',      bg: 'rgba(217,148,37,0.15)' },
+          ].map(({ key, label, color, bg }) => (
+            <span key={key} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              background: bg, color, padding: '2px 9px', borderRadius: 999,
+              fontFamily: 'var(--f-mono)', fontSize: 9, letterSpacing: '0.1em', fontWeight: 600,
+            }}>
+              {key} — {label}
+            </span>
+          ))}
+          <span style={{ color: 'rgba(26,20,16,0.2)', fontFamily: 'var(--f-mono)', fontSize: 9 }}>·</span>
+          <TagChip tag="veg"        lang={lang} small />
+          <TagChip tag="vegan"      lang={lang} small />
+          <TagChip tag="spicy"      lang={lang} small />
+          <TagChip tag="bestseller" lang={lang} small />
         </div>
       </div>
 

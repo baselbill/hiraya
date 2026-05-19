@@ -154,10 +154,12 @@ export const T = {
     'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
     'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
 
-    'tag.bestseller': 'Bestseller',
+    'tag.bestseller': 'Gerwins Empfehlung',
     'tag.spicy':      'scharf',
     'tag.veg':        'vegetarisch',
     'tag.vegan':      'vegan',
+
+    'menu.legend.label': 'LEGENDE',
   },
 
   fr: {
@@ -278,10 +280,12 @@ export const T = {
     'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
     'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
 
-    'tag.bestseller': 'Favori',
+    'tag.bestseller': 'Choix de Gerwin',
     'tag.spicy':      'piquant',
     'tag.veg':        'végétarien',
     'tag.vegan':      'végétalien',
+
+    'menu.legend.label': 'LÉGENDE',
   },
 
   it: {
@@ -402,10 +406,12 @@ export const T = {
     'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
     'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
 
-    'tag.bestseller': 'preferito',
+    'tag.bestseller': 'Scelta di Gerwin',
     'tag.spicy':      'piccante',
     'tag.veg':        'vegetariano',
     'tag.vegan':      'vegano',
+
+    'menu.legend.label': 'LEGENDA',
   },
 
   en: {
@@ -526,10 +532,12 @@ export const T = {
     'footer.copy':       '© 2026 Hiraya · chef Gerwin · Binningen',
     'footer.thanksAll':  'Salamat · Danke · Merci · Grazie · Thank you · ありがとう',
 
-    'tag.bestseller': 'bestseller',
+    'tag.bestseller': "Gerwin's Pick",
     'tag.spicy':      'spicy',
     'tag.veg':        'vegetarian',
     'tag.vegan':      'vegan',
+
+    'menu.legend.label': 'LEGEND',
   },
 };
 
@@ -537,61 +545,61 @@ export const MENU_I18N = {
   starters: {
     label: { de: 'Vorspeisen & Specials', fr: 'Entrées & Spécialités', it: 'Antipasti & Speciali', en: 'Starters & Specials' },
     sub: {
-      de: 'CHF 6–16 · zum Teilen · zum Anfang',
-      fr: 'CHF 6–16 · à partager · pour commencer',
-      it: 'CHF 6–16 · da condividere · per iniziare',
-      en: 'CHF 6–16 · to share · to start',
+      de: 'Zum Anfang oder zwischendurch · Gerwins Hausspecials',
+      fr: 'Pour commencer ou entre deux · les spécialités de Gerwin',
+      it: 'Per iniziare o nel mezzo · le specialità di Gerwin',
+      en: 'To start or in between · Gerwin\'s house specials',
     },
     intro: {
-      de: 'Klassische Vorspeisen und Spezialitäten — ideal zum Teilen oder als Einstieg vor den Hiraya Rolls.',
-      fr: "Entrées classiques et spécialités — idéal à partager ou en mise en bouche avant les rouleaux Hiraya.",
-      it: 'Antipasti classici e specialità — ideali da condividere o come apertura prima dei rotoli Hiraya.',
-      en: 'Classic starters and specialities — ideal for sharing or as an opener before the Hiraya Rolls.',
+      de: 'Unsere Vorspeisen öffnen den Abend. Die Specials — Sashimi, Tataki, Gunkan — sind Gerwins handwerkliche Signaturen: für alle, die mehr als eine Rolle wollen.',
+      fr: 'Nos entrées ouvrent la soirée. Les spécialités — Sashimi, Tataki, Gunkan — sont les signatures artisanales de Gerwin : pour ceux qui veulent plus qu\'un rouleau.',
+      it: 'I nostri antipasti aprono la serata. Le specialità — Sashimi, Tataki, Gunkan — sono le firme artigianali di Gerwin: per chi vuole più di un rotolo.',
+      en: 'Our starters open the evening. The specials — Sashimi, Tataki, Gunkan — are Gerwin\'s craft signatures: for anyone who wants more than just a roll.',
     },
   },
   rolls: {
     label: { de: 'Hiraya Rolls', fr: 'Hiraya Rolls', it: 'Hiraya Rolls', en: 'Hiraya Rolls' },
     sub: {
-      de: '8 Stücke · handgerollt von Gerwin · täglich frisch',
-      fr: '8 pièces · roulés à la main par Gerwin · frais chaque jour',
-      it: '8 pezzi · arrotolati a mano da Gerwin · freschi ogni giorno',
-      en: '8 pcs · hand-rolled by Gerwin · fresh daily',
+      de: 'Handgerollt · philippinisch-japanisch · nirgendwo sonst in der Region',
+      fr: 'Roulés à la main · philippino-japonais · introuvable ailleurs dans la région',
+      it: 'Arrotolati a mano · filippino-giapponese · unici nella regione',
+      en: 'Hand-rolled · Filipino-Japanese · found nowhere else in the region',
     },
     intro: {
-      de: 'Die Flaggschiff-Kategorie. Jede Rolle ist ein Grund, sich für Hiraya zu entscheiden — filipinische Aromen, japanische Technik, von Gerwin handgerollt.',
-      fr: "La catégorie phare. Chaque rouleau est une raison de choisir Hiraya — saveurs philippines, technique japonaise, roulés à la main par Gerwin.",
-      it: 'La categoria di punta. Ogni rotolo è un motivo per scegliere Hiraya — sapori filippini, tecnica giapponese, arrotolati a mano da Gerwin.',
-      en: 'The flagship category. Every roll is a reason to choose Hiraya — Filipino flavours, Japanese technique, hand-rolled by Gerwin.',
+      de: 'Jede Rolle wird von Hand gerollt und nach Gerwins Rezeptur entwickelt — eine Verbindung aus japanischer Präzision und philippinischen Aromen, die Sie nirgendwo sonst in der Region finden.',
+      fr: 'Chaque rouleau est roulé à la main et développé selon la recette de Gerwin — une association de précision japonaise et de saveurs philippines que vous ne trouverez nulle part ailleurs dans la région.',
+      it: 'Ogni rotolo è arrotolato a mano e sviluppato secondo la ricetta di Gerwin — una combinazione di precisione giapponese e sapori filippini che non troverete da nessuna altra parte nella regione.',
+      en: 'Every roll is hand-rolled and developed to Gerwin\'s recipe — a combination of Japanese precision and Filipino flavours you won\'t find anywhere else in the region.',
     },
   },
   sets: {
     label: { de: 'Sushi Sets', fr: 'Sets Sushi', it: 'Set Sushi', en: 'Sushi Sets' },
     sub: {
-      de: 'Ab CHF 20 · 11–24 Stück · Party-Platten auf Anfrage',
-      fr: 'Dès CHF 20 · 11–24 pièces · plateaux festifs sur demande',
-      it: 'Da CHF 20 · 11–24 pezzi · vassoi party su richiesta',
-      en: 'From CHF 20 · 11–24 pieces · party platters on request',
+      de: 'Gerwins Auswahl · keine Entscheidungen, nur Genuss',
+      fr: 'La sélection de Gerwin · pas de décisions, juste du plaisir',
+      it: 'La scelta di Gerwin · nessuna decisione, solo piacere',
+      en: 'Gerwin\'s selection · no decisions, just enjoyment',
     },
     intro: {
-      de: 'Fünf klare Entscheidungen — Einstieg, Premium, vegetarisch, vegan und Grossformat. Jedes Set ein vollständiges Erlebnis.',
-      fr: "Cinq choix clairs — entrée de gamme, premium, végétarien, vegan et grand format. Chaque set est une expérience complète.",
-      it: 'Cinque scelte chiare — entry level, premium, vegetariano, vegano e grande formato. Ogni set è un\'esperienza completa.',
-      en: 'Five clear decisions — entry, premium, vegetarian, vegan and large format. Each set is a complete experience.',
+      de: 'Jedes Set ist so zusammengestellt, dass es für sich alleine steht. Vom leichten Einstieg bis zum Festteller — und auf Wunsch für die ganze Gruppe.',
+      fr: 'Chaque set est composé pour se suffire à lui-même. De l\'entrée légère au plateau festif — et sur demande pour tout le groupe.',
+      it: 'Ogni set è composto per stare da solo. Dall\'entrata leggera al piatto della festa — e su richiesta per tutto il gruppo.',
+      en: 'Each set is put together to stand on its own. From the light entry to the celebration plate — and on request for the whole group.',
     },
   },
   poke: {
     label: { de: 'Poke & Bento', fr: 'Poké & Bento', it: 'Poke & Bento', en: 'Poke & Bento' },
     sub: {
-      de: 'Bowls & Bento-Boxen · täglich frisch',
-      fr: 'Bowls & boîtes bento · frais chaque jour',
-      it: 'Bowl e bento box · freschi ogni giorno',
-      en: 'Bowls & bento boxes · fresh daily',
+      de: 'Philippinisch inspiriert · nach Bestellung zubereitet',
+      fr: 'D\'inspiration philippine · préparé sur commande',
+      it: 'Ispirazione filippina · preparato su ordinazione',
+      en: 'Filipino-inspired · prepared to order',
     },
     intro: {
-      de: 'Poke Bowls auf Sushi-Reis mit Mango, Avocado und Poke-Sauce. Bento-Boxen mit flambiertem Fisch, Nigiri und Marktsalat.',
-      fr: "Poke bowls sur riz sushi avec mangue, avocat et sauce poké. Boîtes bento avec poisson flambé, nigiri et salade du marché.",
-      it: 'Poke bowl su riso sushi con mango, avocado e salsa poke. Bento box con pesce flambé, nigiri e insalata di mercato.',
-      en: 'Poke bowls on sushi rice with mango, avocado and poke sauce. Bento boxes with flambéed fish, nigiri and market salad.',
+      de: 'Poke Bowls auf Sushi-Reis mit Mango, Avocado und hausgemachter Poke-Sauce. Bento-Boxen mit flambiertem Fisch, Nigiri und Marktsalat — unser Mittagsformat.',
+      fr: 'Poke bowls sur riz sushi avec mangue, avocat et sauce poké maison. Bento boxes avec poisson flambé, nigiri et salade du marché — notre format déjeuner.',
+      it: 'Poke bowl su riso sushi con mango, avocado e salsa poke fatta in casa. Bento box con pesce flambé, nigiri e insalata di mercato — il nostro formato pranzo.',
+      en: 'Poke bowls on sushi rice with mango, avocado and house-made poke sauce. Bento boxes with flambéed fish, nigiri and market salad — our lunch format.',
     },
   },
 };
@@ -632,6 +640,18 @@ export const ITEM_I18N = {
     fr: 'Saumon et thon, mangue et avocat — la combinaison Hiraya dans un rouleau.',
     it: 'Salmone e tonno, mango e avocado — la combinazione Hiraya in un rotolo.',
     en: 'Salmon and tuna, mango and avocado — the Hiraya combination in one roll.',
+  },
+  'roll-tmp': {
+    de: 'Vollständig gegart — kein roher Fisch. Knusprige Crevetten-Tempura: der sichere Einstieg für alle, die Sushi entdecken.',
+    fr: "Entièrement cuit — pas de poisson cru. Tempura de crevettes croustillant : l'entrée idéale pour découvrir nos rouleaux.",
+    it: 'Completamente cotto — nessun pesce crudo. Tempura di gamberi croccante: l\'ingresso ideale per scoprire i nostri rotoli.',
+    en: 'Fully cooked — no raw fish. Crispy shrimp tempura: the ideal entry point for anyone new to sushi.',
+  },
+  'roll-cat': {
+    de: 'Vollständig gegart — kein roher Fisch. Crevetten-Tempura, Avocado, Gurke — der sanfteste Einstieg auf der Karte.',
+    fr: "Entièrement cuit — pas de poisson cru. Tempura de crevettes, avocat, concombre — l'entrée la plus douce de la carte.",
+    it: 'Completamente cotto — nessun pesce crudo. Tempura di gamberi, avocado, cetriolo — l\'ingresso più delicato del menu.',
+    en: 'Fully cooked — no raw fish. Shrimp tempura, avocado, cucumber — the gentlest entry on the menu.',
   },
   'set-mix2': {
     de: 'Unser meistbestelltes Set — Uramaki, Nigiri und Hosomaki in einer perfekten Portion.',
