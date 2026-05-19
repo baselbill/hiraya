@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --clay:      #c8692a;
+    --clay-deep: #a04e18;
+    --ink:       #1a1410;
+    --ink-mute:  #6a5a4a;
+    --paper:     #faf8f4;
+    --paper-soft:#f0ece6;
+    --bone:      #e8e0d4;
+    --moss:      #4a6a4a;
+    --linen:     #fdf9f4;
+  }
+
+  body { font-family: Georgia, serif; background: var(--paper); color: var(--ink); font-size: 11px; line-height: 1.6; }
+
+  /* ── COVER ─────────────────────────────────────── */
+  .cover {
+    width: 100%; height: 100vh;
+    background: var(--ink);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 64px;
+    page-break-after: always;
+  }
+  .cover-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--clay); margin-bottom: 20px;
+  }
+  .cover h1 { font-size: 52px; font-weight: normal; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 6px; }
+  .cover-sub { font-size: 18px; color: #a09080; font-style: italic; margin-bottom: 48px; }
+  .cover-desc { font-size: 12px; color: #7a6a5a; max-width: 440px; line-height: 1.8; margin-bottom: 56px; }
+  .cover-rule { width: 100%; border-top: 1px solid #3a2e28; padding-top: 28px; }
+  .cover-pills { display: flex; gap: 40px; justify-content: center; }
+  .cover-pill { text-align: center; }
+  .cover-pill-num { font-size: 30px; color: var(--clay); display: block; margin-bottom: 4px; }
+  .cover-pill-lbl { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: #6a5a4a; }
+
+  /* ── PAGES ──────────────────────────────────────── */
+  .page { padding: 44px 52px; page-break-after: always; }
+  .page:last-child { page-break-after: avoid; }
+
+  .page-header { border-bottom: 2px solid var(--ink); padding-bottom: 10px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: baseline; }
+  .page-header h2 { font-size: 22px; font-weight: normal; }
+  .page-num { font-family: 'Courier New', monospace; font-size: 9px; color: var(--ink-mute); letter-spacing: 0.1em; }
+
+  /* ── STRATEGY CARDS ─────────────────────────────── */
+  .lever { border-left: 3px solid var(--clay); padding: 14px 18px; margin-bottom: 14px; background: var(--paper-soft); border-radius: 0 6px 6px 0; }
+  .lever-num { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 5px; }
+  .lever h4 { font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+  .lever p { font-size: 10px; color: var(--ink-mute); line-height: 1.65; }
+  .lever .change { font-family: 'Courier New', monospace; font-size: 9px; background: var(--ink); color: var(--paper); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-top: 7px; }
+
+  /* ── ACTION TABLE ───────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 10px; }
+  th { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; text-align: left; padding: 7px 10px; background: var(--ink); color: var(--paper); }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--bone); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .effort-low  { color: var(--moss);      font-weight: bold; }
+  .effort-med  { color: var(--clay);      font-weight: bold; }
+  .effort-high { color: var(--clay-deep); font-weight: bold; }
+
+  /* ── MENU DRAFT PAGES ───────────────────────────── */
+
+  /* Section banner */
+  .menu-section { page-break-inside: avoid; margin-bottom: 32px; }
+  .section-banner {
+    background: var(--ink); color: var(--paper);
+    padding: 14px 20px; border-radius: 8px 8px 0 0;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .section-banner-left h3 { font-size: 17px; font-weight: normal; letter-spacing: -0.01em; }
+  .section-banner-left .section-sub {
+    font-family: 'Courier New', monospace; font-size: 8px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #a09080; margin-top: 3px;
+  }
+  .section-banner-right { font-size: 10px; color: #7a6a5a; text-align: right; font-style: italic; max-width: 200px; line-height: 1.5; }
+
+  .section-intro {
+    background: var(--paper-soft); padding: 10px 20px;
+    border-left: 1px solid var(--bone); border-right: 1px solid var(--bone);
+    font-style: italic; font-size: 10px; color: var(--ink-mute); line-height: 1.6;
+  }
+
+  .section-items {
+    border: 1px solid var(--bone); border-top: none;
+    border-radius: 0 0 8px 8px; overflow: hidden;
+  }
+
+  /* Menu item row */
+  .menu-item {
+    display: flex; align-items: baseline;
+    padding: 9px 20px; border-bottom: 1px solid var(--bone);
+    gap: 10px;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item:nth-child(even) { background: var(--linen); }
+
+  .item-star-mark { color: var(--clay); font-size: 12px; flex-shrink: 0; width: 14px; }
+
+  .item-body { flex: 1; }
+  .item-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
+  .item-name { font-size: 12px; }
+  .item-desc { font-size: 9px; color: var(--ink-mute); line-height: 1.5; }
+
+  .item-badges { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+
+  .badge {
+    font-family: 'Courier New', monospace; font-size: 7.5px;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge-raw    { background: #f4e8d4; color: #8a4a10; border: 1px solid #e8d0b0; }
+  .badge-cooked { background: #d4e4d4; color: #2a5a2a; border: 1px solid #b0d0b0; }
+  .badge-flame  { background: #f4d4c4; color: #8a2000; border: 1px solid #e8b8a0; }
+  .badge-vegan  { background: #d4e4d4; color: #2a5a2a; }
+  .badge-veg    { background: #d4e4d4; color: #2a5a2a; }
+  .badge-spicy  { background: #f4d4c8; color: #8a2010; }
+  .badge-noraw  { background: var(--ink); color: var(--paper); }
+  .badge-new    { background: var(--clay); color: var(--paper); }
+
+  .item-price-block { text-align: right; flex-shrink: 0; }
+  .item-price { font-family: 'Courier New', monospace; font-size: 11px; color: var(--ink); }
+  .item-price-from { font-size: 8px; color: var(--ink-mute); }
+
+  /* ── LEGEND ─────────────────────────────────────── */
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; padding: 12px 16px; background: var(--paper-soft); border-radius: 6px; align-items: center; }
+  .legend-label { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin-right: 6px; }
+
+  /* ── SUMMARY ────────────────────────────────────── */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .stat-card { background: var(--paper-soft); border-radius: 8px; padding: 18px; text-align: center; }
+  .stat-card.dark { background: var(--ink); }
+  .stat-num { font-size: 32px; color: var(--clay); line-height: 1; margin-bottom: 5px; }
+  .stat-lbl { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
+  .stat-card.dark .stat-lbl { color: #6a5a4a; }
+
+  .insight {
+    background: var(--ink); color: var(--paper);
+    border-radius: 8px; padding: 20px 24px; margin-top: 20px;
+  }
+  .insight h4 { font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 8px; }
+  .insight p { font-size: 11px; color: #b0a090; line-height: 1.7; }
+
+  .footnote { font-family: 'Courier New', monospace; font-size: 8px; color: #b0a090; text-align: right; margin-top: 24px; letter-spacing: 0.06em; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .impl-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--bone); align-items: baseline; font-size: 10px; }
+  .impl-item:last-child { border-bottom: none; }
+  .impl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .dot-low  { background: var(--moss); }
+  .dot-med  { background: var(--clay); }
+  .dot-high { background: var(--ink); }
+  .impl-text { flex: 1; }
+  .impl-effort { font-family: 'Courier New', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  hr.rule { border: none; border-top: 1px solid var(--bone); margin: 20px 0; }
+
+  .new-name-note {
+    font-family: 'Courier New', monospace; font-size: 8px;
+    color: var(--clay); border: 1px solid var(--clay);
+    padding: 1px 5px; border-radius: 3px; white-space: nowrap;
+  }
+
+  .section-order-list { counter-reset: sec; }
+  .section-order-item {
+    counter-increment: sec;
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 0; border-bottom: 1px solid var(--bone); font-size: 11px;
+  }
+  .section-order-item::before {
+    content: counter(sec);
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--clay); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Courier New', monospace; font-size: 10px; flex-shrink: 0;
+  }
+  .section-order-item:last-child { border-bottom: none; }
+  .sec-name { font-size: 12px; }
+  .sec-why { font-size: 9px; color: var(--ink-mute); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ══════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-eyebrow">Marketing Consultation · 2026-05-18</div>
+  <h1>Hiraya</h1>
+  <div class="cover-sub">Menu Marketing Strategy &amp; Curated Draft</div>
+  <div class="cover-desc">
+    How to make Hiraya's menu more attractive and distinctive for a conservative Swiss clientele — without losing the brand's Filipino-Japanese identity.
+  </div>
+  <div class="cover-rule">
+    <div class="cover-pills">
+      <div class="cover-pill"><span class="cover-pill-num">5</span><span class="cover-pill-lbl">Marketing levers</span></div>
+      <div class="cover-pill"><span class="cover-pill-num">29</span><span class="cover-pill-lbl">Curated items</span></div>
+      <div class="cover-pill"><span class="cover-pill-num">4</span><span class="cover-pill-lbl">Sections reordered</span></div>
+      <div class="cover-pill"><span class="cover-pill-num">8</span><span class="cover-pill-lbl">Actions to implement</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2 — STRATEGY ══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>The Swiss Clientele Challenge</h2>
+    <span class="page-num">Strategy · 01</span>
+  </div>
+
+  <p style="font-size:11px; color:var(--ink-mute); line-height:1.8; margin-bottom:24px; max-width:580px;">
+    The Swiss consumer's primary purchase decision is built on <strong style="color:var(--ink);">trust</strong>. Hiraya's brand is built on surprise. Managing the gap between these two is the entire marketing job. The menu must speak trust first — then earn permission to be surprising.
+  </p>
+
+  <div class="lever">
+    <div class="lever-num">Lever 01</div>
+    <h4>Retire the word "Fusion" — own the brand name</h4>
+    <p>"Fusion" signals trendy concept to Swiss diners, activating skepticism rather than appetite. Swiss consumers eat at places that feel established, not experimental. Naming the category after the restaurant itself signals ownership, craft and permanence.</p>
+    <span class="change">"Fusion Rolls" → "Hiraya Rolls"</span>
+  </div>
+
+  <div class="lever">
+    <div class="lever-num">Lever 02</div>
+    <h4>Turn the raw fish problem into a selling point</h4>
+    <p>A significant portion of conservative Swiss diners are curious about sushi but held back by raw fish. Currently this audience is invisible in the menu. Add a discreet cooking indicator to every item (R = roh, G = gegart, F = flambiert) and give the cooked-only option a proper story rather than hiding it in small print.</p>
+    <span class="change">Add R · G · F indicators to all items</span>
+  </div>
+
+  <div class="lever">
+    <div class="lever-num">Lever 03</div>
+    <h4>Speak German — consistently</h4>
+    <p>The menu currently mixes English names, German descriptions, and Japanese terms without a clear logic. Swiss trust is partly linguistic: "Lachs" reads as craftsmanship; "Salmon" reads as imported marketing copy. Japanese sushi terms (Nigiri, Hosomaki, Temaki) are fine — they're trusted vocabulary. Everything else should be German-first.</p>
+    <span class="change">"Salmon" → "Lachs" · "Shrimp" → "Crevetten" · "Tuna" → "Thun"</span>
+  </div>
+
+  <div class="lever">
+    <div class="lever-num">Lever 04</div>
+    <h4>Tell one story per section — not a list</h4>
+    <p>Swiss consumers trust expertise and curation. Each section should carry a short, confident intro that explains the philosophy — not just the contents. One or two sentences. Authoritative voice. First person ("unsere", "Gerwins Auswahl") rather than impersonal.</p>
+    <span class="change">New intro copy for all 4 sections</span>
+  </div>
+
+  <div class="lever">
+    <div class="lever-num">Lever 05</div>
+    <h4>Reorder sections to match the Swiss decision journey</h4>
+    <p>Swiss diners scan for anchors before they explore. Starting with Starters gives the hesitant customer an easy first "yes" before committing to the full experience. The current order (Rolls first) throws them straight into the most unfamiliar territory.</p>
+    <span class="change">New order: Starters → Hiraya Rolls → Sets → Poke &amp; Bento</span>
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Strategy</div>
+</div>
+
+<!-- ═══ PAGE 3 — THE ONE INSIGHT ═══════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>The One Insight That Changes Everything</h2>
+    <span class="page-num">Strategy · 02</span>
+  </div>
+
+  <div style="font-size:14px; font-style:italic; color:var(--ink-mute); line-height:1.9; max-width:560px; margin-bottom:32px; border-left: 3px solid var(--clay); padding-left:20px;">
+    "Hiraya should not market itself as a Filipino-Japanese fusion restaurant. It should market itself as <strong style="color:var(--ink);">the sushi restaurant that Gerwin built</strong>."
+  </div>
+
+  <p style="font-size:11px; color:var(--ink-mute); line-height:1.8; margin-bottom:20px;">
+    Swiss consumers trust people over concepts. Every premium artisan brand in Switzerland — bakers, butchers, winemakers — is built around a named individual. It is the oldest marketing playbook in the country, and it works precisely because it is rare in the restaurant category.
+  </p>
+
+  <p style="font-size:11px; color:var(--ink-mute); line-height:1.8; margin-bottom:28px;">
+    "Fusion" is a concept. Gerwin is a person. Every touchpoint — the website, the menu, the social — should carry a human signature. Not "we" or "the team": Gerwin. A specific palate, a specific point of view, a specific reason to come back.
+  </p>
+
+  <hr class="rule">
+
+  <div style="margin-bottom:20px;">
+    <div style="font-family:'Courier New',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:14px;">Section order — new vs. current</div>
+    <div class="two-col">
+      <div>
+        <div style="font-family:'Courier New',monospace; font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-mute); margin-bottom:10px;">Current order</div>
+        <div style="font-size:10px; color:var(--ink-mute); line-height:2.2;">
+          1. Fusion Rolls <span style="color:#c04040;">← throws hesitant diners straight into the deep end</span><br>
+          2. Poke &amp; Bento<br>
+          3. Sets<br>
+          4. Starters &amp; Specials
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Courier New',monospace; font-size:8px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-mute); margin-bottom:10px;">Recommended order</div>
+        <div class="section-order-list">
+          <div class="section-order-item">
+            <div><div class="sec-name">Starters &amp; Specials</div><div class="sec-why">Easy first "yes" — familiar, low commitment</div></div>
+          </div>
+          <div class="section-order-item">
+            <div><div class="sec-name">Hiraya Rolls</div><div class="sec-why">Now warmed up — ready for the signature experience</div></div>
+          </div>
+          <div class="section-order-item">
+            <div><div class="sec-name">Sushi Sets</div><div class="sec-why">Decision shortcut — curated, no overwhelm</div></div>
+          </div>
+          <div class="section-order-item">
+            <div><div class="sec-name">Poke &amp; Bento</div><div class="sec-why">The adventurous option — earned by now</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Strategy</div>
+</div>
+
+<!-- ═══ PAGE 4 — CURATED MENU: STARTERS ════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>Curated Menu Draft</h2>
+    <span class="page-num">Menu · 01 of 04</span>
+  </div>
+
+  <div class="legend">
+    <span class="legend-label">Legende:</span>
+    <span class="badge badge-raw">R — Roh</span>
+    <span class="badge badge-cooked">G — Gegart</span>
+    <span class="badge badge-flame">F — Flambiert</span>
+    <span class="badge badge-vegan">VG — Vegan</span>
+    <span class="badge badge-veg">V — Vegetarisch</span>
+    <span class="badge badge-spicy">🌶 — Scharf</span>
+    <span style="color:var(--clay); font-size:12px; margin-left:4px;">★</span><span style="font-size:9px; color:var(--ink-mute); margin-left:2px;">Gerwins Empfehlung</span>
+  </div>
+
+  <div class="menu-section">
+    <div class="section-banner">
+      <div class="section-banner-left">
+        <h3>Starters &amp; Specials</h3>
+        <div class="section-sub">6 Gerichte · CHF 6–16</div>
+      </div>
+      <div class="section-banner-right">Zum Anfang oder zwischendurch — klassische Vorspeisen und Gerwins Hausspecials.</div>
+    </div>
+    <div class="section-intro">
+      Unsere Vorspeisen öffnen den Abend. Die Specials — Sashimi, Tataki, Gunkan — sind Gerwins handwerkliche Signaturen: für alle, die mehr als eine Rolle wollen.
+    </div>
+    <div class="section-items">
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Edamame</span>
+            <div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-vegan">VG</span></div>
+          </div>
+          <div class="item-desc">Gedämpfte Sojabohnen · Meersalz</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 7.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Miso Suppe</span>
+            <div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-veg">V</span></div>
+          </div>
+          <div class="item-desc">Miso-Paste · Tofu · Wakame · Frühlingszwiebeln</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 6.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark" style="color:var(--clay);">★</div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Gunkan</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-spicy">🌶</span></div>
+          </div>
+          <div class="item-desc">Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 8.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Temaki</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span></div>
+          </div>
+          <div class="item-desc">Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 10.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Fisch Tataki</span>
+            <div class="item-badges"><span class="badge badge-flame">F</span></div>
+          </div>
+          <div class="item-desc">Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 16.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Fisch Sashimi</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span></div>
+          </div>
+          <div class="item-desc">Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen</div>
+        </div>
+        <div class="item-price-block">
+          <div class="item-price-from">ab</div>
+          <div class="item-price">CHF 15.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Menu Draft</div>
+</div>
+
+<!-- ═══ PAGE 5 — CURATED MENU: HIRAYA ROLLS ════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>Curated Menu Draft</h2>
+    <span class="page-num">Menu · 02 of 04</span>
+  </div>
+
+  <div class="menu-section">
+    <div class="section-banner">
+      <div class="section-banner-left">
+        <h3>Hiraya Rolls</h3>
+        <div class="section-sub">12 Rollen · ab CHF 9.50 · 2 Grössen</div>
+      </div>
+      <div class="section-banner-right">Handgerollt. Philippinisch-japanische Kombination. Nirgendwo sonst in der Region.</div>
+    </div>
+    <div class="section-intro">
+      Jede Rolle wird von Hand gerollt und nach Gerwins Rezeptur entwickelt — eine Verbindung aus japanischer Präzision und philippinischen Aromen, die Sie nirgendwo sonst in der Region finden.
+    </div>
+    <div class="section-items">
+      <div class="menu-item">
+        <div class="item-star-mark" style="color:var(--clay);">★</div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Dynamite Roll</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-spicy">🌶</span></div>
+          </div>
+          <div class="item-desc">Lachs · Mango · Surimi · Kaviar · Zwiebeln · Sauce — Gerwins Hausrolle</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Spicy Lachs</span><div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-spicy">🌶</span></div></div>
+          <div class="item-desc">Lachs · Zwiebeln · Gurke</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Spicy Thun</span><div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-spicy">🌶</span></div></div>
+          <div class="item-desc">Thunfisch · Zwiebeln · Gurke</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Tempura Roll</span><div class="item-badges"><span class="badge badge-cooked">G</span></div></div>
+          <div class="item-desc">Crevetten-Tempura · Avocado · Sesam · Zwiebeln · Mayo · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 9.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Caterpillar Roll</span><div class="item-badges"><span class="badge badge-cooked">G</span></div></div>
+          <div class="item-desc">Crevetten-Tempura · Gurke · Avocado · Sesam · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Tuna Blast</span><div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-spicy">🌶</span></div></div>
+          <div class="item-desc">Thunfisch · Gurke · Avocado · Mango · Scharfe Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Swish Roll</span><div class="item-badges"><span class="badge badge-flame">F</span><span class="badge badge-spicy">🌶</span></div></div>
+          <div class="item-desc">Flambierter Lachs · Avocado · Mango · Surimi · Jalapeño · Sesam · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Kiwi Rainbow Uramaki</span><div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-veg">V</span></div></div>
+          <div class="item-desc">Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Patron Roll</span>
+            <span class="new-name-note">ehem. Vip Roll</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span><span class="badge badge-veg">V</span></div>
+          </div>
+          <div class="item-desc">Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 11.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row">
+            <span class="item-name">Hausmix Roll</span>
+            <span class="new-name-note">ehem. Mix Big Roll</span>
+            <div class="item-badges"><span class="badge badge-raw">R</span></div>
+          </div>
+          <div class="item-desc">Lachs · Thun · Mango · Avocado · Sesam · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Unagi Rainbow Roll</span><div class="item-badges"><span class="badge badge-cooked">G</span></div></div>
+          <div class="item-desc">Aal · Avocado · Gurke · Surimi · Sesam · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Veggie Fotomaki</span><div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-veg">V</span></div></div>
+          <div class="item-desc">Avocado · Gurke · Mango · Rettich · Apfel · Kampyo</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 10.00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Menu Draft</div>
+</div>
+
+<!-- ═══ PAGE 6 — CURATED MENU: SETS + POKE ════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>Curated Menu Draft</h2>
+    <span class="page-num">Menu · 03 &amp; 04 of 04</span>
+  </div>
+
+  <div class="menu-section">
+    <div class="section-banner">
+      <div class="section-banner-left">
+        <h3>Sushi Sets</h3>
+        <div class="section-sub">5 Sets · CHF 20–105</div>
+      </div>
+      <div class="section-banner-right">Gerwins Auswahl für einen vollständigen Abend — keine Entscheidungen, nur Genuss.</div>
+    </div>
+    <div class="section-intro">
+      Jedes Set ist so zusammengestellt, dass es für sich alleine steht. Vom leichten Einstieg bis zum Festteller — und auf Wunsch für die ganze Gruppe.
+    </div>
+    <div class="section-items">
+      <div class="menu-item">
+        <div class="item-star-mark" style="color:var(--clay);">★</div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Mix Sushi 2</span><div class="item-badges"><span class="badge badge-raw">R</span></div></div>
+          <div class="item-desc">14 Stück · 4 Uramaki · 4 Nigiri (2× Lachs, Ebi, Thun) · 6 Hosomaki (Lachs, Avo) — Unser meistbestelltes Set</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 24.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Shohuko Teller</span><div class="item-badges"><span class="badge badge-raw">R</span></div></div>
+          <div class="item-desc">18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 32.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Mix Vegi</span><div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-veg">V</span></div></div>
+          <div class="item-desc">11 Stück · 4 Veggi Roll · 4 Vegi Maki · 3 Vegi Nigiri · Avo, Mango, Gurke, Inari</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">24 Stück Veggie Hosomaki</span><div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-vegan">VG</span></div></div>
+          <div class="item-desc">24 Stück · 6× Avocado · 6× Mango · 6× Gurke · 6× Eingelegter Rettich</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 25.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Sushi Party Platter</span></div>
+          <div class="item-desc">Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Gerwins Auswahl · 3 Variationen</div>
+        </div>
+        <div class="item-price-block"><div class="item-price-from">ab</div><div class="item-price">CHF 105.00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-section" style="margin-top:24px;">
+    <div class="section-banner">
+      <div class="section-banner-left">
+        <h3>Poke &amp; Bento</h3>
+        <div class="section-sub">6 Gerichte · CHF 20–20.50</div>
+      </div>
+      <div class="section-banner-right">Philippinisch inspirierte Aromen. Frische Zutaten. Nach Bestellung zubereitet.</div>
+    </div>
+    <div class="section-intro">
+      Poke Bowls auf Sushi-Reis mit Mango, Avocado und hausgemachter Poke-Sauce. Bento-Boxen mit flambiertem Fisch, Nigiri und Marktsalat — unser Mittagsformat.
+    </div>
+    <div class="section-items">
+      <div class="menu-item">
+        <div class="item-star-mark" style="color:var(--clay);">★</div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Lachs Poke Bowl</span><div class="item-badges"><span class="badge badge-raw">R</span></div></div>
+          <div class="item-desc">Lachs · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Thun Poke Bowl</span><div class="item-badges"><span class="badge badge-raw">R</span></div></div>
+          <div class="item-desc">Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.50</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Crevetten Poke Bowl</span><div class="item-badges"><span class="badge badge-cooked">G</span></div></div>
+          <div class="item-desc">Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Veggie Poke Bowl</span><div class="item-badges"><span class="badge badge-cooked">G</span><span class="badge badge-veg">V</span></div></div>
+          <div class="item-desc">Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Lachs Bento Box</span><div class="item-badges"><span class="badge badge-flame">F</span></div></div>
+          <div class="item-desc">Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+      <div class="menu-item">
+        <div class="item-star-mark"></div>
+        <div class="item-body">
+          <div class="item-name-row"><span class="item-name">Thun Bento Box</span><div class="item-badges"><span class="badge badge-flame">F</span></div></div>
+          <div class="item-desc">Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce</div>
+        </div>
+        <div class="item-price-block"><div class="item-price">CHF 20.00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Menu Draft</div>
+</div>
+
+<!-- ═══ PAGE 7 — IMPLEMENTATION ════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <h2>Implementation Plan</h2>
+    <span class="page-num">Actions · Final</span>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card dark">
+      <div class="stat-num">29</div>
+      <div class="stat-lbl">Items on website</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4</div>
+      <div class="stat-lbl">Sections</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">Revenue impact</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8</div>
+      <div class="stat-lbl">Actions required</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div style="font-family:'Courier New',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:12px;">Quick wins — low effort</div>
+      <div class="impl-item"><div class="impl-dot dot-low"></div><div class="impl-text">Rename "Fusion Rolls" → "Hiraya Rolls" across all languages</div><div class="impl-effort effort-low">Low</div></div>
+      <div class="impl-item"><div class="impl-dot dot-low"></div><div class="impl-text">Rename "Vip Roll" → "Patron Roll" and "Mix Big Roll" → "Hausmix Roll"</div><div class="impl-effort effort-low">Low</div></div>
+      <div class="impl-item"><div class="impl-dot dot-low"></div><div class="impl-text">Add R · G · F cooking indicators to all 29 items</div><div class="impl-effort effort-low">Low</div></div>
+      <div class="impl-item"><div class="impl-dot dot-low"></div><div class="impl-text">Standardise ingredient language to German (Lachs, Thun, Crevetten)</div><div class="impl-effort effort-low">Low</div></div>
+      <div class="impl-item"><div class="impl-dot dot-low"></div><div class="impl-text">Reorder sections: Starters → Hiraya Rolls → Sets → Poke &amp; Bento</div><div class="impl-effort effort-low">Low</div></div>
+    </div>
+    <div>
+      <div style="font-family:'Courier New',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:12px;">Medium effort — higher impact</div>
+      <div class="impl-item"><div class="impl-dot dot-med"></div><div class="impl-text">Rewrite all 4 section intro texts in German (drafts in this report)</div><div class="impl-effort effort-med">Medium</div></div>
+      <div class="impl-item"><div class="impl-dot dot-med"></div><div class="impl-text">Translate new intros and item descriptions into FR · IT · EN</div><div class="impl-effort effort-med">Medium</div></div>
+      <div style="margin-top:20px; font-family:'Courier New',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:12px;">Strategic — highest ROI</div>
+      <div class="impl-item"><div class="impl-dot dot-high"></div><div class="impl-text">Position Gerwin as the named chef across all website and social touchpoints — name, photo, one-line philosophy</div><div class="impl-effort effort-high">High</div></div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h4>One action item before launch</h4>
+    <p>Commission a photo for Fisch Sashimi. It is the highest price point in Starters &amp; Specials (ab CHF 15) and the only item in the renovated menu without a photo. A strong image here reinforces the premium positioning of the Specials section and completes the visual story of the menu.</p>
+  </div>
+
+  <div style="margin-top:20px; padding:14px 18px; background:var(--paper-soft); border-radius:6px; font-size:10px; color:var(--ink-mute); line-height:1.8;">
+    <strong style="color:var(--ink); display:block; margin-bottom:4px;">All removed items remain fully orderable on Just Eat.</strong>
+    Hosomaki, Nigiri, Classic Sushi Rolls, and the 4 cut sets and starters are all still available on the Just Eat platform. The website renovation is a brand decision, not a product decision. Zero revenue impact.
+  </div>
+
+  <div class="footnote">Hiraya Marketing Consultation · 2026-05-18 · Prepared for Gerwin</div>
+</div>
+
+</body>
+</html>
