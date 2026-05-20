@@ -351,7 +351,7 @@ const Nav = ({ lang, onLang }) => {
             <button
               onClick={() => setDrawerOpen(true)}
               aria-label="Open menu"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px', display: 'flex', flexDirection: 'column', gap: 5 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px', display: 'flex', flexDirection: 'column', gap: 5 }}
             >
               {[0,1,2].map(i => <span key={i} style={{ display: 'block', width: 22, height: 2, background: 'var(--ink)', borderRadius: 2 }} />)}
             </button>
@@ -382,7 +382,7 @@ const Nav = ({ lang, onLang }) => {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 24px', borderBottom: '1px solid rgba(26,20,16,0.08)' }}>
               <Wordmark size={14} />
-              <button onClick={closeDrawer} aria-label="Close menu" style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, lineHeight: 1, color: 'var(--ink)', padding: 4 }}>×</button>
+              <button onClick={closeDrawer} aria-label="Close menu" style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 22, lineHeight: 1, color: 'var(--ink)', padding: '11px' }}>×</button>
             </div>
             <div style={{ flex: 1, padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 8 }}>
               {links.map(l => (
@@ -606,7 +606,7 @@ const FusionStory = ({ lang }) => {
 // ── Menu ──
 const MenuCard = ({ item, lang, isMobile = false }) => {
   const desc = ITEM_I18N[item.id] && ITEM_I18N[item.id][lang];
-  const imgW = isMobile ? 88 : 120;
+  const imgW = isMobile ? 104 : 120;
   return (
     <article style={{
       display: 'grid',
@@ -626,7 +626,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
               background: item.cooking === 'R' ? 'rgba(194,73,42,0.1)' : item.cooking === 'F' ? 'rgba(217,148,37,0.15)' : 'rgba(74,114,70,0.1)',
               color: item.cooking === 'R' ? 'var(--clay)' : item.cooking === 'F' ? '#b38a00' : 'var(--moss)',
               padding: '2px 8px', borderRadius: 999,
-              fontFamily: 'var(--f-mono)', fontSize: 9,
+              fontFamily: 'var(--f-mono)', fontSize: 10,
               letterSpacing: '0.1em', fontWeight: 600, flexShrink: 0,
             }}>
               {t(lang, 'cooking.' + item.cooking)}
@@ -722,7 +722,7 @@ const Menu = ({ lang }) => {
         </div>
 
         {/* Cooking + tag legend */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 20, alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', gap: 6, marginTop: 20, alignItems: 'center', overflowX: isMobile ? 'auto' : 'visible', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <span className="mono" style={{ color: 'var(--ink-mute)', fontSize: 9, letterSpacing: '0.1em', marginRight: 4 }}>
             {t(lang, 'menu.legend.label')}:
           </span>
@@ -806,7 +806,7 @@ const Menu = ({ lang }) => {
                     {catMeta.intro[lang]}
                   </div>
                 </div>
-                <span className="mono" style={{ color: 'var(--ink-mute)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <span className="mono" style={{ color: 'var(--ink-mute)', whiteSpace: isMobile ? 'normal' : 'nowrap', flexShrink: isMobile ? 1 : 0 }}>
                   {cat.items.length} {t(lang, 'menu.itemsLabel')} · {catMeta.sub[lang]}
                 </span>
               </div>
@@ -832,7 +832,7 @@ const Menu = ({ lang }) => {
                   background: isExpanded ? 'transparent' : 'var(--clay)',
                   color: isExpanded ? 'var(--ink-soft)' : 'var(--linen)',
                   border: isExpanded ? '1px solid rgba(26,20,16,0.18)' : 'none',
-                  borderRadius: 999, padding: '10px 18px', cursor: 'pointer',
+                  borderRadius: 999, padding: '14px 18px', cursor: 'pointer',
                   fontFamily: 'var(--f-mono)', fontSize: 12, letterSpacing: '0.06em',
                   transition: 'background 0.15s, color 0.15s',
                 }}
