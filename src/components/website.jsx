@@ -1056,11 +1056,7 @@ const LocationBlock = ({ lang }) => {
             </div>
           </div>
           {!isMobile && (
-            <img
-              src="/hiraya/hiraya-storefront.jpg"
-              alt="Hiraya — Paradiesstrasse 2, Binningen"
-              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', borderRadius: 14, display: 'block' }}
-            />
+            <FoodPlaceholder label="STOREFRONT — Paradiesstrasse 2" ratio="3/4" cornerNote="PHOTO" />
           )}
         </div>
       </div>
