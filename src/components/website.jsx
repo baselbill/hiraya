@@ -64,7 +64,7 @@ const MENU = {
       { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',                         price: 32, kind: 'set', tags: [],                                                    cooking: 'R' },
       { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 Stück · 4 Veggi Roll · 4 Vegi Maki · 3 Vegi Nigiri · Avo, Mango, Gurke, Inari',                            price: 20, kind: 'set', tags: ['veg'],                         img: '/hiraya/menu/set-vegi.png', cooking: 'G' },
       { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 Stück · 6× Avocado · 6× Mango · 6× Gurke · 6× Eingelegter Rettich',                                       price: 25, kind: 'set', tags: ['vegan'],                       img: '/hiraya/menu/set-vhoso.png', cooking: 'G' },
-      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Gerwins Auswahl · 3 Variationen', price: 105, priceFrom: true, kind: 'set', tags: [], img: '/hiraya/menu/set-party.png', cooking: 'R' },
+      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Ghers Auswahl · 3 Variationen', price: 105, priceFrom: true, kind: 'set', tags: [], img: '/hiraya/menu/set-party.png', cooking: 'R' },
     ],
   },
   poke: {
@@ -194,7 +194,7 @@ const SplashIntro = ({ onDone }) => {
 
 // ── Marquee Strip ──
 const MARQUEE_ITEMS = [
-  'FUSION SUSHI', 'POKE BOWLS', 'BINNINGEN', 'CHEF GERWIN',
+  'FUSION SUSHI', 'POKE BOWLS', 'BINNINGEN', 'CHEF GHER',
   'HAND-ROLLED DAILY', 'FILIPINO × JAPANESE', 'THE HIRAYA BOWL', 'SINCE 2024',
 ];
 const MarqueeStrip = () => {
@@ -325,7 +325,7 @@ const Nav = ({ lang, onLang }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
             <span className="mono" style={{ color: 'rgba(244,234,214,0.6)' }}>
-              Paradiesstrasse 2 · 4102 Binningen · +41 61 421 0024
+              Paradiesstrasse 2 · 4102 Binningen · 078 606 11 36
             </span>
           )}
           <LangPills lang={lang} onLang={onLang} tone="dark" />
@@ -1028,12 +1028,12 @@ const LocationBlock = ({ lang }) => {
               <div>
                 <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 40 : 56, lineHeight: 1 }}>Binningen</div>
                 <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>Paradiesstrasse 2 · 4102</div>
-                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>+41 61 421 0024</div>
+                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>078 606 11 36</div>
               </div>
               <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
                 <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
                 <div>{t(lang, 'loc.hours.days')}</div>
-                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>12:00–14:00 &nbsp; 16:00–20:00</div>
+                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>11:30–14:00 &nbsp; 17:00–20:00</div>
                 <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
               </div>
             </div>
@@ -1042,7 +1042,7 @@ const LocationBlock = ({ lang }) => {
                  style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
                 {t(lang, 'cta.route')} →
               </a>
-              <a href="tel:+41614210024"
+              <a href="tel:+41786061136"
                  style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
                 {t(lang, 'cta.reserve')}
               </a>
@@ -1123,7 +1123,7 @@ const Story = ({ lang }) => {
           <div style={{ marginTop: 24, width: isMobile ? '60%' : 280 }}>
             <img
               src="/hiraya/gerwin.jpg"
-              alt="Chef Gerwin"
+              alt="Chef Gher"
               style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', borderRadius: 14, display: 'block' }}
             />
           </div>
@@ -1191,13 +1191,13 @@ const Footer = ({ lang, onLang }) => {
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
           <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
           <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
-          <div><a href="tel:+41614210024" style={{ color: 'inherit', textDecoration: 'none' }}>+41 61 421 0024</a></div>
+          <div><a href="tel:+41786061136" style={{ color: 'inherit', textDecoration: 'none' }}>078 606 11 36</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
           <div>Paradiesstrasse 2</div>
           <div>4102 Binningen</div>
-          <div>{t(lang, 'loc.hours.days')} 12–14 · 16–20</div>
+          <div>{t(lang, 'loc.hours.days')} 11:30–14 · 17–20</div>
           <div><a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
