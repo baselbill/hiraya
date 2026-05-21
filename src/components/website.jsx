@@ -1056,7 +1056,11 @@ const LocationBlock = ({ lang }) => {
             </div>
           </div>
           {!isMobile && (
-            <FoodPlaceholder label="STOREFRONT — Paradiesstrasse 2" ratio="3/4" cornerNote="PHOTO" />
+            <img
+              src="/hiraya/hiraya-storefront.jpg"
+              alt="Hiraya — Paradiesstrasse 2, Binningen"
+              style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', borderRadius: 14, display: 'block' }}
+            />
           )}
         </div>
       </div>
@@ -1129,7 +1133,7 @@ const Story = ({ lang }) => {
           </div>
           <div style={{ marginTop: 24, width: isMobile ? '60%' : 280 }}>
             <img
-              src="/hiraya/gerwin.jpg"
+              src="/hiraya/chef-gher.png"
               alt="Chef Gher"
               style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'center top', borderRadius: 14, display: 'block' }}
             />
