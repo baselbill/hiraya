@@ -662,7 +662,14 @@ const Menu = ({ lang }) => {
   const [activeKey, setActiveKey] = useState('starters');
   const [headerH, setHeaderH] = useState(110);
   const [expanded, setExpanded] = useState(() => {
-    try { return JSON.parse(sessionStorage.getItem('menu-expanded') || '{}'); } catch { return {}; }
+    try {
+      const stored = sessionStorage.getItem('menu-expanded');
+      if (stored) return JSON.parse(stored);
+    } catch {}
+    if (window.innerWidth >= 768) {
+      return Object.fromEntries(Object.keys(MENU).map(k => [k, true]));
+    }
+    return {};
   });
   const catNavRef = useRef(null);
   const sectionRefs = useRef({});
