@@ -34,8 +34,8 @@ const useReveal = (threshold = 0.15) => {
 const MENU = {
   starters: {
     items: [
-      { id: 'start-edm', name: 'Edamame',       ingredients: 'Gedämpfte Sojabohnen · Meersalz',                                                              price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G' },
-      { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Paste · Tofu · Wakame · Frühlingszwiebeln',                                               price: 6,  kind: 'side', tags: ['veg'],  cooking: 'G' },
+      { id: 'start-edm', name: 'Edamame',       ingredients: 'Gedämpfte Sojabohnen · Meersalz',                                                              price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G', img: '/hiraya/menu/start-edm.png' },
+      { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Paste · Tofu · Wakame · Frühlingszwiebeln',                                               price: 6,  kind: 'side', tags: ['veg'],  cooking: 'G', img: '/hiraya/menu/start-miso.png' },
       { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true },
       { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 10, kind: 'side', tags: [], cooking: 'R' },
       { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen',                                      price: 16, kind: 'side', tags: [], cooking: 'F' },
