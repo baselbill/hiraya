@@ -605,7 +605,10 @@ const FusionStory = ({ lang }) => {
 
 // ── Menu ──
 const MenuCard = ({ item, lang, isMobile = false }) => {
-  const desc = ITEM_I18N[item.id] && ITEM_I18N[item.id][lang];
+  const itemI18n = (ITEM_I18N[item.id] && (ITEM_I18N[item.id][lang] || ITEM_I18N[item.id].de)) || {};
+  const displayName = itemI18n.name || item.name;
+  const displayIngredients = itemI18n.ingredients || item.ingredients;
+  const desc = itemI18n.desc;
   const imgW = isMobile ? 104 : 120;
   return (
     <article style={{
@@ -618,7 +621,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
           <h3 style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 20 : 24, lineHeight: 1.05, margin: 0, color: 'var(--ink)' }}>
-            {item.name}
+            {displayName}
           </h3>
           {item.cooking && (
             <span style={{
@@ -634,7 +637,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
           )}
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 12, color: 'var(--ink-soft)', lineHeight: 1.5 }}>
-          {item.ingredients}
+          {displayIngredients}
         </div>
         {desc && (
           <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 12 : 14, color: 'var(--ink-mute)', lineHeight: 1.4 }}>
