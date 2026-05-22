@@ -1019,7 +1019,7 @@ const LocationBlock = ({ lang }) => {
           {!isMobile && (
             <div style={{ borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
               <img
-                src="/hiraya/hiraya-storefront.jpeg"
+                src="/hiraya/hiraya-storefront.png"
                 alt="Hiraya storefront — Paradiesstrasse 2, Binningen"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
