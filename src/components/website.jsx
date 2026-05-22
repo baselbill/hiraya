@@ -39,7 +39,7 @@ const MENU = {
       { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true },
       { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 10, kind: 'side', tags: [], cooking: 'R' },
       { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen',                                      price: 16, kind: 'side', tags: [], cooking: 'F' },
-      { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen',                         price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true },
+      { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen',                         price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true, img: '/hiraya/menu/start-sas.png' },
     ],
   },
   rolls: {
