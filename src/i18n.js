@@ -58,7 +58,7 @@ export const T = {
 
     'hero.h1.l1':    'Zwei',
     'hero.h1.l2i':   'Sprachen',
-    'hero.h1.l3':    'eine Schüssel.',
+    'hero.h1.l3':    'eine Rolle.',
     'hero.eyebrow':  'Binningen · seit 2024 · chef Gher',
     'hero.subtitle': 'Fusion-Sushi und Poke Bowls, heute frisch gerollt von Chef Gher in Binningen. Filipinische Aromen treffen japanischen Reis. Bestellung über Just Eat — bereit in 25 Minuten.',
     'hero.reviews':  'Google-Bewertungen',
@@ -75,7 +75,7 @@ export const T = {
     'fs.fil.gloss':     '„Die Frucht eines Traums<br/>und einer Hoffnung."',
     'fs.jp.label':      '日本語 · 平屋',
     'fs.jp.gloss':      '„Ein einstöckiges Haus —<br/>wo alle zusammenkommen."',
-    'fs.closing.html':  'Ein einfaches Haus, voller Träume.<br/>Das ist, was Gher kocht — filipinisch, japanisch, alles in einer Schüssel.',
+    'fs.closing.html':  'Ein einfaches Haus, voller Träume.<br/>Das ist, was Gher kocht — filipinisch, japanisch, alles in einer Rolle.',
 
     'menu.eyebrow':       'Speisekarte · die Rolle & Schüssel des Tages',
     'menu.title.html':    'Unsere <i>Karte</i>',
@@ -184,7 +184,7 @@ export const T = {
 
     'hero.h1.l1':    'Deux',
     'hero.h1.l2i':   'langues',
-    'hero.h1.l3':    'un bol.',
+    'hero.h1.l3':    'un rouleau.',
     'hero.eyebrow':  'Binningen · depuis 2024 · chef Gher',
     'hero.subtitle': "Sushis fusion et poke bowls, roulés à la main aujourd'hui par le chef Gher à Binningen. Saveurs philippines, riz japonais. Commande sur Just Eat — prêt en 25 minutes.",
     'hero.reviews':  'Avis Google',
@@ -201,7 +201,7 @@ export const T = {
     'fs.fil.gloss':     "« Le fruit d'un rêve<br/>et d'une espérance. »",
     'fs.jp.label':      '日本語 · 平屋',
     'fs.jp.gloss':      "« Une maison à un étage —<br/>où tout le monde se rassemble. »",
-    'fs.closing.html':  "Une maison simple, pleine de rêves.<br/>C'est ce que Gher cuisine — philippin, japonais, le tout dans un bol.",
+    'fs.closing.html':  "Une maison simple, pleine de rêves.<br/>C'est ce que Gher cuisine — philippin, japonais, le tout dans un rouleau.",
 
     'menu.eyebrow':       'La carte · le rouleau & le bol du jour',
     'menu.title.html':    'La <i>carte</i>',
@@ -310,7 +310,7 @@ export const T = {
 
     'hero.h1.l1':    'Due',
     'hero.h1.l2i':   'lingue',
-    'hero.h1.l3':    'una ciotola.',
+    'hero.h1.l3':    'un rotolo.',
     'hero.eyebrow':  'Binningen · dal 2024 · chef Gher',
     'hero.subtitle': "Sushi fusion e poke bowl, arrotolati a mano oggi dallo chef Gher a Binningen. Sapori filippini, riso giapponese. Ordina su Just Eat — pronto in 25 minuti.",
     'hero.reviews':  'Recensioni Google',
@@ -327,7 +327,7 @@ export const T = {
     'fs.fil.gloss':     '« Il frutto di un sogno<br/>e di una speranza. »',
     'fs.jp.label':      '日本語 · 平屋',
     'fs.jp.gloss':      '« Una casa a un piano —<br/>dove tutti si riuniscono. »',
-    'fs.closing.html':  'Una casa semplice, piena di sogni.<br/>È ciò che Gher cucina — filippino, giapponese, tutto in una scodella.',
+    'fs.closing.html':  'Una casa semplice, piena di sogni.<br/>È ciò che Gher cucina — filippino, giapponese, tutto in un rotolo.',
 
     'menu.eyebrow':       'Il menu · il rotolo & il bowl di oggi',
     'menu.title.html':    'Il <i>menu</i>',
@@ -436,7 +436,7 @@ export const T = {
 
     'hero.h1.l1':    'Two',
     'hero.h1.l2i':   'languages',
-    'hero.h1.l3':    'one bowl.',
+    'hero.h1.l3':    'one roll.',
     'hero.eyebrow':  'Binningen · since 2024 · chef Gher',
     'hero.subtitle': "Fusion sushi and poke bowls, hand-rolled today by chef Gher in Binningen. Filipino flavours meet Japanese rice. Order on Just Eat — ready in 25 minutes.",
     'hero.reviews':  'Google Reviews',
@@ -453,7 +453,7 @@ export const T = {
     'fs.fil.gloss':     '"The fruit of one\'s<br/>dream &amp; aspirations."',
     'fs.jp.label':      '日本語 · 平屋',
     'fs.jp.gloss':      '"A single-story home —<br/>where everyone gathers."',
-    'fs.closing.html':  "A simple house, full of dreams.<br/>That's what Gher cooks — Filipino, Japanese, all in one bowl.",
+    'fs.closing.html':  "A simple house, full of dreams.<br/>That's what Gher cooks — Filipino, Japanese, all in one roll.",
 
     'menu.eyebrow':       "Menu · today's roll & bowl",
     'menu.title.html':    'The <i>menu</i>',
