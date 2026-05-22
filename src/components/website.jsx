@@ -1017,15 +1017,12 @@ const LocationBlock = ({ lang }) => {
           gap: 24,
         }}>
           {!isMobile && (
-            <div style={{ borderRadius: 14, overflow: 'hidden', background: 'var(--paper-soft)', border: '1px dashed rgba(26,20,16,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 320 }}>
-              <div style={{ textAlign: 'center', color: 'var(--ink-mute)', padding: 24 }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5" style={{ display: 'block', margin: '0 auto 12px' }}>
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-                  <circle cx="9" cy="11" r="1.6" />
-                  <path d="M21 17 L15 11 L8 18" />
-                </svg>
-                <div className="mono" style={{ fontSize: 10, letterSpacing: '0.1em' }}>STOREFRONT PHOTO</div>
-              </div>
+            <div style={{ borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
+              <img
+                src="/hiraya/hiraya-storefront.jpeg"
+                alt="Hiraya storefront — Paradiesstrasse 2, Binningen"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
             </div>
           )}
           <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
