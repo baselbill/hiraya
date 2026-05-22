@@ -1016,6 +1016,15 @@ const LocationBlock = ({ lang }) => {
           gridTemplateColumns: isMobile ? '1fr' : '1.4fr 1fr',
           gap: 24,
         }}>
+          {!isMobile && (
+            <div style={{ borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
+              <img
+                src="/hiraya/hiraya-storefront.jpeg"
+                alt="Hiraya storefront — Paradiesstrasse 2, Binningen"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
+          )}
           <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 14, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             <div style={{ height: 240, position: 'relative', overflow: 'hidden' }}>
               <iframe
