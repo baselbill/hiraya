@@ -112,8 +112,8 @@ export const T = {
     'loc.title.html':    'Komm <i>vorbei</i>',
     'loc.hint':          'Abholung ist am schnellsten. Lieferung via Just Eat im Raum Binningen.',
     'loc.hours.label':   'Öffnungszeiten',
-    'loc.hours.days':    'Di–Sa',
-    'loc.hours.closed':  'So & Mo geschlossen',
+    'loc.hours.days':    'Mo–Sa',
+    'loc.hours.closed':  'So geschlossen',
     'loc.kicker':        'BINNINGEN',
     'loc.address.label': 'Paradiesstrasse 2',
 
@@ -238,8 +238,8 @@ export const T = {
     'loc.title.html':    "Trouve-<i>nous</i>",
     'loc.hint':          'Le retrait est le plus rapide. Livraison via Just Eat autour de Binningen.',
     'loc.hours.label':   'Horaires',
-    'loc.hours.days':    'Mar–Sam',
-    'loc.hours.closed':  'Dim & Lun fermé',
+    'loc.hours.days':    'Lun–Sam',
+    'loc.hours.closed':  'Dim fermé',
     'loc.kicker':        'BINNINGEN',
     'loc.address.label': 'Paradiesstrasse 2',
 
@@ -364,8 +364,8 @@ export const T = {
     'loc.title.html':    'Trova<i>ci</i>',
     'loc.hint':          'Il ritiro è il più rapido. Consegna via Just Eat nella zona di Binningen.',
     'loc.hours.label':   'Orari',
-    'loc.hours.days':    'Mar–Sab',
-    'loc.hours.closed':  'Dom & Lun chiuso',
+    'loc.hours.days':    'Lun–Sab',
+    'loc.hours.closed':  'Dom chiuso',
     'loc.kicker':        'BINNINGEN',
     'loc.address.label': 'Paradiesstrasse 2',
 
@@ -490,8 +490,8 @@ export const T = {
     'loc.title.html':    'Find <i>us</i>',
     'loc.hint':          'Pickup is fastest. Delivery via Just Eat in the Binningen area.',
     'loc.hours.label':   'Hours',
-    'loc.hours.days':    'Tue–Sat',
-    'loc.hours.closed':  'Closed Sun & Mon',
+    'loc.hours.days':    'Mon–Sat',
+    'loc.hours.closed':  'Closed Sun',
     'loc.kicker':        'BINNINGEN',
     'loc.address.label': 'Paradiesstrasse 2',
 
