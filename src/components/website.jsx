@@ -73,7 +73,7 @@ const MENU = {
       { id: 'poke-tu',   name: 'Thun Poke Bowl',       ingredients: 'Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.50, kind: 'bowl',  tags: [],                              img: '/menu/poke-tu.webp',  cooking: 'R' },
       { id: 'poke-shr',  name: 'Crevetten Poke Bowl',  ingredients: 'Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.00, kind: 'bowl',  tags: [],                              img: '/menu/poke-shr.webp', cooking: 'G' },
       { id: 'poke-veg',  name: 'Veggie Poke Bowl',     ingredients: 'Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago',               price: 20.00, kind: 'bowl',  tags: ['veg'],                         img: '/menu/poke-veg.webp', cooking: 'G' },
-      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F' },
+      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F', img: '/menu/bent-sal.webp' },
       { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce', price: 20.00, kind: 'bento', tags: [],                                                      cooking: 'F' },
     ],
   },
