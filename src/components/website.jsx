@@ -36,8 +36,8 @@ const MENU = {
     items: [
       { id: 'start-edm', name: 'Edamame',       ingredients: 'Gedämpfte Sojabohnen · Meersalz',                                                              price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G', img: '/menu/start-edm.webp' },
       { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Paste · Tofu · Wakame · Frühlingszwiebeln',                                               price: 6,  kind: 'side', tags: ['veg'],  cooking: 'G', img: '/menu/start-miso.webp' },
-      { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true },
-      { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 10, kind: 'side', tags: [], cooking: 'R' },
+      { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true, img: '/menu/gunkan.webp' },
+      { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 10, kind: 'side', tags: [], cooking: 'R', img: '/menu/tema-sal.webp' },
       { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen',                                      price: 16, kind: 'side', tags: [], cooking: 'F' },
       { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen',                         price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true, img: '/menu/start-sas.webp' },
     ],
@@ -73,8 +73,8 @@ const MENU = {
       { id: 'poke-tu',   name: 'Thun Poke Bowl',       ingredients: 'Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.50, kind: 'bowl',  tags: [],                              img: '/menu/poke-tu.webp',  cooking: 'R' },
       { id: 'poke-shr',  name: 'Crevetten Poke Bowl',  ingredients: 'Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 20.00, kind: 'bowl',  tags: [],                              img: '/menu/poke-shr.webp', cooking: 'G' },
       { id: 'poke-veg',  name: 'Veggie Poke Bowl',     ingredients: 'Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago',               price: 20.00, kind: 'bowl',  tags: ['veg'],                         img: '/menu/poke-veg.webp', cooking: 'G' },
-      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F' },
-      { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce', price: 20.00, kind: 'bento', tags: [],                                                      cooking: 'F' },
+      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 20.00, kind: 'bento', tags: [],                                                        cooking: 'F', img: '/menu/bent-sal.webp' },
+      { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce', price: 20.00, kind: 'bento', tags: [],                                                      cooking: 'F', img: '/menu/bent-tun.webp' },
     ],
   },
 };
