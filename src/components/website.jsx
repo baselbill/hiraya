@@ -478,11 +478,17 @@ const Hero = ({ lang }) => {
         </div>
 
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <FoodPlaceholder
-            label="HIRAYA BOWL — hero photo"
-            shape="circle"
-            size={isMobile ? undefined : 460}
-            cornerNote="HERO"
+          <img
+            src="/menu/hero-rol.png"
+            alt="Hiraya signature sushi roll"
+            style={{
+              width: isMobile ? '100%' : 460,
+              height: isMobile ? 'auto' : 460,
+              borderRadius: '50%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+            }}
           />
           {!isMobile && (
             <>
