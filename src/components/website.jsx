@@ -52,7 +52,7 @@ const MENU = {
       { id: 'roll-tbl',  name: 'Tuna Blast',           ingredients: 'Thunfisch · Gurke · Avocado · Mango · Scharfe Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-tbl.webp', cooking: 'R' },
       { id: 'roll-swi',  name: 'Swish Roll',           ingredients: 'Flambierter Lachs · Avocado · Mango · Surimi · Jalapeño · Sesam · Sauce',             price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-swi.webp', cooking: 'F' },
       { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce',                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/menu/roll-kru.webp', cooking: 'G' },
-      { id: 'roll-vip',  name: 'Patron Roll',          ingredients: 'Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce',                                   price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/menu/roll-vip.webp', cooking: 'R' },
+      { id: 'roll-vip',  name: 'VIP Roll',          ingredients: 'Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce',                                   price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/menu/roll-vip.webp', cooking: 'R' },
       { id: 'roll-mix',  name: 'Hausmix Roll',         ingredients: 'Lachs · Thun · Mango · Avocado · Sesam · Sauce',                                       price: 10.00, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'R', img: '/menu/roll-hous.webp' },
       { id: 'roll-una',  name: 'Unagi Rainbow Roll',   ingredients: 'Aal · Avocado · Gurke · Surimi · Sesam · Sauce',                                       price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'G', img: '/menu/roll-una.webp' },
       { id: 'roll-vfm',  name: 'Veggie Fotomaki',      ingredients: 'Avocado · Gurke · Mango · Rettich · Apfel · Kampyo',                                   price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               cooking: 'G', img: '/menu/roll-foto.webp' },
@@ -195,7 +195,7 @@ const SplashIntro = ({ onDone }) => {
 // ── Marquee Strip ──
 const MARQUEE_ITEMS = [
   'FUSION SUSHI', 'POKE BOWLS', 'BINNINGEN', 'CHEF GHER',
-  'HAND-ROLLED DAILY', 'FILIPINO × JAPANESE', 'THE HIRAYA BOWL', 'SINCE 2024',
+  'HAND-ROLLED DAILY', 'FILIPINO × JAPANESE', 'THE HIRAYA BOWL', 'SINCE 2025',
 ];
 const MarqueeStrip = () => {
   const text = MARQUEE_ITEMS.join('  ·  ') + '  ·  ';
@@ -1164,7 +1164,7 @@ const Story = ({ lang }) => {
           )}
           <div style={{ display: 'flex', gap: isMobile ? 20 : 32, marginTop: 32, flexWrap: 'wrap' }}>
             <div>
-              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--ink)' }}>2024</div>
+              <div style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 44 : 56, lineHeight: 1, color: 'var(--ink)' }}>2025</div>
               <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 4 }}>{t(lang, 'story.stat.founded')}</div>
             </div>
             <div>
