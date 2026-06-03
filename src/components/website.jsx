@@ -61,7 +61,7 @@ const MENU = {
   sets: {
     items: [
       { id: 'set-mix2',  name: 'Mix Sushi 2',             ingredients: '14 Stück · 4 Uramaki · 4 Nigiri (2× Lachs, Ebi, Thun) · 6 Hosomaki (Lachs, Avo) — unser meistbestelltes Set', price: 24, kind: 'set', tags: [], teaser: true, img: '/menu/set-mix2.webp', cooking: 'R' },
-      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',                         price: 32, kind: 'set', tags: [],                                                    cooking: 'R' },
+      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',                         price: 32, kind: 'set', tags: [],                                                    cooking: 'R', img: '/menu/set-sho.webp' },
       { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 Stück · 4 Veggi Roll · 4 Vegi Maki · 3 Vegi Nigiri · Avo, Mango, Gurke, Inari',                            price: 20, kind: 'set', tags: ['veg'],                         img: '/menu/set-vegi.webp', cooking: 'G' },
       { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 Stück · 6× Avocado · 6× Mango · 6× Gurke · 6× Eingelegter Rettich',                                       price: 25, kind: 'set', tags: ['vegan'],                       img: '/menu/set-vhoso.webp', cooking: 'G' },
       { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Ghers Auswahl · 3 Variationen', price: 105, priceFrom: true, kind: 'set', tags: [], img: '/menu/set-party.webp', cooking: 'R' },
