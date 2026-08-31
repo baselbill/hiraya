@@ -4,6 +4,7 @@ import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
 
 const JUST_EAT_URL = 'https://www.just-eat.ch/en/menu/hiraya-asian-fusion-sushi';
+const UBER_EATS_URL = 'https://www.ubereats.com/ch/store/hiraya-asian-fusion-sushi/uEHR2Y59RlCMq_zwBLf5_g';
 
 const useIsMobile = () => {
   const [mobile, setMobile] = useState(() => window.innerWidth < 768);
@@ -268,18 +269,30 @@ const LangPills = ({ lang, onLang, tone = 'light' }) => {
   );
 };
 
-const JustEatLink = ({ size = 'md', tone = 'solid', lang = 'de' }) => {
+const ORDER_PROVIDERS = {
+  justeat: {
+    url: JUST_EAT_URL, badge: 'JE', badgeBg: '#ff8000', badgeFg: '#fff',
+    labelKey: 'cta.order', labelShortKey: 'cta.orderShort',
+  },
+  ubereats: {
+    url: UBER_EATS_URL, badge: 'UE', badgeBg: '#06c167', badgeFg: '#06120d',
+    labelKey: 'cta.orderUber', labelShortKey: 'cta.orderUberShort',
+  },
+};
+
+const OrderLink = ({ provider = 'justeat', size = 'md', tone = 'solid', lang = 'de' }) => {
+  const p = ORDER_PROVIDERS[provider];
   const sizes = {
     sm: { padX: 14, padY: 9,  font: 12, gap: 8,  logoSize: 18 },
     md: { padX: 18, padY: 12, font: 13, gap: 10, logoSize: 20 },
     lg: { padX: 28, padY: 18, font: 16, gap: 12, logoSize: 24 },
   }[size];
-  const bg = tone === 'solid' ? 'var(--clay)'  : 'transparent';
+  const bg = tone === 'solid' ? 'var(--clay)' : tone === 'invert' ? 'var(--linen)' : 'transparent';
   const fg = tone === 'solid' ? 'var(--linen)' : 'var(--ink)';
-  const br = tone === 'solid' ? 'none'         : '1.5px solid var(--ink)';
-  const label = size === 'sm' ? t(lang, 'cta.orderShort') : t(lang, 'cta.order');
+  const br = tone === 'outline' ? '1.5px solid var(--ink)' : 'none';
+  const label = size === 'sm' ? t(lang, p.labelShortKey) : t(lang, p.labelKey);
   return (
-    <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
+    <a href={p.url} target="_blank" rel="noopener noreferrer" style={{
       background: bg, color: fg, border: br,
       padding: `${sizes.padY}px ${sizes.padX}px`, borderRadius: 999,
       fontFamily: 'var(--f-sans)', fontSize: sizes.font, fontWeight: 700,
@@ -289,10 +302,10 @@ const JustEatLink = ({ size = 'md', tone = 'solid', lang = 'de' }) => {
     }}>
       <span style={{
         width: sizes.logoSize, height: sizes.logoSize, borderRadius: '50%',
-        background: '#ff8000', color: '#fff', fontSize: sizes.logoSize * 0.45,
+        background: p.badgeBg, color: p.badgeFg, fontSize: sizes.logoSize * 0.45,
         fontWeight: 800, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         fontFamily: 'system-ui, sans-serif', flexShrink: 0,
-      }}>JE</span>
+      }}>{p.badge}</span>
       {label}
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <path d="M7 17 L17 7 M9 7 H17 V15" />
@@ -300,6 +313,17 @@ const JustEatLink = ({ size = 'md', tone = 'solid', lang = 'de' }) => {
     </a>
   );
 };
+
+const JustEatLink = (props) => <OrderLink provider="justeat" {...props} />;
+const UberEatsLink = (props) => <OrderLink provider="ubereats" {...props} />;
+
+// Renders both Just Eat and Uber Eats CTAs together — use anywhere an order CTA appears.
+const OrderLinks = ({ size = 'md', tone = 'solid', lang = 'de' }) => (
+  <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: size === 'sm' ? 8 : 12, alignItems: 'center' }}>
+    <JustEatLink size={size} tone={tone} lang={lang} />
+    <UberEatsLink size={size} tone={tone} lang={lang} />
+  </div>
+);
 
 // ── Navigation ──
 const Nav = ({ lang, onLang }) => {
@@ -320,7 +344,7 @@ const Nav = ({ lang, onLang }) => {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, gap: 12,
       }}>
         <span className="mono" style={{ color: 'var(--ember)' }}>
-          {t(lang, 'bar.openToday')} · {t(lang, 'bar.viaJustEat')}
+          {t(lang, 'bar.openToday')} · {t(lang, 'bar.viaOrder')}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
@@ -346,7 +370,7 @@ const Nav = ({ lang, onLang }) => {
           </div>
         )}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <JustEatLink size="sm" lang={lang} />
+          <OrderLinks size="sm" lang={lang} />
           {isMobile && (
             <button
               onClick={() => setDrawerOpen(true)}
@@ -403,7 +427,7 @@ const Nav = ({ lang, onLang }) => {
             </div>
             <div style={{ padding: '24px', borderTop: '1px solid rgba(26,20,16,0.08)', display: 'flex', flexDirection: 'column', gap: 16 }}>
               <LangPills lang={lang} onLang={(l) => { onLang(l); closeDrawer(); }} tone="light" />
-              <JustEatLink size="md" lang={lang} />
+              <OrderLinks size="md" lang={lang} />
             </div>
           </div>
         </>
@@ -452,7 +476,7 @@ const Hero = ({ lang }) => {
           </div>
 
           <div style={{ display: 'flex', gap: 14, marginTop: 32, flexWrap: 'wrap', alignItems: 'center' }}>
-            <JustEatLink size={isMobile ? 'md' : 'lg'} lang={lang} />
+            <OrderLinks size={isMobile ? 'md' : 'lg'} lang={lang} />
             <a href="#menu" style={{
               fontFamily: 'var(--f-sans)', fontWeight: 600, fontSize: 14,
               background: 'transparent', color: 'var(--ink)',
@@ -862,7 +886,7 @@ const Menu = ({ lang }) => {
         })}
       </div>
 
-      {/* Just Eat callout for hosomaki / nigiri */}
+      {/* Order-platform callout for hosomaki / nigiri */}
       <div style={{
         margin: `24px ${px} 0`,
         padding: '14px 20px',
@@ -871,13 +895,20 @@ const Menu = ({ lang }) => {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap',
       }}>
         <span className="mono" style={{ color: 'var(--ink-mute)', fontSize: 12 }}>
-          {t(lang, 'menu.justeat.note')}
+          {t(lang, 'menu.order.note')}
         </span>
-        <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" className="mono" style={{
-          color: 'var(--clay)', fontSize: 12, textDecoration: 'none', whiteSpace: 'nowrap', fontWeight: 600,
-        }}>
-          Just Eat ↗
-        </a>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" className="mono" style={{
+            color: 'var(--clay)', fontSize: 12, textDecoration: 'none', whiteSpace: 'nowrap', fontWeight: 600,
+          }}>
+            Just Eat ↗
+          </a>
+          <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className="mono" style={{
+            color: 'var(--clay)', fontSize: 12, textDecoration: 'none', whiteSpace: 'nowrap', fontWeight: 600,
+          }}>
+            Uber Eats ↗
+          </a>
+        </div>
       </div>
 
       {/* Bottom CTA */}
@@ -898,7 +929,7 @@ const Menu = ({ lang }) => {
             {t(lang, 'menu.cta.body')}
           </div>
         </div>
-        <JustEatLink size={isMobile ? 'md' : 'lg'} lang={lang} />
+        <OrderLinks size={isMobile ? 'md' : 'lg'} lang={lang} />
       </div>
     </section>
   );
@@ -964,17 +995,7 @@ const Featured = ({ lang }) => {
           </p>
           <div style={{ marginTop: 28, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 48 : 64 }}>CHF 22.50</span>
-            <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{
-              fontFamily: 'var(--f-sans)', fontWeight: 700, fontSize: 14,
-              background: 'var(--linen)', color: 'var(--ink)', padding: '14px 22px',
-              borderRadius: 999, letterSpacing: '0.04em', textDecoration: 'none',
-              display: 'inline-flex', alignItems: 'center', gap: 10,
-            }}>
-              {t(lang, 'cta.orderShort')}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M7 17 L17 7 M9 7 H17 V15" />
-              </svg>
-            </a>
+            <OrderLinks size="md" tone="invert" lang={lang} />
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
@@ -1212,6 +1233,7 @@ const Footer = ({ lang, onLang }) => {
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
           <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
+          <div><a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Uber Eats ↗</a></div>
           <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
           <div><a href="tel:+41786061136" style={{ color: 'inherit', textDecoration: 'none' }}>078 606 11 36</a></div>
         </div>
