@@ -968,53 +968,6 @@ const HowToOrder = ({ lang }) => {
   );
 };
 
-// ── Featured Bowl ──
-const Featured = ({ lang }) => {
-  const isMobile = useIsMobile();
-  const [ref, on] = useReveal();
-  const px = isMobile ? '24px' : '56px';
-  const py = isMobile ? '64px' : '90px';
-  return (
-    <section style={{ background: 'var(--clay)', color: 'var(--linen)' }}>
-      <div ref={ref} style={{
-        padding: `${py} ${px}`,
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
-        gap: isMobile ? 36 : 60,
-        alignItems: 'center',
-        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-        transition: 'opacity 0.8s ease, transform 0.8s ease',
-      }}>
-        <div>
-          <div className="mono" style={{ opacity: 0.85 }}>{t(lang, 'feature.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'feature.title.html')}
-                color="var(--linen)"
-                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 104px)', lineHeight: 0.9, marginTop: 8 }} />
-          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 19, lineHeight: 1.55, marginTop: 18, maxWidth: 520, opacity: 0.92 }}>
-            {t(lang, 'feature.body')}
-          </p>
-          <div style={{ marginTop: 28, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 48 : 64 }}>CHF 22.50</span>
-            <OrderLinks size="md" tone="invert" lang={lang} />
-          </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-          <div style={{ width: isMobile ? '80%' : 440, maxWidth: '100%' }}>
-            <FoodPlaceholder label="HIRAYA BOWL — feature photo" shape="circle" cornerNote="FEATURED" />
-          </div>
-          <div style={{
-            position: 'absolute', top: 8, right: isMobile ? 0 : 24, transform: 'rotate(8deg)',
-            background: 'var(--saffron)', color: 'var(--ink)', padding: '8px 14px',
-            borderRadius: 999, fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-          }}>
-            {t(lang, 'feature.badge')}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // ── Location ──
 const LocationBlock = ({ lang }) => {
   const isMobile = useIsMobile();
