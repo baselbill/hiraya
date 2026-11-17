@@ -28,11 +28,11 @@ npm run images -- <name>   # convert a photo from assets-src/originals to public
 
 ## Tech stack
 
-React 18 and Vite 5, plain CSS variables and inline styles. (Dev-only: `sharp` for image conversion.) There is no router, state library or CSS framework. Hosting is GitHub Pages on the custom domain hiraya.ch.
+React 18 and Vite 5, plain CSS variables and inline styles. (Dev-only: `sharp` for image conversion.) There is no router, state library or CSS framework. Hosting is Cloudflare Pages on the custom domain hiraya.ch (the code lives on GitHub).
 
 ## Deployment
 
-Every push to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci`, then `npm run build`, then publishes `dist/` to GitHub Pages. Nothing else is needed. See the [developer guide](docs/DEVELOPER_GUIDE.md#deployment).
+Cloudflare Pages is connected to this repository. Every push to `main` is built there with `npm run check && npm run build` and published to https://hiraya.ch; every other branch and pull request gets a preview address. Nothing else is needed. See the [developer guide](docs/DEVELOPER_GUIDE.md#5-deployment). The one-off move from GitHub Pages is described in [docs/CLOUDFLARE_MIGRATION.md](docs/CLOUDFLARE_MIGRATION.md).
 
 ## Repository layout
 
@@ -46,7 +46,7 @@ src/components/website.jsx   all page sections
 src/components/system.jsx    Inabel textile pattern decoration
 src/components/marks.jsx     logo glyph
 src/tokens.css         colours, fonts, global CSS
-public/                images (optimised .webp), robots.txt, sitemap.xml, CNAME
+public/                images (optimised .webp), robots.txt, sitemap.xml, _headers (Cloudflare cache/security headers)
 assets-src/originals/  full-size source photos (NOT published)
 scripts/               check.mjs (consistency checks), optimize-images.mjs
 docs/                  handoff documentation

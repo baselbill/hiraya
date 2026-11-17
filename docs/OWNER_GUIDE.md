@@ -34,11 +34,12 @@ Because the site stores no customer data, there is little to protect or back up.
 
 | Item | Notes |
 |---|---|
-| Website code and hosting | Stored on **GitHub** and published with **GitHub Pages**, which is free for this type of site |
+| Website code | Stored on **GitHub** (free, private repository) |
+| Website hosting | **Cloudflare Pages**, free for this type of site |
 | Domain **hiraya.ch** | Yearly registration fee paid to the domain registrar. *Who registered it and where is listed in the [Handoff Checklist](HANDOFF_CHECKLIST.md); please confirm.* |
 | Fonts | Free Google Fonts |
 
-The domain is the one thing that can make your site disappear if the renewal is missed. Make sure the renewal reminders go to **your** email address.
+The domain is the one thing that can make your site disappear if the renewal is missed. The domain is registered with **Namecheap**. Make sure the renewal reminders go to **your** email address, and that the domain is in an account you control.
 
 ## What you own and must keep access to
 

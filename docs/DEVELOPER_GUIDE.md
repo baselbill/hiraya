@@ -101,12 +101,13 @@ Edit **`src/config.js`**. It is used by the page and by the translated "open tod
 
 ## 5. Deployment
 
-- Hosting is **GitHub Pages** with the custom domain **hiraya.ch** (`CNAME` in the repo root and in `public/`).
-- `.github/workflows/deploy.yml` runs on every push to `main` and can also be started by hand (`workflow_dispatch`). It uses Node 20, `npm ci`, `npm run build`, then `actions/deploy-pages`.
-- Pull requests run `.github/workflows/ci.yml` (`npm run check` and `npm run build`). The deploy workflow also runs `npm run check` before building, so a broken translation or missing photo blocks a deploy.
-- Check the **Actions** tab on GitHub if the live site does not update.
-- Vite `base` is `/`, so the site only works at a domain root (a custom domain, not a `username.github.io/repo` path).
-- There is no staging environment. Use `npm run preview` locally before merging.
+- Hosting is **Cloudflare Pages** with the custom domain **hiraya.ch**. The domain is registered at Namecheap and its nameservers point to Cloudflare. The repository is on GitHub (private).
+- Cloudflare builds on every push. Settings: production branch `main`, build command `npm run check && npm run build`, output directory `dist`, Node 20 (`.node-version`). Branches and pull requests get preview addresses. A failing check or build blocks the deploy; the log is in the Cloudflare dashboard (Workers & Pages → the project → Deployments).
+- Pull requests also run `.github/workflows/ci.yml` on GitHub (`npm run check` and `npm run build`).
+- If the live site does not update, look at the Cloudflare deployment log first, then the GitHub Actions tab.
+- `public/_headers` sets caching (hashed files under `/assets/` are cached for a year) and basic security headers. Cloudflare reads it; it has no effect locally.
+- Vite `base` is `/`, so the site must be served from a domain root (as it is on hiraya.ch and on the `*.pages.dev` preview addresses).
+- Staging is the preview address of a pull request. You can also use `npm run preview` locally.
 
 ## 6. Known issues and possible next steps
 

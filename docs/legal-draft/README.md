@@ -19,7 +19,7 @@ Switzerland has no general imprint law like Germany's, but an identifiable opera
 ## What the draft says about the current site (verified from the code)
 
 - No forms, accounts, payments, analytics or cookies set by the site itself.
-- Hosted on GitHub Pages, so GitHub processes visitor IP addresses.
+- Hosted on Cloudflare Pages (Cloudflare, Inc., USA), so Cloudflare processes visitor IP addresses.
 - Google Fonts are loaded from Google (`index.html`), and a Google Maps iframe is embedded (`website.jsx`, location block). Both send the visitor's IP address to Google.
 - `localStorage` key `hiraya-lang` and `sessionStorage` key `splash-seen` hold only the language and a flag.
 - If any of this changes (analytics added, a contact form, a newsletter, Google Fonts self-hosted), update the text.

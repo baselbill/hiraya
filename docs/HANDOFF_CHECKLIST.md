@@ -7,9 +7,9 @@ Use this to complete the handover of the Hiraya website. Items marked **TO CONFI
 | Asset | Current state | Action |
 |---|---|---|
 | GitHub repository `baselbill/hiraya` | Under the personal account `baselbill`; all 65 commits by that account | Transfer to an owner-controlled account or organisation, or add the owner as admin. **TO CONFIRM** |
-| GitHub Pages hosting | Enabled via `.github/workflows/deploy.yml` | Pages settings travel with the repo when it is transferred. After the transfer, check Settings → Pages and confirm that the custom domain is still **hiraya.ch** and that HTTPS is enforced. |
-| Domain `hiraya.ch` | Points at GitHub Pages (`CNAME`) | Registrar: **TO CONFIRM**. Registered owner: **TO CONFIRM**. Renewal date: **TO CONFIRM**. Renewal email: **TO CONFIRM** |
-| DNS records | Not visible from the repo | Record where DNS is managed and export the current records. **TO CONFIRM** |
+| Hosting: Cloudflare Pages | Free plan. Builds from the GitHub repository (see [CLOUDFLARE_MIGRATION.md](CLOUDFLARE_MIGRATION.md)) | Cloudflare account must belong to the owner (with two-factor authentication). Confirm the GitHub integration still has access after the repository is made private. **TO CONFIRM** |
+| Domain `hiraya.ch` | Registered at **Namecheap**, currently under a personal account; nameservers point to Cloudflare | Move the domain to an owner-controlled Namecheap account. Registered owner: **TO CONFIRM**. Renewal date: **TO CONFIRM**. Renewal email: **TO CONFIRM** |
+| DNS records | Managed in Cloudflare after the migration | Keep a screenshot or export of all records, especially the MX/TXT records used for email. **TO CONFIRM** |
 | Business email `info@hiraya.ch` | Used on the site | Who hosts it and who has access? **TO CONFIRM** |
 | Just Eat restaurant account | Menu source of truth | Owner has the login? **TO CONFIRM** |
 | Uber Eats restaurant account | Menu source of truth | Owner has the login? **TO CONFIRM** |
