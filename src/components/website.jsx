@@ -3,9 +3,11 @@ import { t, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
 import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
 import { MENU } from '../menu.js';
+import {
+  JUST_EAT_URL, UBER_EATS_URL, PHONE_DISPLAY, PHONE_TEL, EMAIL, STREET, POSTAL_CITY,
+  MAPS_URL, MAPS_EMBED_URL, INSTAGRAM_URL, FACEBOOK_URL, HOURS_SHORT, HOURS_LONG,
+} from '../config.js';
 
-const JUST_EAT_URL = 'https://www.just-eat.ch/en/menu/hiraya-asian-fusion-sushi';
-const UBER_EATS_URL = 'https://www.ubereats.com/ch/store/hiraya-asian-fusion-sushi/uEHR2Y59RlCMq_zwBLf5_g';
 
 const useIsMobile = () => {
   const [mobile, setMobile] = useState(() => window.innerWidth < 768);
@@ -303,7 +305,7 @@ const Nav = ({ lang, onLang }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
             <span className="mono" style={{ color: 'rgba(244,234,214,0.6)' }}>
-              Paradiesstrasse 2 · 4102 Binningen · 078 606 11 36
+              {`${STREET} · ${POSTAL_CITY} · ${PHONE_DISPLAY}`}
             </span>
           )}
           <LangPills lang={lang} onLang={onLang} tone="dark" />
@@ -963,7 +965,7 @@ const LocationBlock = ({ lang }) => {
             <div style={{ height: 240, position: 'relative', overflow: 'hidden' }}>
               <iframe
                 title="Hiraya location"
-                src="https://maps.google.com/maps?q=Hiraya+Asian+Fusion+Sushi,+Paradiesstrasse+2,+4102+Binningen,+Switzerland&output=embed&z=17"
+                src={MAPS_EMBED_URL}
                 width="100%"
                 height="100%"
                 style={{ border: 0, display: 'block' }}
@@ -980,22 +982,22 @@ const LocationBlock = ({ lang }) => {
             }}>
               <div>
                 <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 40 : 56, lineHeight: 1 }}>Binningen</div>
-                <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>Paradiesstrasse 2 · 4102</div>
-                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>078 606 11 36</div>
+                <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>{STREET} · {POSTAL_CITY.split(' ')[0]}</div>
+                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>{PHONE_DISPLAY}</div>
               </div>
               <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
                 <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
                 <div>{t(lang, 'loc.hours.days')}</div>
-                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>11:30–14:00 &nbsp; 17:00–20:00</div>
+                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>{HOURS_LONG}</div>
                 <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
               </div>
             </div>
             <div style={{ padding: '0 28px 24px', display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer"
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
                  style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
                 {t(lang, 'cta.route')} →
               </a>
-              <a href="tel:+41786061136"
+              <a href={`tel:${PHONE_TEL}`}
                  style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
                 {t(lang, 'cta.reserve')}
               </a>
@@ -1038,7 +1040,7 @@ const Catering = ({ lang }) => {
           {t(lang, 'cat.body')}
         </p>
         <div style={{ marginTop: 32 }}>
-          <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+          <a href={`mailto:${EMAIL}`} style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
             {t(lang, 'cta.request')} →
           </a>
         </div>
@@ -1141,20 +1143,20 @@ const Footer = ({ lang, onLang }) => {
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
           <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
           <div><a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Uber Eats ↗</a></div>
-          <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
-          <div><a href="tel:+41786061136" style={{ color: 'inherit', textDecoration: 'none' }}>078 606 11 36</a></div>
+          <div><a href={`mailto:${EMAIL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
+          <div><a href={`tel:${PHONE_TEL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{PHONE_DISPLAY}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
-          <div>Paradiesstrasse 2</div>
+          <div>{STREET}</div>
           <div>4102 Binningen</div>
-          <div>{t(lang, 'loc.hours.days')} 11:30–14 · 17–20</div>
-          <div><a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
+          <div>{t(lang, 'loc.hours.days')} {HOURS_SHORT}</div>
+          <div><a href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.follow')}</div>
-          <div><a href="https://www.instagram.com/hiraya.basel" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
-          <div><a href="https://www.facebook.com/profile.php?id=61585498220987" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
+          <div><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
+          <div><a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
         </div>
       </div>
       <div style={{
