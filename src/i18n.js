@@ -1,3 +1,4 @@
+import { HOURS_SHORT } from './config.js';
 export const LANG_LIST = [
   { code: 'de', label: 'DE', long: 'Deutsch',   greeting: 'Grüezi'   },
   { code: 'fr', label: 'FR', long: 'Français',  greeting: 'Bonjour'  },
@@ -24,6 +25,7 @@ export function useLang() {
   });
   useEffect(() => {
     try { localStorage.setItem('hiraya-lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
   }, [lang]);
   return [lang, setLang];
 }
@@ -55,7 +57,7 @@ export const T = {
     'cta.route':       'Route ansehen',
     'cta.reserve':     'Vorbestellung / Abholung',
 
-    'bar.openToday':  'Heute geöffnet · 11:30–14 · 17–20',
+    'bar.openToday':  `Heute geöffnet · ${HOURS_SHORT}`,
     'bar.viaOrder':   'Bestellung via Just Eat & Uber Eats',
 
     'hero.h1.l1':    'Zwei',
@@ -183,7 +185,7 @@ export const T = {
     'cta.route':       "Voir l'itinéraire",
     'cta.reserve':     'Précommande / Retrait',
 
-    'bar.openToday':  "Aujourd'hui ouvert · 11:30–14 · 17–20",
+    'bar.openToday':  `Aujourd'hui ouvert · ${HOURS_SHORT}`,
     'bar.viaOrder':   'Commande via Just Eat & Uber Eats',
 
     'hero.h1.l1':    'Deux',
@@ -311,7 +313,7 @@ export const T = {
     'cta.route':       'Vedi il percorso',
     'cta.reserve':     'Preordine / Ritiro',
 
-    'bar.openToday':  'Aperto oggi · 11:30–14 · 17–20',
+    'bar.openToday':  `Aperto oggi · ${HOURS_SHORT}`,
     'bar.viaOrder':   'Ordini via Just Eat & Uber Eats',
 
     'hero.h1.l1':    'Due',
@@ -439,7 +441,7 @@ export const T = {
     'cta.route':       'Get directions',
     'cta.reserve':     'Pre-order / Pick up',
 
-    'bar.openToday':  'Open today · 11:30–14 · 17–20',
+    'bar.openToday':  `Open today · ${HOURS_SHORT}`,
     'bar.viaOrder':   'Orders via Just Eat & Uber Eats',
 
     'hero.h1.l1':    'Two',

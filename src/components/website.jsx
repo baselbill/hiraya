@@ -2,9 +2,12 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 import { t, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
 import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
+import { MENU } from '../menu.js';
+import {
+  JUST_EAT_URL, UBER_EATS_URL, PHONE_DISPLAY, PHONE_TEL, EMAIL, STREET, POSTAL_CITY,
+  MAPS_URL, MAPS_EMBED_URL, INSTAGRAM_URL, FACEBOOK_URL, HOURS_SHORT, HOURS_LONG,
+} from '../config.js';
 
-const JUST_EAT_URL = 'https://www.just-eat.ch/en/menu/hiraya-asian-fusion-sushi';
-const UBER_EATS_URL = 'https://www.ubereats.com/ch/store/hiraya-asian-fusion-sushi/uEHR2Y59RlCMq_zwBLf5_g';
 
 const useIsMobile = () => {
   const [mobile, setMobile] = useState(() => window.innerWidth < 768);
@@ -32,53 +35,6 @@ const useReveal = (threshold = 0.15) => {
   return [ref, on];
 };
 
-const MENU = {
-  starters: {
-    items: [
-      { id: 'start-edm', name: 'Edamame',       ingredients: 'Gedämpfte Sojabohnen · Meersalz',                                                              price: 7,  kind: 'side', tags: ['vegan'], cooking: 'G', img: '/menu/start-edm.webp' },
-      { id: 'start-mis', name: 'Miso Suppe',    ingredients: 'Miso-Paste · Tofu · Wakame · Frühlingszwiebeln',                                               price: 7,  kind: 'side', tags: ['veg'],  cooking: 'G', img: '/menu/start-miso.webp' },
-      { id: 'start-gun', name: 'Gunkan',        ingredients: 'Spicy Lachs · Spicy Thun · Roter Kaviar · Wakame · Krabbe oder Muschel — 6 Variationen',       price: 8,  kind: 'side', tags: ['spicy'], cooking: 'R', teaser: true, img: '/menu/gunkan.webp' },
-      { id: 'start-tem', name: 'Temaki',        ingredients: 'Handgerollte Tüte · Lachs, Thun, Krabbenfleisch oder Veggie',                                  price: 11, kind: 'side', tags: [], cooking: 'R', img: '/menu/tema-sal.webp' },
-      { id: 'start-tat', name: 'Fisch Tataki',  ingredients: 'Kurz flambierter Fisch · Ponzu-Dressing · 2 Variationen',                                      price: 16, kind: 'side', tags: [], cooking: 'F', img: '/menu/tatk-tun.webp' },
-      { id: 'start-sas', name: 'Fisch Sashimi', ingredients: 'Frischer Fisch in dünne Scheiben geschnitten · Ponzu · 3 Variationen',                         price: 15, kind: 'side', tags: [], cooking: 'R', priceFrom: true, img: '/menu/start-sas.webp' },
-    ],
-  },
-  rolls: {
-    items: [
-      { id: 'roll-dyn',  name: 'Dynamite Roll',        ingredients: 'Lachs · Mango · Surimi · Kaviar · Zwiebeln · Sauce',                                   price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy', 'bestseller'], teaser: true, img: '/menu/roll-dyn.webp', cooking: 'R' },
-      { id: 'roll-spl',  name: 'Spicy Lachs',          ingredients: 'Lachs · Zwiebeln · Gurke',                                                             price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-spl.webp', cooking: 'R' },
-      { id: 'roll-spt',  name: 'Spicy Thun',           ingredients: 'Thunfisch · Zwiebeln · Gurke',                                                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-spt.webp', cooking: 'R' },
-      { id: 'roll-tmp',  name: 'Tempura Roll',         ingredients: 'Crevetten-Tempura · Avocado · Sesam · Zwiebeln · Mayo · Sauce',                        price:  9.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/menu/roll-tmp.webp', cooking: 'G' },
-      { id: 'roll-cat',  name: 'Caterpillar Roll',     ingredients: 'Crevetten-Tempura · Gurke · Avocado · Sesam · Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    img: '/menu/roll-cat.webp', cooking: 'G' },
-      { id: 'roll-tbl',  name: 'Tuna Blast',           ingredients: 'Thunfisch · Gurke · Avocado · Mango · Scharfe Sauce',                                  price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-tbl.webp', cooking: 'R' },
-      { id: 'roll-swi',  name: 'Swish Roll',           ingredients: 'Flambierter Lachs · Avocado · Mango · Surimi · Jalapeño · Sesam · Sauce',             price: 10.50, priceFrom: true, kind: 'maki', tags: ['spicy'],                              img: '/menu/roll-swi.webp', cooking: 'F' },
-      { id: 'roll-kru',  name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce',                         price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/menu/roll-kru.webp', cooking: 'G' },
-      { id: 'roll-vip',  name: 'VIP Roll',          ingredients: 'Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce',                                   price: 11.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               img: '/menu/roll-vip.webp', cooking: 'R' },
-      { id: 'roll-mix',  name: 'Hausmix Roll',         ingredients: 'Lachs · Thun · Mango · Avocado · Sesam · Sauce',                                       price: 10.00, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'R', img: '/menu/roll-hous.webp' },
-      { id: 'roll-una',  name: 'Unagi Rainbow Roll',   ingredients: 'Aal · Avocado · Gurke · Surimi · Sesam · Sauce',                                       price: 10.50, priceFrom: true, kind: 'maki', tags: [],                                    cooking: 'G', img: '/menu/roll-una.webp' },
-      { id: 'roll-vfm',  name: 'Veggie Fotomaki',      ingredients: 'Avocado · Gurke · Mango · Rettich · Apfel · Kampyo',                                   price: 10.00, priceFrom: true, kind: 'maki', tags: ['veg'],                               cooking: 'G', img: '/menu/roll-foto.webp' },
-    ],
-  },
-  sets: {
-    items: [
-      { id: 'set-mix2',  name: 'Mix Sushi 2',             ingredients: '14 Stück · 4 Uramaki · 4 Nigiri (2× Lachs, Ebi, Thun) · 6 Hosomaki (Lachs, Avo) — unser meistbestelltes Set', price: 25, kind: 'set', tags: [], teaser: true, img: '/menu/set-mix2.webp', cooking: 'R' },
-      { id: 'set-sho',   name: 'Shohuko Teller',          ingredients: '18 Stück · 4 Rainbow Lachs · 4 Rainbow Thun · 3 Lachs Maki · 3 Thun Maki · 4 Nigiri',                         price: 35, kind: 'set', tags: [],                                                    cooking: 'R', img: '/menu/set-sho.webp' },
-      { id: 'set-vegi',  name: 'Mix Vegi',                ingredients: '11 Stück · 4 Veggi Roll · 4 Vegi Maki · 3 Vegi Nigiri · Avo, Mango, Gurke, Inari',                            price: 21, kind: 'set', tags: ['veg'],                         img: '/menu/set-vegi.webp', cooking: 'G' },
-      { id: 'set-vhoso', name: '24 Stück Veggie Hosomaki',ingredients: '24 Stück · 6× Avocado · 6× Mango · 6× Gurke · 6× Eingelegter Rettich',                                       price: 26, kind: 'set', tags: ['vegan'],                       img: '/menu/set-vhoso.webp', cooking: 'G' },
-      { id: 'set-party', name: 'Sushi Party Platter',     ingredients: 'Gemischter Teller für Gruppen · Uramaki, Hosomaki, Nigiri, Sashimi oder Gunkan — Ghers Auswahl · 3 Variationen', price: 110, priceFrom: true, kind: 'set', tags: [], img: '/menu/set-party.webp', cooking: 'R' },
-    ],
-  },
-  poke: {
-    items: [
-      { id: 'poke-sal',  name: 'Lachs Poke Bowl',      ingredients: 'Lachs · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',                price: 22.00, kind: 'bowl',  tags: ['bestseller'], teaser: true, img: '/menu/poke-sal.webp', cooking: 'R' },
-      { id: 'poke-tu',   name: 'Thun Poke Bowl',       ingredients: 'Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 22.00, kind: 'bowl',  tags: [],                              img: '/menu/poke-tu.webp',  cooking: 'R' },
-      { id: 'poke-shr',  name: 'Crevetten Poke Bowl',  ingredients: 'Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce',             price: 22.00, kind: 'bowl',  tags: [],                              img: '/menu/poke-shr.webp', cooking: 'G' },
-      { id: 'poke-veg',  name: 'Veggie Poke Bowl',     ingredients: 'Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago',               price: 21.00, kind: 'bowl',  tags: ['veg'],                         img: '/menu/poke-veg.webp', cooking: 'G' },
-      { id: 'bento-lac', name: 'Lachs Bento Box',      ingredients: 'Sushi-Reis · Flambierter Lachs · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce',   price: 25.00, kind: 'bento', tags: [],                                                        cooking: 'F', img: '/menu/bent-sal.webp' },
-      { id: 'bento-tu',  name: 'Thun Bento Box',       ingredients: 'Sushi-Reis · Flambierter Thunfisch · 4 Nigiri · Marktsalat · Wakame-Salat · Sauce', price: 25.00, kind: 'bento', tags: [],                                                      cooking: 'F', img: '/menu/bent-tun.webp' },
-    ],
-  },
-};
 
 const TAG_DEFS = {
   bestseller: { prefix: '★',  bg: 'var(--ink)',       fg: 'var(--paper)' },
@@ -349,7 +305,7 @@ const Nav = ({ lang, onLang }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
             <span className="mono" style={{ color: 'rgba(244,234,214,0.6)' }}>
-              Paradiesstrasse 2 · 4102 Binningen · 078 606 11 36
+              {`${STREET} · ${POSTAL_CITY} · ${PHONE_DISPLAY}`}
             </span>
           )}
           <LangPills lang={lang} onLang={onLang} tone="dark" />
@@ -968,53 +924,6 @@ const HowToOrder = ({ lang }) => {
   );
 };
 
-// ── Featured Bowl ──
-const Featured = ({ lang }) => {
-  const isMobile = useIsMobile();
-  const [ref, on] = useReveal();
-  const px = isMobile ? '24px' : '56px';
-  const py = isMobile ? '64px' : '90px';
-  return (
-    <section style={{ background: 'var(--clay)', color: 'var(--linen)' }}>
-      <div ref={ref} style={{
-        padding: `${py} ${px}`,
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1.1fr 1fr',
-        gap: isMobile ? 36 : 60,
-        alignItems: 'center',
-        opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(32px)',
-        transition: 'opacity 0.8s ease, transform 0.8s ease',
-      }}>
-        <div>
-          <div className="mono" style={{ opacity: 0.85 }}>{t(lang, 'feature.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'feature.title.html')}
-                color="var(--linen)"
-                style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(48px, 7vw, 104px)', lineHeight: 0.9, marginTop: 8 }} />
-          <p style={{ fontFamily: 'var(--f-sans)', fontSize: isMobile ? 16 : 19, lineHeight: 1.55, marginTop: 18, maxWidth: 520, opacity: 0.92 }}>
-            {t(lang, 'feature.body')}
-          </p>
-          <div style={{ marginTop: 28, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--f-display)', fontSize: isMobile ? 48 : 64 }}>CHF 22.50</span>
-            <OrderLinks size="md" tone="invert" lang={lang} />
-          </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-          <div style={{ width: isMobile ? '80%' : 440, maxWidth: '100%' }}>
-            <FoodPlaceholder label="HIRAYA BOWL — feature photo" shape="circle" cornerNote="FEATURED" />
-          </div>
-          <div style={{
-            position: 'absolute', top: 8, right: isMobile ? 0 : 24, transform: 'rotate(8deg)',
-            background: 'var(--saffron)', color: 'var(--ink)', padding: '8px 14px',
-            borderRadius: 999, fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-          }}>
-            {t(lang, 'feature.badge')}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 // ── Location ──
 const LocationBlock = ({ lang }) => {
   const isMobile = useIsMobile();
@@ -1056,7 +965,7 @@ const LocationBlock = ({ lang }) => {
             <div style={{ height: 240, position: 'relative', overflow: 'hidden' }}>
               <iframe
                 title="Hiraya location"
-                src="https://maps.google.com/maps?q=Hiraya+Asian+Fusion+Sushi,+Paradiesstrasse+2,+4102+Binningen,+Switzerland&output=embed&z=17"
+                src={MAPS_EMBED_URL}
                 width="100%"
                 height="100%"
                 style={{ border: 0, display: 'block' }}
@@ -1073,22 +982,22 @@ const LocationBlock = ({ lang }) => {
             }}>
               <div>
                 <div style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: isMobile ? 40 : 56, lineHeight: 1 }}>Binningen</div>
-                <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>Paradiesstrasse 2 · 4102</div>
-                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>078 606 11 36</div>
+                <div className="mono" style={{ color: 'var(--ember)', marginTop: 6 }}>{STREET} · {POSTAL_CITY.split(' ')[0]}</div>
+                <div className="mono" style={{ color: 'rgba(244,234,214,0.6)', marginTop: 4 }}>{PHONE_DISPLAY}</div>
               </div>
               <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
                 <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
                 <div>{t(lang, 'loc.hours.days')}</div>
-                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>11:30–14:00 &nbsp; 17:00–20:00</div>
+                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>{HOURS_LONG}</div>
                 <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
               </div>
             </div>
             <div style={{ padding: '0 28px 24px', display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer"
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
                  style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
                 {t(lang, 'cta.route')} →
               </a>
-              <a href="tel:+41786061136"
+              <a href={`tel:${PHONE_TEL}`}
                  style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
                 {t(lang, 'cta.reserve')}
               </a>
@@ -1131,7 +1040,7 @@ const Catering = ({ lang }) => {
           {t(lang, 'cat.body')}
         </p>
         <div style={{ marginTop: 32 }}>
-          <a href="mailto:info@hiraya.ch" style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+          <a href={`mailto:${EMAIL}`} style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '16px 22px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
             {t(lang, 'cta.request')} →
           </a>
         </div>
@@ -1234,20 +1143,20 @@ const Footer = ({ lang, onLang }) => {
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
           <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
           <div><a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Uber Eats ↗</a></div>
-          <div><a href="mailto:info@hiraya.ch" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
-          <div><a href="tel:+41786061136" style={{ color: 'inherit', textDecoration: 'none' }}>078 606 11 36</a></div>
+          <div><a href={`mailto:${EMAIL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
+          <div><a href={`tel:${PHONE_TEL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{PHONE_DISPLAY}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
-          <div>Paradiesstrasse 2</div>
+          <div>{STREET}</div>
           <div>4102 Binningen</div>
-          <div>{t(lang, 'loc.hours.days')} 11:30–14 · 17–20</div>
-          <div><a href="https://maps.google.com/?q=Paradiesstrasse+2,+4102+Binningen" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
+          <div>{t(lang, 'loc.hours.days')} {HOURS_SHORT}</div>
+          <div><a href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.follow')}</div>
-          <div><a href="https://www.instagram.com/hiraya.basel" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
-          <div><a href="https://www.facebook.com/profile.php?id=61585498220987" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
+          <div><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a></div>
+          <div><a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a></div>
         </div>
       </div>
       <div style={{
