@@ -62,6 +62,8 @@ Everything on the website is changed by editing the code, so you need a develope
 
 A change normally goes live **a minute or two** after the developer publishes it.
 
+Opening hours, phone, email and links are stored in one place in the code, so those changes are quick. The delivery promises ("about 25 minutes", "minimum CHF 30") are written into the text in four languages, so tell the developer if they change.
+
 Each dish needs translations in four languages. If you do not provide them, the developer can draft them, but please have a native speaker check them.
 
 ## Things to keep in mind

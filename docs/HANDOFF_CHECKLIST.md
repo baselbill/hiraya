@@ -21,9 +21,9 @@ Third-party services used by the site, none of which need an account: Google Fon
 
 ## 2. Verification steps for the receiving developer
 
-- [ ] `git clone https://github.com/baselbill/hiraya && cd hiraya && npm ci && npm run build` succeeds (checked on 2026-11-17: builds in about 1 second).
+- [ ] `git clone https://github.com/baselbill/hiraya && cd hiraya && npm ci && npm run check && npm run build` succeeds.
 - [ ] `npm run dev` shows the site in all four languages.
-- [ ] A test change on a branch builds and, once merged to `main`, appears on https://hiraya.ch after the Actions run.
+- [ ] A pull request shows a green "CI" check, and a test change builds and, once merged to `main`, appears on https://hiraya.ch after the Actions run.
 - [ ] Settings → Pages shows the custom domain and "Enforce HTTPS" is on.
 - [ ] Order buttons open the correct Just Eat and Uber Eats pages.
 - [ ] Phone, email and map links work.
@@ -41,11 +41,11 @@ Third-party services used by the site, none of which need an account: Google Fon
 
 ## 4. Known issues to hand over
 
-See the full list in [DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md#6-known-issues-and-cleanup-candidates). The ones that matter most:
+Most issues found during handoff review were fixed (see [DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md#6-known-issues-and-possible-next-steps)). What remains:
 
-1. Full-size original photos are published with the site (82 MB build, publicly downloadable).
-2. Prices, hours and contact details are hard-coded in several places, so changes must be made carefully.
-3. Heavy unused development dependencies (`puppeteer`, `playwright`).
+1. **Imprint and privacy page**: missing. To write one the owner must provide: legal business name and form, registered address, owner/managing person, contact email, UID/VAT number if registered, and a decision on whether the site will ever use analytics, forms or cookies.
+2. **Original photos are still in git history** (repository about 77 MB). They are no longer on the website. If the GitHub repository is public they are downloadable from there; the owner should decide whether the repository should be private.
+3. **Delivery claims** ("Ø 25 min", "Min. CHF 30") are text in four languages and must be updated by hand if they change.
 
 ## 5. Documentation map
 
