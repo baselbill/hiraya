@@ -114,7 +114,7 @@ Fixed during handoff (2026-11): full-size originals no longer published (moved t
 
 Still open:
 
-1. **No imprint or privacy page.** Needs legal details from the owner (see the handoff checklist). Required if analytics or similar are ever added.
+1. **No imprint or privacy page published.** A draft is in `docs/legal-draft/`; it needs legal details from the owner before it can go live. Required if analytics or similar are ever added.
 2. **Originals remain in git history.** The repository is about 77 MB because of past commits of full-size photos. Rewriting history would fix it but is disruptive and was deliberately not done. If the repository is public, the originals are downloadable from GitHub.
 3. **Delivery claims are translated prose** (see the table in section 4) and are not covered by `config.js`.
 4. **JSON-LD in `index.html` duplicates `config.js`** (static HTML cannot import it). Update both together.

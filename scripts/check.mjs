@@ -3,7 +3,7 @@
 //  - every menu image exists in public/
 //  - every language defines the same UI text keys
 //  - every menu category has labels in all four languages
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { MENU } from '../src/menu.js';
 import { T, ITEM_I18N, MENU_I18N, LANG_LIST } from '../src/i18n.js';
@@ -41,6 +41,13 @@ for (const l of langs) {
   const keys = new Set(Object.keys(T[l] || {}));
   for (const k of baseKeys) if (!keys.has(k)) fail(`T.${l}: missing key "${k}"`);
   for (const k of keys) if (!baseKeys.has(k)) fail(`T.${l}: extra key "${k}" (not in de)`);
+}
+
+// A published legal page must not contain unfilled [[PLACEHOLDERS]].
+if (existsSync(join("public", "legal.html"))) {
+  const legal = readFileSync(join("public", "legal.html"), "utf8");
+  const left = legal.match(/\[\[[^\]]*\]\]/g);
+  if (left) fail(`public/legal.html still has ${left.length} unfilled placeholder(s), e.g. ${left[0]}`);
 }
 
 if (errors.length) {

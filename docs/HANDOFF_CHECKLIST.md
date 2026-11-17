@@ -43,7 +43,7 @@ Third-party services used by the site, none of which need an account: Google Fon
 
 Most issues found during handoff review were fixed (see [DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md#6-known-issues-and-possible-next-steps)). What remains:
 
-1. **Imprint and privacy page**: missing. To write one the owner must provide: legal business name and form, registered address, owner/managing person, contact email, UID/VAT number if registered, and a decision on whether the site will ever use analytics, forms or cookies.
+1. **Imprint and privacy page**: a draft is ready in [legal-draft/](legal-draft/README.md) but is **not published**. The owner must supply the legal business name, UID, VAT number if any, authorised person and photo rights holder; the README lists the publishing steps.
 2. **Original photos are still in git history** (repository about 77 MB). They are no longer on the website. If the GitHub repository is public they are downloadable from there; the owner should decide whether the repository should be private.
 3. **Delivery claims** ("Ø 25 min", "Min. CHF 30") are text in four languages and must be updated by hand if they change.
 
