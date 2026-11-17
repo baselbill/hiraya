@@ -1,4 +1,5 @@
 // Single source of truth for restaurant contact details, opening hours and outbound links.
+// index.html also carries a copy of these facts as JSON-LD (search-engine markup); update it too.
 // Edit here, not in website.jsx / i18n.js. Delivery terms ("Ø 25 min", "Min. CHF 30") are
 // translated prose in i18n.js (keys hero.delivery, hero.minOrder, menu.cta.body, how.s3.body).
 

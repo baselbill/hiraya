@@ -25,6 +25,7 @@ export function useLang() {
   });
   useEffect(() => {
     try { localStorage.setItem('hiraya-lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
   }, [lang]);
   return [lang, setLang];
 }
