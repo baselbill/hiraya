@@ -1,5 +1,7 @@
 // Website menu. German base text and prices; translations live in ITEM_I18N (src/i18n.js).
 // Every item id here must exist in ITEM_I18N. Prices must match Just Eat and Uber Eats.
+// The in-store board (/menu) reads src/data/menu.json instead. That file is the master
+// menu (DE + EN, piece prices). This website menu is not generated from it yet.
 export const MENU = {
   starters: {
     items: [
