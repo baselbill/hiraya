@@ -37,6 +37,11 @@ export function t(lang, key) {
   return key;
 }
 
+/** Replace {name} placeholders. Used for the closure start date from config. */
+export function fill(text, vars) {
+  return String(text).replace(/\{(\w+)\}/g, (_, key) => (vars[key] != null ? String(vars[key]) : `{${key}}`));
+}
+
 export const T = {
   de: {
     'nav.menu':     'Speisekarte',
@@ -58,7 +63,25 @@ export const T = {
     'cta.reserve':     'Vorbestellung / Abholung',
 
     'bar.openToday':  `Heute geöffnet · ${HOURS_SHORT}`,
+    'bar.closedToday': 'Heute geschlossen',
+    'bar.closedRenovation': 'Wegen Umbau geschlossen',
     'bar.viaOrder':   'Bestellung via Just Eat & Uber Eats',
+    'bar.viaDelivery': 'Lieferung via Just Eat & Uber Eats',
+
+    'closure.advance.eyebrow': 'Umbau',
+    'closure.advance.title':   'Ab {start} zu.',
+    'closure.advance.body':    'Vom {start} bis Ende April 2027 bleibt der Laden an der Paradiesstrasse wegen Umbau geschlossen. Keine Abholung, kein Walk-in — Chef Gher kocht weiter, und die Lieferung über Just Eat und Uber Eats läuft weiter.',
+    'closure.closed.eyebrow':  'Umbau',
+    'closure.closed.title':    'Wir sind am Umbauen.',
+    'closure.closed.body':     'Der Laden an der Paradiesstrasse ist seit dem {start} wegen Umbau geschlossen, bis Ende April 2027. Keine Abholung, kein Walk-in. Chef Gher kocht weiter — bestell die Lieferung über Just Eat oder Uber Eats.',
+    'closure.hours.status':    'Wegen Umbau geschlossen',
+    'closure.hours.range':     '{start} – Ende April 2027',
+    'closure.hours.note':      'Keine Abholung, kein Walk-in',
+    'closure.footer.line':     'Umbau · bis Ende April 2027',
+    'closure.loc.hint':        'Keine Abholung vor Ort. Lieferung über Just Eat oder Uber Eats.',
+    'closure.loc.title.html':  'Nur noch <i>Lieferung</i>.',
+    'closure.how.s3.title':    'Liefern lassen',
+    'closure.how.s3.body':     'Lieferung über Just Eat oder Uber Eats. Keine Abholung an der Paradiesstrasse.',
 
     'hero.h1.l1':    'Zwei',
     'hero.h1.l2i':   'Sprachen',
@@ -186,7 +209,25 @@ export const T = {
     'cta.reserve':     'Précommande / Retrait',
 
     'bar.openToday':  `Aujourd'hui ouvert · ${HOURS_SHORT}`,
+    'bar.closedToday': "Fermé aujourd'hui",
+    'bar.closedRenovation': 'Fermé pour rénovation',
     'bar.viaOrder':   'Commande via Just Eat & Uber Eats',
+    'bar.viaDelivery': 'Livraison via Just Eat & Uber Eats',
+
+    'closure.advance.eyebrow': 'Rénovation',
+    'closure.advance.title':   'Fermé à partir du {start}.',
+    'closure.advance.body':    'Du {start} à fin avril 2027, la boutique de la Paradiesstrasse sera fermée pour rénovation. Pas de retrait, pas de passage — le chef Gher continue de cuisiner, et la livraison continue sur Just Eat et Uber Eats.',
+    'closure.closed.eyebrow':  'Rénovation',
+    'closure.closed.title':    'On rénove.',
+    'closure.closed.body':     'La boutique de la Paradiesstrasse est fermée pour rénovation depuis le {start}, jusqu\'à fin avril 2027. Pas de retrait, pas de passage. Le chef Gher cuisine toujours — commande la livraison sur Just Eat ou Uber Eats.',
+    'closure.hours.status':    'Fermé pour rénovation',
+    'closure.hours.range':     '{start} – fin avril 2027',
+    'closure.hours.note':      'Pas de retrait, pas de passage',
+    'closure.footer.line':     'Rénovation · jusqu\'à fin avril 2027',
+    'closure.loc.hint':        'Pas de retrait sur place. Livraison sur Just Eat ou Uber Eats.',
+    'closure.loc.title.html':  'Livraison <i>seulement</i>.',
+    'closure.how.s3.title':    'Se faire livrer',
+    'closure.how.s3.body':     'Livraison sur Just Eat ou Uber Eats. Pas de retrait à la Paradiesstrasse.',
 
     'hero.h1.l1':    'Deux',
     'hero.h1.l2i':   'langues',
@@ -314,7 +355,25 @@ export const T = {
     'cta.reserve':     'Preordine / Ritiro',
 
     'bar.openToday':  `Aperto oggi · ${HOURS_SHORT}`,
+    'bar.closedToday': 'Chiuso oggi',
+    'bar.closedRenovation': 'Chiuso per ristrutturazione',
     'bar.viaOrder':   'Ordini via Just Eat & Uber Eats',
+    'bar.viaDelivery': 'Consegna via Just Eat & Uber Eats',
+
+    'closure.advance.eyebrow': 'Ristrutturazione',
+    'closure.advance.title':   'Chiusi dal {start}.',
+    'closure.advance.body':    'Dal {start} a fine aprile 2027 il negozio in Paradiesstrasse resterà chiuso per ristrutturazione. Niente ritiro, niente ingresso — lo chef Gher continua a cucinare, e la consegna prosegue su Just Eat e Uber Eats.',
+    'closure.closed.eyebrow':  'Ristrutturazione',
+    'closure.closed.title':    'Stiamo ristrutturando.',
+    'closure.closed.body':     'Il negozio in Paradiesstrasse è chiuso per ristrutturazione dal {start} fino a fine aprile 2027. Niente ritiro, niente ingresso. Lo chef Gher cucina ancora — ordina la consegna su Just Eat o Uber Eats.',
+    'closure.hours.status':    'Chiuso per ristrutturazione',
+    'closure.hours.range':     '{start} – fine aprile 2027',
+    'closure.hours.note':      'Niente ritiro, niente ingresso',
+    'closure.footer.line':     'Ristrutturazione · fino a fine aprile 2027',
+    'closure.loc.hint':        'Niente ritiro in negozio. Consegna su Just Eat o Uber Eats.',
+    'closure.loc.title.html':  'Solo <i>consegna</i>.',
+    'closure.how.s3.title':    'Fatti consegnare',
+    'closure.how.s3.body':     'Consegna su Just Eat o Uber Eats. Niente ritiro in Paradiesstrasse.',
 
     'hero.h1.l1':    'Due',
     'hero.h1.l2i':   'lingue',
@@ -442,7 +501,25 @@ export const T = {
     'cta.reserve':     'Pre-order / Pick up',
 
     'bar.openToday':  `Open today · ${HOURS_SHORT}`,
+    'bar.closedToday': 'Closed today',
+    'bar.closedRenovation': 'Closed for renovation',
     'bar.viaOrder':   'Orders via Just Eat & Uber Eats',
+    'bar.viaDelivery': 'Delivery via Just Eat & Uber Eats',
+
+    'closure.advance.eyebrow': 'Renovation',
+    'closure.advance.title':   'Closed from {start}.',
+    'closure.advance.body':    'From {start} until the end of April 2027, the shop on Paradiesstrasse will be closed for renovation. No pickup, no walk-in — chef Gher keeps cooking, and delivery continues on Just Eat and Uber Eats.',
+    'closure.closed.eyebrow':  'Renovation',
+    'closure.closed.title':    "We're renovating.",
+    'closure.closed.body':     'The shop on Paradiesstrasse has been closed for renovation since {start}, until the end of April 2027. No pickup, no walk-in. Chef Gher is still cooking — order delivery on Just Eat or Uber Eats.',
+    'closure.hours.status':    'Closed for renovation',
+    'closure.hours.range':     '{start} – end of April 2027',
+    'closure.hours.note':      'No pickup, no walk-in',
+    'closure.footer.line':     'Renovation · until the end of April 2027',
+    'closure.loc.hint':        'No pickup at the shop. Delivery on Just Eat or Uber Eats.',
+    'closure.loc.title.html':  'Delivery <i>only</i>.',
+    'closure.how.s3.title':    'Get it delivered',
+    'closure.how.s3.body':     'Delivery on Just Eat or Uber Eats. No pickup at Paradiesstrasse.',
 
     'hero.h1.l1':    'Two',
     'hero.h1.l2i':   'languages',
