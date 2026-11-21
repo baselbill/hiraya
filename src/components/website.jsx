@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef, Fragment } from 'react';
-import { t, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
+import { t, fill, useLang, LANG_LIST, MENU_I18N, ITEM_I18N } from '../i18n.js';
 import { Inabel } from './system.jsx';
 import { DualGlyph } from './marks.jsx';
 import { MENU } from '../menu.js';
 import {
   JUST_EAT_URL, UBER_EATS_URL, PHONE_DISPLAY, PHONE_TEL, EMAIL, STREET, POSTAL_CITY,
   MAPS_URL, MAPS_EMBED_URL, INSTAGRAM_URL, FACEBOOK_URL, HOURS_SHORT, HOURS_LONG,
+  RENOVATION,
 } from '../config.js';
+import { closurePhase, shopDayStatus, resolveNow, formatDayMonth } from '../closure.js';
 
 
 const useIsMobile = () => {
@@ -273,6 +275,59 @@ const OrderLink = ({ provider = 'justeat', size = 'md', tone = 'solid', lang = '
 const JustEatLink = (props) => <OrderLink provider="justeat" {...props} />;
 const UberEatsLink = (props) => <OrderLink provider="ubereats" {...props} />;
 
+// Site-wide renovation notice. Rendered as the first bar of the sticky header,
+// and the splash is skipped while it is up so the notice is the first thing visible.
+const ClosureBanner = ({ lang, phase, startLabel }) => {
+  const isMobile = useIsMobile();
+  const closed = phase === 'closed';
+  const tx = (key) => fill(t(lang, key), { start: startLabel });
+  const px = isMobile ? '20px' : '56px';
+  return (
+    <aside
+      data-closure={phase}
+      aria-label={tx(closed ? 'closure.closed.eyebrow' : 'closure.advance.eyebrow')}
+      style={{
+        background: closed ? 'var(--clay)' : 'var(--ink)',
+        color: closed ? 'var(--linen)' : 'var(--paper)',
+        padding: isMobile ? `16px ${px} 18px` : `18px ${px}`,
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        justifyContent: 'space-between',
+        gap: isMobile ? 14 : 28,
+      }}>
+        <div style={{ minWidth: 0, maxWidth: 780 }}>
+          <div className="mono" style={{ color: closed ? 'rgba(250,243,226,0.8)' : 'var(--saffron)', fontSize: 10 }}>
+            {tx(closed ? 'closure.closed.eyebrow' : 'closure.advance.eyebrow')}
+          </div>
+          <div style={{
+            fontFamily: 'var(--f-display)',
+            fontStyle: 'italic',
+            fontSize: isMobile ? 28 : 36,
+            lineHeight: 1.02,
+            marginTop: 4,
+          }}>
+            {tx(closed ? 'closure.closed.title' : 'closure.advance.title')}
+          </div>
+          <div style={{
+            fontFamily: 'var(--f-sans)',
+            fontSize: isMobile ? 14 : 15,
+            lineHeight: 1.45,
+            marginTop: 8,
+            color: closed ? 'rgba(250,243,226,0.92)' : 'rgba(244,234,214,0.82)',
+          }}>
+            {tx(closed ? 'closure.closed.body' : 'closure.advance.body')}
+          </div>
+        </div>
+        <OrderLinks size={isMobile ? 'sm' : 'md'} tone={closed ? 'invert' : 'solid'} lang={lang} />
+      </div>
+    </aside>
+  );
+};
+
 // Renders both Just Eat and Uber Eats CTAs together — use anywhere an order CTA appears.
 const OrderLinks = ({ size = 'md', tone = 'solid', lang = 'de' }) => (
   <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: size === 'sm' ? 8 : 12, alignItems: 'center' }}>
@@ -282,10 +337,13 @@ const OrderLinks = ({ size = 'md', tone = 'solid', lang = 'de' }) => (
 );
 
 // ── Navigation ──
-const Nav = ({ lang, onLang }) => {
+const Nav = ({ lang, onLang, phase, dayStatus, startLabel }) => {
   const isMobile = useIsMobile();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const px = isMobile ? '20px' : '56px';
+  const renovating = phase === 'closed';
+  const statusKey = renovating ? 'bar.closedRenovation' : dayStatus === 'open' ? 'bar.openToday' : 'bar.closedToday';
+  const viaKey = renovating ? 'bar.viaDelivery' : 'bar.viaOrder';
   const links = [
     { id: 'menu',     key: 'nav.menu' },
     { id: 'about',    key: 'nav.about' },
@@ -295,12 +353,22 @@ const Nav = ({ lang, onLang }) => {
   const closeDrawer = () => setDrawerOpen(false);
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 100, background: 'var(--paper)' }}>
+      {phase !== 'normal' && (
+        <>
+          <ClosureBanner lang={lang} phase={phase} startLabel={startLabel} />
+          <div aria-hidden style={{ height: 3, background: phase === 'closed' ? 'var(--ink)' : 'var(--saffron)' }} />
+        </>
+      )}
       <div style={{
         background: 'var(--ink)', color: 'var(--paper)', padding: `8px ${px}`,
         display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, gap: 12,
       }}>
-        <span className="mono" style={{ color: 'var(--ember)' }}>
-          {t(lang, 'bar.openToday')} · {t(lang, 'bar.viaOrder')}
+        <span
+          data-shop-status={renovating ? 'renovation' : dayStatus}
+          className="mono"
+          style={{ color: 'var(--ember)', flex: 1, minWidth: 0 }}
+        >
+          {t(lang, statusKey)} · {t(lang, viaKey)}
         </span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {!isMobile && (
@@ -646,7 +714,7 @@ const MenuCard = ({ item, lang, isMobile = false }) => {
   );
 };
 
-const Menu = ({ lang }) => {
+const Menu = ({ lang, layoutKey = '' }) => {
   const isMobile = useIsMobile();
   const [activeKey, setActiveKey] = useState('starters');
   const [headerH, setHeaderH] = useState(110);
@@ -673,7 +741,7 @@ const Menu = ({ lang }) => {
   useEffect(() => {
     const header = document.querySelector('header');
     if (header) setHeaderH(header.offsetHeight);
-  }, [isMobile]);
+  }, [isMobile, layoutKey]);
 
   useEffect(() => {
     const observers = [];
@@ -892,7 +960,7 @@ const Menu = ({ lang }) => {
 };
 
 // ── How to Order ──
-const HowToOrder = ({ lang }) => {
+const HowToOrder = ({ lang, phase }) => {
   const isMobile = useIsMobile();
   const [ref, on] = useReveal();
   const px = isMobile ? '20px' : '56px';
@@ -914,8 +982,8 @@ const HowToOrder = ({ lang }) => {
           }}>
             <span style={{ fontFamily: 'var(--f-display)', fontStyle: 'italic', fontSize: 32, color: 'var(--clay)', lineHeight: 1, flexShrink: 0 }}>{'0' + (i + 1)}</span>
             <div>
-              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, 'how.' + s + '.title')}</div>
-              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2, fontSize: 11 }}>{t(lang, 'how.' + s + '.body')}</div>
+              <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, fontWeight: 600, color: 'var(--ink)' }}>{t(lang, phase === 'closed' && s === 's3' ? 'closure.how.s3.title' : 'how.' + s + '.title')}</div>
+              <div className="mono" style={{ color: 'var(--ink-mute)', marginTop: 2, fontSize: 11 }}>{t(lang, phase === 'closed' && s === 's3' ? 'closure.how.s3.body' : 'how.' + s + '.body')}</div>
             </div>
           </div>
         ))}
@@ -925,7 +993,7 @@ const HowToOrder = ({ lang }) => {
 };
 
 // ── Location ──
-const LocationBlock = ({ lang }) => {
+const LocationBlock = ({ lang, phase, startLabel }) => {
   const isMobile = useIsMobile();
   const [ref, on] = useReveal();
   const px = isMobile ? '24px' : '56px';
@@ -938,11 +1006,11 @@ const LocationBlock = ({ lang }) => {
       }}>
         <div style={{ marginBottom: 28 }}>
           <div className="mono" style={{ color: 'var(--clay)' }}>{t(lang, 'loc.eyebrow')}</div>
-          <Rich as="div" html={t(lang, 'loc.title.html')}
+          <Rich as="div" html={t(lang, phase === 'closed' ? 'closure.loc.title.html' : 'loc.title.html')}
                 style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(44px, 6vw, 88px)', lineHeight: 0.95, marginTop: 4 }} />
           {!isMobile && (
             <div className="mono" style={{ color: 'var(--ink-mute)', maxWidth: 360, lineHeight: 1.7, marginTop: 12 }}>
-              {t(lang, 'loc.hint')}
+              {t(lang, phase === 'closed' ? 'closure.loc.hint' : 'loc.hint')}
             </div>
           )}
         </div>
@@ -987,20 +1055,41 @@ const LocationBlock = ({ lang }) => {
               </div>
               <div style={{ fontFamily: 'var(--f-sans)', fontSize: 14, lineHeight: 1.6 }}>
                 <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'loc.hours.label')}</div>
-                <div>{t(lang, 'loc.hours.days')}</div>
-                <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>{HOURS_LONG}</div>
-                <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
+                {phase === 'closed' ? (
+                  <>
+                    <div>{t(lang, 'closure.hours.status')}</div>
+                    <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>{fill(t(lang, 'closure.hours.range'), { start: startLabel })}</div>
+                    <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'closure.hours.note')}</div>
+                  </>
+                ) : (
+                  <>
+                    <div>{t(lang, 'loc.hours.days')}</div>
+                    <div style={{ color: 'rgba(244,234,214,0.65)', fontFamily: 'var(--f-mono)', fontSize: 12 }}>{HOURS_LONG}</div>
+                    <div style={{ color: 'rgba(244,234,214,0.4)', fontFamily: 'var(--f-mono)', fontSize: 11, marginTop: 4 }}>{t(lang, 'loc.hours.closed')}</div>
+                  </>
+                )}
               </div>
             </div>
-            <div style={{ padding: '0 28px 24px', display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
-                 style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
-                {t(lang, 'cta.route')} →
-              </a>
-              <a href={`tel:${PHONE_TEL}`}
-                 style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
-                {t(lang, 'cta.reserve')}
-              </a>
+            <div style={{ padding: '0 28px 24px', display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+              {phase === 'closed' ? (
+                <OrderLinks size="sm" lang={lang} />
+              ) : (
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                   style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
+                  {t(lang, 'cta.route')} →
+                </a>
+              )}
+              {phase === 'closed' ? (
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                   style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
+                  {t(lang, 'cta.route')} →
+                </a>
+              ) : (
+                <a href={`tel:${PHONE_TEL}`}
+                   style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
+                  {t(lang, 'cta.reserve')}
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -1113,7 +1202,7 @@ const Story = ({ lang }) => {
 };
 
 // ── Footer ──
-const Footer = ({ lang, onLang }) => {
+const Footer = ({ lang, onLang, phase }) => {
   const isMobile = useIsMobile();
   const px = isMobile ? '24px' : '56px';
   return (
@@ -1150,7 +1239,7 @@ const Footer = ({ lang, onLang }) => {
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
           <div>{STREET}</div>
           <div>4102 Binningen</div>
-          <div>{t(lang, 'loc.hours.days')} {HOURS_SHORT}</div>
+          <div>{phase === 'closed' ? t(lang, 'closure.footer.line') : `${t(lang, 'loc.hours.days')} ${HOURS_SHORT}`}</div>
           <div><a href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
@@ -1178,6 +1267,13 @@ const Footer = ({ lang, onLang }) => {
 // ── Top-level Website component ──
 export const Website = () => {
   const [lang, setLang] = useLang();
+  const [{ now }] = useState(() => resolveNow(
+    typeof window !== 'undefined' ? window.location.search : '',
+    import.meta.env.VITE_TODAY || '',
+  ));
+  const phase = closurePhase(now);
+  const dayStatus = shopDayStatus(now);
+  const startLabel = formatDayMonth(RENOVATION.closedFrom, lang);
   const [splashDone, setSplashDone] = useState(() => {
     try { return !!sessionStorage.getItem('splash-seen'); } catch { return false; }
   });
@@ -1185,19 +1281,21 @@ export const Website = () => {
     try { sessionStorage.setItem('splash-seen', '1'); } catch {}
     setSplashDone(true);
   };
+  // While a notice is up, skip the splash so the closure is the first thing on screen.
+  const showSplash = phase === 'normal' && !splashDone;
   return (
     <div style={{ width: '100%', background: 'var(--paper)', fontFamily: 'var(--f-sans)', color: 'var(--ink)' }}>
-      {!splashDone && <SplashIntro onDone={handleSplashDone} />}
-      <Nav lang={lang} onLang={setLang} />
+      {showSplash && <SplashIntro onDone={handleSplashDone} />}
+      <Nav lang={lang} onLang={setLang} phase={phase} dayStatus={dayStatus} startLabel={startLabel} />
       <Hero lang={lang} />
       <MarqueeStrip />
       <FusionStory lang={lang} />
-      <Menu lang={lang} />
-      <HowToOrder lang={lang} />
-      <LocationBlock lang={lang} />
+      <Menu lang={lang} layoutKey={`${phase}:${lang}`} />
+      <HowToOrder lang={lang} phase={phase} />
+      <LocationBlock lang={lang} phase={phase} startLabel={startLabel} />
       <Catering lang={lang} />
       <Story lang={lang} />
-      <Footer lang={lang} onLang={setLang} />
+      <Footer lang={lang} onLang={setLang} phase={phase} />
     </div>
   );
 };

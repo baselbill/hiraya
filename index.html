@@ -11,7 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-    <!-- Structured data for search engines. Keep in sync with src/config.js (address, phone, hours, links). -->
+    <!-- Structured data for search engines. Keep in sync with src/config.js (address, phone, hours, links).
+         Closure dates are placeholders filled from RENOVATION in src/config.js at dev/build
+         (this file cannot import modules). specialOpeningHoursSpecification overrides the
+         weekly hours; 00:00–00:00 means closed all day. validThrough is the last closed day,
+         so the regular hours apply again on their own the next day. The visible banner is
+         date-driven in the page; this block is the same dates for crawlers that do not run JS. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -32,6 +37,16 @@
       "openingHoursSpecification": [
         { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "11:30", "closes": "14:00" },
         { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "17:00", "closes": "20:00" }
+      ],
+      "specialOpeningHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "validFrom": "__RENOVATION_CLOSED_FROM__",
+          "validThrough": "__RENOVATION_CLOSED_THROUGH__",
+          "opens": "00:00",
+          "closes": "00:00",
+          "description": "Wegen Umbau geschlossen. Keine Abholung, kein Walk-in. Lieferung über Just Eat und Uber Eats, bis Ende April 2027."
+        }
       ],
       "sameAs": [
         "https://www.instagram.com/hiraya.basel",
