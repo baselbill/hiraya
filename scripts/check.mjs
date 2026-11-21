@@ -50,8 +50,8 @@ for (const l of langs) {
 function expect(cond, msg) { if (!cond) fail(msg); }
 
 for (const [iso, hour, minute, phase] of [
-  ['2027-01-14', 23, 30, 'normal'],
-  ['2027-01-15', 0, 10, 'advance'],
+  ['2027-01-02', 23, 30, 'normal'],
+  ['2027-01-03', 0, 10, 'advance'],
   ['2027-01-31', 23, 50, 'advance'],
   ['2027-02-01', 0, 10, 'closed'],
   ['2027-02-10', 12, 0, 'closed'],
@@ -62,8 +62,9 @@ for (const [iso, hour, minute, phase] of [
   expect(got === phase, `${iso} ${hour}:${String(minute).padStart(2, '0')} Zurich: expected ${phase}, got ${got}`);
 }
 
-// 23:30 UTC on 14 Jan is already 15 Jan in Zurich (CET, UTC+1) → advance notice.
-expect(closurePhase(new Date('2027-01-14T23:30:00Z')) === 'advance', 'Zurich date, not UTC, decides the phase');
+// 23:30 UTC on 2 Jan is already 3 Jan in Zurich (CET, UTC+1) → advance notice.
+expect(closurePhase(new Date('2027-01-02T23:30:00Z')) === 'advance', 'Zurich date, not UTC, decides the phase');
+expect(closurePhase(new Date('2027-01-02T22:00:00Z')) === 'normal', '22:00 UTC on 2 Jan is still 2 Jan in Zurich');
 expect(closurePhase(new Date('2027-04-30T22:30:00Z')) === 'normal', 'after midnight on 1 May Zurich the notice ends');
 
 function findWeekday(wanted, yearMonth) {
@@ -83,7 +84,8 @@ expect(shopDayStatus(atZurich(monday, 15, 30)) === 'open', 'gap between slots is
 expect(shopDayStatus(atZurich(monday, 19, 59)) === 'open', 'one minute before last close is open today');
 expect(shopDayStatus(atZurich(monday, 20, 0)) === 'closed', 'at last close the day is over');
 expect(shopDayStatus(atZurich(sunday, 12, 0)) === 'closed', 'Sunday is closed');
-expect(closurePhase(atZurich(monday, 12, 0)) === 'normal', 'January weekday before the notice is normal');
+expect(closurePhase(atZurich('2027-01-02', 12, 0)) === 'normal', '2 Jan is the last day before the advance notice');
+expect(closurePhase(atZurich('2027-01-03', 12, 0)) === 'advance', '3 Jan starts the advance notice');
 
 const queryWins = resolveNow('?today=2027-02-10', '2027-01-10');
 expect(queryWins.override && zurichParts(queryWins.now).iso === '2027-02-10', 'query ?today= wins');

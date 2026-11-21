@@ -31,7 +31,7 @@ export const HOURS_SLOTS = [['11:30', '14:00'], ['17:00', '20:00']];
 // The next day the site goes back to normal on its own. Customer copy says
 // "end of April 2027" and must not name a reopening day.
 export const RENOVATION = {
-  noticeFrom: '2027-01-15',
+  noticeFrom: '2027-01-03',
   closedFrom: '2027-02-01',
   closedThrough: '2027-04-30',
 };
