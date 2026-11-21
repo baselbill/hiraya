@@ -1,0 +1,1828 @@
+{
+ "showAllergenLine": true,
+ "allergen": {
+  "de": "Allergene? Fragen Sie uns.",
+  "en": "Allergens? Please ask us."
+ },
+ "slides": [
+  {
+   "kind": "welcome"
+  },
+  {
+   "kind": "cards",
+   "de": "Hiraya Fusion Rolls",
+   "en": "Hiraya fusion rolls",
+   "page": "1/3",
+   "items": [
+    {
+     "key": "Dynamite Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Dynamite Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Lachs · Mango · Surimi · Kaviar · Zwiebeln · Sauce",
+     "en_desc": "Salmon · Mango · Surimi · Caviar · Onions · Sauce",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": true,
+     "pick": true,
+     "photo": "roll-dyn",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Swish Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Swish Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Avo · Mango · Surimi · Flambierter Lachs · Sauce · Jalapeno · Sesam",
+     "en_desc": "Avo · Mango · Surimi · Flambéed salmon · Sauce · Jalapeno · Sesame",
+     "cook": "Flambéed",
+     "veg": "",
+     "spicy": true,
+     "pick": false,
+     "photo": "roll-swi",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Tuna Blast",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Tuna Blast",
+     "en": "",
+     "note": null,
+     "de_desc": "Gurken · Avo · Mango · Tuna · Scharfe Sauce",
+     "en_desc": "Cucumbers · Avocado · Mango · Tuna · Spicy sauce",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": true,
+     "pick": false,
+     "photo": "roll-tbl",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Mix Big Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Mix Big Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Lachs · Tuna · Mango · Avocado · Sauce · Sesam",
+     "en_desc": "Salmon · Tuna · Mango · Avocado · Sauce · Sesame",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-hous",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cards",
+   "de": "Hiraya Fusion Rolls",
+   "en": "Hiraya fusion rolls",
+   "page": "2/3",
+   "items": [
+    {
+     "key": "Spicy Lachs",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Spicy Lachs",
+     "en": "Spicy Salmon",
+     "note": null,
+     "de_desc": "Lachs · Zwiebeln · Gurke",
+     "en_desc": "Salmon · Onion · Cucumber",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": true,
+     "pick": false,
+     "photo": "roll-spl",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "10.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "20.00"
+      }
+     ]
+    },
+    {
+     "key": "Spicy Tuna",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Spicy Tuna",
+     "en": "",
+     "note": null,
+     "de_desc": "Thunfisch · Zwiebeln · Gurke",
+     "en_desc": "Tuna · Onions · Cucumber",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": true,
+     "pick": false,
+     "photo": "roll-spt",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "10.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "20.00"
+      }
+     ]
+    },
+    {
+     "key": "Tempura Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Tempura Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Crevetten · Sauce · Avocado · Sesam · Zwiebeln · Mayo",
+     "en_desc": "Shrimp · Sauce · Avocado · Sesame seeds · Onions · Mayo",
+     "cook": "Cooked",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-tmp",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "10.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "20.00"
+      }
+     ]
+    },
+    {
+     "key": "Caterpillar Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Caterpillar Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Crevetten-Tempura · Gurke · Avocado · Sauce · Sesam",
+     "en_desc": "Shrimp Tempura · Cucumber · Avocado · Sauce · Sesame seeds",
+     "cook": "Cooked",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-cat",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cards",
+   "de": "Hiraya Fusion Rolls",
+   "en": "Hiraya fusion rolls",
+   "page": "3/3",
+   "items": [
+    {
+     "key": "Unagi Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Unagi Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Aal · Avocado · Gurken · Surimi · Sauce · Sesam",
+     "en_desc": "Eel · Avocado · Cucumber · Surimi · Sauce · Sesame",
+     "cook": "Cooked",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-una",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Vip Roll",
+     "section": "Hiraya Fusion Rolls",
+     "de": "VIP Roll",
+     "en": "",
+     "note": null,
+     "de_desc": "Karotten · Avocado · Gurke · Jakobsmuscheln · Sauce",
+     "en_desc": "Carrots · Avocado · Cucumber · Scallops · Sauce",
+     "cook": "Raw",
+     "veg": "V",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-vip",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "11.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Kiwi Rainbow Uramaki",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Kiwi Rainbow Uramaki",
+     "en": "",
+     "note": null,
+     "de_desc": "Apfel · Avocado · Karotten · Pistazie · Kiwi · Gurke · Sauce",
+     "en_desc": "Apple · Avocado · Carrots · Pistachio · Kiwi · Cucumber · Sauce",
+     "cook": "Cooked",
+     "veg": "V",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-kru",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "10.50"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "21.00"
+      }
+     ]
+    },
+    {
+     "key": "Veggie Fotomaki",
+     "section": "Hiraya Fusion Rolls",
+     "de": "Veggie Fotomaki",
+     "en": "",
+     "note": null,
+     "de_desc": "Avocado · Gurke · Mango · Rettich · Apfel · Kampyo",
+     "en_desc": "Avocado · Cucumber · Mango · Radish · Apple · Kampyo",
+     "cook": "Cooked",
+     "veg": "V",
+     "spicy": false,
+     "pick": false,
+     "photo": "roll-foto",
+     "prices": [
+      {
+       "de": "4 Stk",
+       "en": "4 pcs",
+       "chf": "10.00"
+      },
+      {
+       "de": "8 Stk",
+       "en": "8 pcs",
+       "chf": "20.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cards",
+   "de": "Sushi-Sets",
+   "en": "Sushi sets",
+   "page": "1/2",
+   "items": [
+    {
+     "key": "Mix Sushi 2",
+     "section": "Sushi Set Menu",
+     "de": "Mix Sushi 2",
+     "en": "",
+     "note": null,
+     "de_desc": "4 Uramaki (California, Rainbow Lachs) · 4 Nigiri (2 Lachs, Ebi, Thun) · 6 Hosomaki (3 Lachs, Avo Maki)",
+     "en_desc": "4 Uramaki (California, Rainbow Salmon) · 4 Nigiri (2 Salmon, Ebi, Tuna) · 6 Hosomaki (3 Salmon, Avocado Maki)",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "set-mix2",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "25.00"
+      }
+     ]
+    },
+    {
+     "key": "Shohuko Teller",
+     "section": "Sushi Set Menu",
+     "de": "Shohuko Teller",
+     "en": "",
+     "note": null,
+     "de_desc": "4 Stk Rainbow Lachs · 4 Stk Rainbow Tuna · 3 Stk Lachs Maki · 3 Stk Tuna Maki · 4 Stk Nigiri",
+     "en_desc": "4 pcs Rainbow Salmon · 4 pcs Rainbow Tuna · 3 pcs Salmon Maki · 3 pcs Tuna Maki · 4 pcs Nigiri",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "set-sho",
+     "prices": [
+      {
+       "de": "18 Stk",
+       "en": "18 pcs",
+       "chf": "35.00"
+      }
+     ]
+    },
+    {
+     "key": "Mix vegi ( 13stk)",
+     "section": "Sushi Set Menu",
+     "de": "Mix Vegi",
+     "en": "Mixed Veggie",
+     "note": null,
+     "de_desc": "Vegi Roll (4 Stk) · Vegi Maki (6 Stk) · Vegi Nigiri (3 Stk) · Avo · Mango · Gurken · Inari",
+     "en_desc": "Veggie Roll (4 pcs) · Veggie Maki (6 pcs) · Veggie Nigiri (3 pcs) · Avo · Mango · Cucumber · Inari",
+     "cook": "Cooked",
+     "veg": "V",
+     "spicy": false,
+     "pick": false,
+     "photo": "set-vegi",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "21.00"
+      }
+     ]
+    },
+    {
+     "key": "24 Stück Veggie Hoso Maki",
+     "section": "Sushi Set Menu",
+     "de": "Veggie Hosomaki",
+     "en": "",
+     "note": null,
+     "de_desc": "6 Stk Avocado Maki · 6 Stk Mango Maki · 6 Stk Gurken Maki · 6 Stk eingelegter Rettich Maki",
+     "en_desc": "6 pcs Avocado Maki · 6 pcs Mango Maki · 6 pcs Cucumber Maki · 6 pcs Pickled Radish Maki",
+     "cook": "Cooked",
+     "veg": "VG",
+     "spicy": false,
+     "pick": false,
+     "photo": "set-vhoso",
+     "prices": [
+      {
+       "de": "24 Stk",
+       "en": "24 pcs",
+       "chf": "26.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "list",
+   "cols": [
+    {
+     "de": "Sushi-Sets",
+     "en": "Sushi sets",
+     "page": "2/2",
+     "items": [
+      {
+       "key": "Mix Sushi 1",
+       "section": "Sushi Set Menu",
+       "de": "Mix Sushi 1",
+       "en": "",
+       "note": null,
+       "de_desc": "4 Uramaki (California, Rainbow Lachs) · 3 Nigiri (Lachs, Ebi, Thun) · 6 Hosomaki (Lachs, Avo Maki)",
+       "en_desc": "4 Uramaki (California, Rainbow Salmon) · 3 Nigiri (Salmon, Ebi, Tuna) · 6 Hosomaki (Salmon, Avocado Maki)",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "22.00"
+        }
+       ]
+      },
+      {
+       "key": "Mix Sushi Nr 3",
+       "section": "Sushi Set Menu",
+       "de": "Mix Sushi 3",
+       "en": "",
+       "note": null,
+       "de_desc": "8 Uramaki (4 California, 4 Rainbow Lachs) · 4 Stk Lachs-Sashimi · 6 Hosomaki (3 Avo und 3 Lachs Maki)",
+       "en_desc": "8 Uramaki (4 California, 4 Rainbow Salmon) · 4 pieces of Salmon Sashimi · 6 Hosomaki (3 Avocado and 3 Salmon Maki)",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "30.00"
+        }
+       ]
+      },
+      {
+       "key": "Hana Mix (Kein Roher Fisch)",
+       "section": "Sushi Set Menu",
+       "de": "Hana Mix",
+       "en": "",
+       "note": [
+        "kein roher Fisch",
+        "no raw fish"
+       ],
+       "de_desc": "4 Stk California · 4 Stk Tuna-mousse · 2 Stk Gurken Maki · 2 Stk Avocado Maki · 1 Stk Inari Nigiri · 1 Stk Tamago Nigiri",
+       "en_desc": "4 pcs California · 4 pcs Tuna mousse · 2 pcs Cucumber Maki · 2 pcs Avocado Maki · 1 pc Inari Nigiri · 1 pc Tamago Nigiri",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "26.00"
+        }
+       ]
+      },
+      {
+       "key": "Nigiri Supreme (8stk)",
+       "section": "Sushi Set Menu",
+       "de": "Nigiri Supreme",
+       "en": "",
+       "note": null,
+       "de_desc": "4 Stk Lachs · 4 Stk Tuna",
+       "en_desc": "4 pieces of salmon · 4 pieces of tuna",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "26.00"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "sidecard": {
+    "key": "Sushi Party Platters",
+    "section": "Sushi Set Menu",
+    "de": "Sushi Party Platters",
+    "en": "",
+    "note": null,
+    "de_desc": "Gemischte Platte · Uramaki · Hosomaki · Nigiri, Sashimi oder Gunkan",
+    "en_desc": "Mixed platter · Uramaki · Hosomaki · Nigiri, Sashimi or Gunkan",
+    "cook": "Raw",
+    "veg": "",
+    "spicy": false,
+    "pick": false,
+    "photo": "set-party",
+    "prices": [
+     {
+      "de": "60 Stk · 4 Pers.",
+      "en": "60 pcs · serves 4",
+      "chf": "110.00"
+     },
+     {
+      "de": "80 Stk · 6 Pers.",
+      "en": "80 pcs · serves 6",
+      "chf": "140.00"
+     },
+     {
+      "de": "100 Stk · 8 Pers.",
+      "en": "100 pcs · serves 8",
+      "chf": "160.00"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "cards",
+   "de": "Poke Bowls",
+   "en": "Poke bowls",
+   "items": [
+    {
+     "key": "Lachs Poke Bowl",
+     "section": "Poke Bowls & Bento",
+     "de": "Lachs Poke Bowl",
+     "en": "Salmon Poke Bowl",
+     "note": null,
+     "de_desc": "Lachs · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce",
+     "en_desc": "Salmon · Avocado · Cucumber · Radish · Edamame · Mango · Poke sauce",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": true,
+     "photo": "poke-sal",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Tuna Poke Bowl",
+     "section": "Poke Bowls & Bento",
+     "de": "Tuna Poke Bowl",
+     "en": "",
+     "note": null,
+     "de_desc": "Thunfisch · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce",
+     "en_desc": "Tuna · Avocado · Cucumber · Radish · Edamame · Mango · Poke sauce",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "poke-tu",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Shrimp Poke Bowl",
+     "section": "Poke Bowls & Bento",
+     "de": "Shrimp Poke Bowl",
+     "en": "",
+     "note": null,
+     "de_desc": "Crevetten · Avocado · Gurke · Rettich · Edamame · Mango · Poke-Sauce",
+     "en_desc": "Shrimp · Avocado · Cucumber · Radish · Edamame · Mango · Poke sauce",
+     "cook": "Cooked",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "poke-shr",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "22.00"
+      }
+     ]
+    },
+    {
+     "key": "Veggie Poke Bowl",
+     "section": "Poke Bowls & Bento",
+     "de": "Veggie Poke Bowl",
+     "en": "",
+     "note": null,
+     "de_desc": "Avocado · Mango · Gurke · Edamame · Wakame-Salat · Takuan · Tamago",
+     "en_desc": "Avocado · Mango · Cucumber · Edamame · Wakame salad · Takuan · Tamago",
+     "cook": "Cooked",
+     "veg": "V",
+     "spicy": false,
+     "pick": false,
+     "photo": "poke-veg",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "20.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "cards",
+   "de": "Bento & Sashimi",
+   "en": "Bento boxes, sashimi & tataki",
+   "items": [
+    {
+     "key": "Lachs Bento Box",
+     "section": "Poke Bowls & Bento",
+     "de": "Lachs Bento Box",
+     "en": "Salmon Bento Box",
+     "note": null,
+     "de_desc": "Reis · Flambierter Lachs · Marktsalat · 4 Nigiri · Wakame-Salat · Sauce",
+     "en_desc": "Rice · Flambéed salmon · Market salad · 4 nigiris · Wakame salad · Sauce",
+     "cook": "Flambéed",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "bent-sal",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "25.00"
+      }
+     ]
+    },
+    {
+     "key": "Tuna Bento Box",
+     "section": "Poke Bowls & Bento",
+     "de": "Tuna Bento Box",
+     "en": "",
+     "note": null,
+     "de_desc": "Sushi-Reis · Flambierter Tuna · 4 Nigiri · Marktsalat · Sauce · Wakame-Salat",
+     "en_desc": "Sushi rice · Flambéed tuna · 4 nigiris · Market salad · Sauce · Wakame salad",
+     "cook": "Flambéed",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "bent-tun",
+     "prices": [
+      {
+       "de": "",
+       "en": "",
+       "chf": "25.00"
+      }
+     ]
+    },
+    {
+     "key": "Fisch Sashimi",
+     "section": "Specials",
+     "de": "Fisch Sashimi",
+     "en": "Fish Sashimi",
+     "note": null,
+     "de_desc": "",
+     "en_desc": "",
+     "cook": "Raw",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "start-sas",
+     "prices": [
+      {
+       "de": "6 Stk Lachs",
+       "en": "6 pcs Salmon",
+       "chf": "16.00"
+      },
+      {
+       "de": "6 Stk Tuna",
+       "en": "6 pcs Tuna",
+       "chf": "16.50"
+      },
+      {
+       "de": "12 Stk Mix",
+       "en": "12 pcs Mix",
+       "chf": "31.50"
+      }
+     ]
+    },
+    {
+     "key": "Fisch Tataki",
+     "section": "Specials",
+     "de": "Fisch Tataki",
+     "en": "Fish Tataki",
+     "note": null,
+     "de_desc": "",
+     "en_desc": "",
+     "cook": "Flambéed",
+     "veg": "",
+     "spicy": false,
+     "pick": false,
+     "photo": "tatk-tun",
+     "prices": [
+      {
+       "de": "6 Stk Lachs",
+       "en": "6 pcs Salmon",
+       "chf": "17.00"
+      },
+      {
+       "de": "6 Stk Tuna",
+       "en": "6 pcs Tuna",
+       "chf": "16.00"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "list",
+   "cols": [
+    {
+     "de": "Specials",
+     "en": "Specials",
+     "items": [
+      {
+       "key": "Gunkan",
+       "section": "Specials",
+       "de": "Gunkan",
+       "en": "",
+       "note": null,
+       "de_desc": "Spicy Lachs · Spicy Tuna · Roter Kaviar · Wakame · Krabbe oder Muschel",
+       "en_desc": "Spicy Salmon · Spicy Tuna · Red caviar · Wakame · Crab or shellfish",
+       "cook": "Raw",
+       "veg": "",
+       "spicy": true,
+       "pick": false,
+       "photo": "gunkan",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Temaki",
+       "section": "Specials",
+       "de": "Temaki",
+       "en": "",
+       "note": null,
+       "de_desc": "Lachs · Tuna · Krabbenfleisch oder Veggie",
+       "en_desc": "Salmon · Tuna · Crab meat or Veggie",
+       "cook": "Raw",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "tema-sal",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "11.00"
+        }
+       ]
+      },
+      {
+       "key": "Fisch Tatar",
+       "section": "Specials",
+       "de": "Fisch Tatar",
+       "en": "Fish Tartare",
+       "note": null,
+       "de_desc": "Lachs/Tuna · Avocado · Gewürze",
+       "en_desc": "Salmon/Tuna · Avocado · Spices",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "16.00"
+        }
+       ]
+      },
+      {
+       "key": "Temari",
+       "section": "Specials",
+       "de": "Temari",
+       "en": "",
+       "note": null,
+       "de_desc": "Lachs oder Thunfisch",
+       "en_desc": "Salmon or tuna",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "14.00"
+        }
+       ]
+      },
+      {
+       "key": "Lachs Ikura",
+       "section": "Specials",
+       "de": "Lachs Ikura",
+       "en": "Salmon Ikura",
+       "note": null,
+       "de_desc": "Lachs",
+       "en_desc": "Salmon",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "9.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "18.00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "de": "Vorspeisen",
+     "en": "Starters",
+     "section": "Vorspeise",
+     "photos": [
+      "start-edm",
+      "start-miso"
+     ],
+     "items": [
+      {
+       "key": "Edamame",
+       "section": "Vorspeise",
+       "de": "Edamame",
+       "en": "",
+       "note": null,
+       "de_desc": "Serviert mit Salz",
+       "en_desc": "Served with salt",
+       "cook": "Cooked",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "start-edm",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "7.00"
+        }
+       ]
+      },
+      {
+       "key": "Miso Suppe",
+       "section": "Vorspeise",
+       "de": "Miso Suppe",
+       "en": "Miso Soup",
+       "note": null,
+       "de_desc": "Miso-Paste · Zwiebeln · Getrockneter Wakame · Karotten",
+       "en_desc": "Miso paste · Onions · Dried wakame · Carrots",
+       "cook": "Cooked",
+       "veg": "V",
+       "spicy": false,
+       "pick": false,
+       "photo": "start-miso",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "7.00"
+        }
+       ]
+      },
+      {
+       "key": "Wakame Salat",
+       "section": "Vorspeise",
+       "de": "Wakame Salat",
+       "en": "Wakame Salad",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "6.00"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "list",
+   "cols": [
+    {
+     "de": "Classic Rolls",
+     "en": "Classic sushi rolls",
+     "section": "Classic Sushi Rolls",
+     "items": [
+      {
+       "key": "California Roll",
+       "section": "Classic Sushi Rolls",
+       "de": "California Roll",
+       "en": "",
+       "note": null,
+       "de_desc": "Surimi · Avo · Kaviar",
+       "en_desc": "Surimi · Avocado · Caviar",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "8.50"
+        },
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "17.00"
+        }
+       ]
+      },
+      {
+       "key": "Lachs Rainbow Roll",
+       "section": "Classic Sushi Rolls",
+       "de": "Lachs Rainbow Roll",
+       "en": "Rainbow Salmon Roll",
+       "note": null,
+       "de_desc": "Lachs · Avocado",
+       "en_desc": "Salmon · Avocado",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "10.00"
+        },
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "19.00"
+        }
+       ]
+      },
+      {
+       "key": "Veggie Uramaki",
+       "section": "Classic Sushi Rolls",
+       "de": "Veggie Uramaki",
+       "en": "",
+       "note": null,
+       "de_desc": "Mango · Avocado · Gurke · Sesam · Mayo oder Frischkäse",
+       "en_desc": "Mango · Avocado · Cucumber · Sesame · Mayo or Cream Cheese",
+       "cook": "",
+       "veg": "V",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "8.00"
+        },
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "16.00"
+        }
+       ]
+      },
+      {
+       "key": "Tuna Rainbow Roll",
+       "section": "Classic Sushi Rolls",
+       "de": "Tuna Rainbow Roll",
+       "en": "",
+       "note": null,
+       "de_desc": "Thunfisch · Avocado",
+       "en_desc": "Tuna · Avocado",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "10.00"
+        },
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "19.50"
+        }
+       ]
+      },
+      {
+       "key": "Tuna-mousse Rolle",
+       "section": "Classic Sushi Rolls",
+       "de": "Tuna-Mousse Rolle",
+       "en": "Tuna Mousse Roll",
+       "note": null,
+       "de_desc": "Thunfisch · Gurke",
+       "en_desc": "Tuna · Cucumber",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "8.50"
+        },
+        {
+         "de": "8 Stk",
+         "en": "8 pcs",
+         "chf": "17.00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "de": "Hosomaki",
+     "en": "Thin rolls",
+     "section": "Hosomaki",
+     "filter": "nonveg",
+     "compact": true,
+     "items": [
+      {
+       "key": "Lachs Maki",
+       "section": "Hosomaki",
+       "de": "Lachs Maki",
+       "en": "Salmon Maki",
+       "note": null,
+       "de_desc": "Lachs",
+       "en_desc": "Salmon",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      },
+      {
+       "key": "Lachs Avocado Maki",
+       "section": "Hosomaki",
+       "de": "Lachs Avocado Maki",
+       "en": "Salmon Avocado Maki",
+       "note": null,
+       "de_desc": "Lachs · Avocado",
+       "en_desc": "Salmon · Avocado",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      },
+      {
+       "key": "Tuna Maki",
+       "section": "Hosomaki",
+       "de": "Tuna Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Thunfisch",
+       "en_desc": "Tuna",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      },
+      {
+       "key": "Tuna Avocado Maki",
+       "section": "Hosomaki",
+       "de": "Tuna Avocado Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Tuna · Avocado",
+       "en_desc": "Tuna · Avocado",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      },
+      {
+       "key": "Kani Maki",
+       "section": "Hosomaki",
+       "de": "Kani Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Surimi (Krabbenfleisch)",
+       "en_desc": "Surimi (crab meat)",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      },
+      {
+       "key": "Ebi maki",
+       "section": "Hosomaki",
+       "de": "Ebi Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Crevetten",
+       "en_desc": "Shrimp",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "3 Stk",
+         "en": "3 pcs",
+         "chf": "5.00"
+        },
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "10.00"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "list",
+   "cols": [
+    {
+     "de": "Nigiri",
+     "en": "Nigiri",
+     "section": "Nigiri",
+     "compact": true,
+     "items": [
+      {
+       "key": "Nigiri Lachs",
+       "section": "Nigiri",
+       "de": "Nigiri Lachs",
+       "en": "Salmon Nigiri",
+       "note": null,
+       "de_desc": "Lachs · Reis",
+       "en_desc": "Salmon · Rice",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.50"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "15.00"
+        }
+       ]
+      },
+      {
+       "key": "Tuna Nigiri",
+       "section": "Nigiri",
+       "de": "Tuna Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Thunfisch · Reis",
+       "en_desc": "Tuna · Rice",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "8.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "16.00"
+        }
+       ]
+      },
+      {
+       "key": "Ebi Nigiri",
+       "section": "Nigiri",
+       "de": "Ebi Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Crevetten · Reis",
+       "en_desc": "Shrimp · Rice",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.50"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "15.00"
+        }
+       ]
+      },
+      {
+       "key": "Avocado Nigiri",
+       "section": "Nigiri",
+       "de": "Avocado Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Frische Avocado",
+       "en_desc": "Fresh avocado",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "14.00"
+        }
+       ]
+      },
+      {
+       "key": "Mango Nigiri",
+       "section": "Nigiri",
+       "de": "Mango Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Frische Mango",
+       "en_desc": "Fresh mango",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "14.00"
+        }
+       ]
+      },
+      {
+       "key": "Unagi Nigiri",
+       "section": "Nigiri",
+       "de": "Unagi Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Aal · Reis",
+       "en_desc": "Eel · Rice",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.50"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "15.00"
+        }
+       ]
+      },
+      {
+       "key": "Inari Nigiri",
+       "section": "Nigiri",
+       "de": "Inari Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Tofu · Reis",
+       "en_desc": "Tofu · Rice",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "14.00"
+        }
+       ]
+      },
+      {
+       "key": "Tamago Nigiri",
+       "section": "Nigiri",
+       "de": "Tamago Nigiri",
+       "en": "",
+       "note": null,
+       "de_desc": "Japanisches Omelett · Reis",
+       "en_desc": "Japanese omelette · Rice",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "2 Stk",
+         "en": "2 pcs",
+         "chf": "7.00"
+        },
+        {
+         "de": "4 Stk",
+         "en": "4 pcs",
+         "chf": "14.00"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "de": "Veggie Hosomaki",
+     "en": "Veggie thin rolls",
+     "section": "Hosomaki",
+     "filter": "veg",
+     "compact": true,
+     "items": [
+      {
+       "key": "Avocado Maki - 6 Stück Avocado Maki",
+       "section": "Hosomaki",
+       "de": "Avocado Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Avocado",
+       "en_desc": "Avocado",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Gurken Maki - 6 Stück Gurken Maki",
+       "section": "Hosomaki",
+       "de": "Gurken Maki",
+       "en": "Cucumber Maki",
+       "note": null,
+       "de_desc": "Gurke",
+       "en_desc": "Cucumber",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Mango Maki - 6 Stück Mango Maki",
+       "section": "Hosomaki",
+       "de": "Mango Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Mango",
+       "en_desc": "Mango",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Tamago Maki - 6 Stück Maki",
+       "section": "Hosomaki",
+       "de": "Tamago Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Japanisches Omelett",
+       "en_desc": "Japanese omelette",
+       "cook": "",
+       "veg": "V",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Kampyo Maki - 6 Stück Kampyo Maki",
+       "section": "Hosomaki",
+       "de": "Kampyo Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Kürbis",
+       "en_desc": "Pumpkin",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      },
+      {
+       "key": "Takuan Maki - 6 Stück Takuan Maki",
+       "section": "Hosomaki",
+       "de": "Takuan Maki",
+       "en": "",
+       "note": null,
+       "de_desc": "Rettich",
+       "en_desc": "Radish",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "6 Stk",
+         "en": "6 pcs",
+         "chf": "8.00"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "list",
+   "cols": [
+    {
+     "de": "Getränke",
+     "en": "Drinks",
+     "section": "Getränke",
+     "compact": true,
+     "items": [
+      {
+       "key": "Wasser (Valser)",
+       "section": "Getränke",
+       "de": "Valser Wasser",
+       "en": "Valser Water",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "3.00"
+        }
+       ],
+       "variants": {
+        "de": "Still / mit Blöterli",
+        "en": "still / sparkling"
+       }
+      },
+      {
+       "key": "Coca Cola",
+       "section": "Getränke",
+       "de": "Coca Cola",
+       "en": "",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "4.50"
+        }
+       ],
+       "variants": {
+        "de": "Original / Zero",
+        "en": "Original / Zero"
+       }
+      },
+      {
+       "key": "Sprite",
+       "section": "Getränke",
+       "de": "Sprite",
+       "en": "",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "0,5 l",
+         "en": "0.5 l",
+         "chf": "4.50"
+        }
+       ]
+      },
+      {
+       "key": "Oishi Green Tea",
+       "section": "Getränke",
+       "de": "Oishi Green Tea",
+       "en": "",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "4.50"
+        }
+       ],
+       "variants": {
+        "de": "Original / Honey Lemon",
+        "en": "Original / Honey Lemon"
+       }
+      },
+      {
+       "key": "Ice Tea Lemon",
+       "section": "Getränke",
+       "de": "Ice Tea Lemon",
+       "en": "",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "0,5 l",
+         "en": "0.5 l",
+         "chf": "4.50"
+        }
+       ]
+      },
+      {
+       "key": "Apfelschorle (Ramseier)",
+       "section": "Getränke",
+       "de": "Ramseier Apfelschorle",
+       "en": "Ramseier Apple Spritzer",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "0,5 l",
+         "en": "0.5 l",
+         "chf": "4.50"
+        }
+       ]
+      },
+      {
+       "key": "Thai Coco Kokoswasser",
+       "section": "Getränke",
+       "de": "Thai Coco Kokoswasser",
+       "en": "Thai Coco Coconut Water",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "0,35 l",
+         "en": "0.35 l",
+         "chf": "4.50"
+        }
+       ]
+      },
+      {
+       "key": "Focus Water",
+       "section": "Getränke",
+       "de": "Focus Water",
+       "en": "",
+       "note": null,
+       "de_desc": "",
+       "en_desc": "",
+       "cook": "",
+       "veg": "VG",
+       "spicy": false,
+       "pick": false,
+       "photo": "",
+       "prices": [
+        {
+         "de": "",
+         "en": "",
+         "chf": "4.00"
+        }
+       ],
+       "variants": {
+        "de": "Pineapple Mango / Orange Dragonfruit",
+        "en": "Pineapple Mango / Orange Dragonfruit"
+       }
+      }
+     ]
+    }
+   ],
+   "side": "legend"
+  }
+ ]
+}

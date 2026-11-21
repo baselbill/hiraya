@@ -136,6 +136,49 @@ expect(special.validFrom === RENOVATION.closedFrom, `JSON-LD validFrom should be
 expect(special.validThrough === RENOVATION.closedThrough, `JSON-LD validThrough should be ${RENOVATION.closedThrough}`);
 expect(special.opens === '00:00' && special.closes === '00:00', 'JSON-LD closure must be closed all day (00:00–00:00)');
 
+// In-store board. Does not have to match the website menu in src/menu.js.
+const board = JSON.parse(readFileSync('src/data/menu.json', 'utf8'));
+expect(board.slides?.length === 12, `in-store menu should have 12 slides, got ${board.slides?.length}`);
+expect(board.showAllergenLine === true, 'allergen line should stay until Bill decides');
+expect(board.allergen?.de === 'Allergene? Fragen Sie uns.', 'allergen German line changed');
+expect(board.allergen?.en === 'Allergens? Please ask us.', 'allergen English line changed');
+function boardPhoto(key) {
+  if (!key) return null;
+  if (key === 'chef-gher') return 'public/chef-gher.webp';
+  if (key === 'hiraya-storefront') return 'public/hiraya-storefront.webp';
+  return join('public/menu', `${key}.webp`);
+}
+const boardPhotos = new Set(['hero-rol', 'chef-gher']);
+function walkBoard(node) {
+  if (!node || typeof node !== 'object') return;
+  if (typeof node.photo === 'string' && node.photo) boardPhotos.add(node.photo);
+  if (Array.isArray(node.photos)) node.photos.forEach(p => p && boardPhotos.add(p));
+  for (const value of Object.values(node)) walkBoard(value);
+}
+walkBoard(board);
+for (const key of boardPhotos) {
+  const path = boardPhoto(key);
+  if (!existsSync(path)) fail(`in-store photo missing: ${key} (${path})`);
+}
+function findBoardItem(key) {
+  let hit = null;
+  function walk(node) {
+    if (!node || typeof node !== 'object' || hit) return;
+    if (node.key === key) hit = node;
+    for (const value of Object.values(node)) walk(value);
+  }
+  walk(board);
+  return hit;
+}
+const dynamite = findBoardItem('Dynamite Roll');
+expect(dynamite?.prices?.[0]?.chf === '11.00', 'Dynamite 4 Stk should be CHF 11.00 on the in-store menu');
+const mixVegi = findBoardItem('Mix vegi ( 13stk)');
+expect(mixVegi?.de_desc?.includes('6 Stk'), 'Mix Vegi should include 6 maki');
+expect(findBoardItem('Veggie Uramaki')?.veg === 'V', 'Veggie Uramaki is vegetarian, not vegan');
+expect(findBoardItem('Fisch Tatar')?.de_desc === 'Lachs/Tuna · Avocado · Gewürze', 'Fisch Tatar description');
+expect(findBoardItem('Sprite')?.de === 'Sprite', 'Sprite should be on the in-store menu');
+expect(findBoardItem('Thai Coco Kokoswasser')?.en === 'Thai Coco Coconut Water', 'Thai Coco English name');
+
 if (errors.length) {
   console.error(`${errors.length} problem(s):\n` + errors.map(e => `  - ${e}`).join('\n'));
   process.exit(1);
