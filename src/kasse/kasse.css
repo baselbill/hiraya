@@ -39,7 +39,30 @@ button { cursor: pointer; touch-action: manipulation; }
   padding: 24px 16px 32px;
   background: var(--ink);
   color: var(--paper);
+  position: relative;
 }
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+.lang button {
+  min-height: 40px;
+  min-width: 40px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  opacity: 0.45;
+  padding: 6px 8px;
+}
+.lang button[aria-pressed="true"] { opacity: 1; background: rgba(244, 234, 214, 0.12); }
+.lang .bar { opacity: 0.4; }
+.pin .lang { position: absolute; top: 16px; right: 16px; }
 .mark {
   font-family: var(--f-jp);
   color: var(--clay);
@@ -170,7 +193,8 @@ button { cursor: pointer; touch-action: manipulation; }
   font-size: 16px;
 }
 .add-main { background: var(--clay); color: var(--linen); border-color: var(--clay); flex: 1; }
-.note { color: var(--ink-mute); font-size: 13px; }
+.note, .desc { color: var(--ink-mute); font-size: 13px; line-height: 1.3; }
+.desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 .tabs {
   display: flex;

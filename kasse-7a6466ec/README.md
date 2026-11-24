@@ -28,6 +28,7 @@ The web app should append to a spreadsheet named **Hiraya orders**.
 | note | Optional |
 | total_chf | Sum of the lines, two decimals |
 | sync | `local` until the POST succeeds |
+| lang | `en` or `de`, the till language when the order was saved. Optional. |
 
 ### Tab `Order lines`
 

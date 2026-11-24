@@ -6,14 +6,53 @@ import { loadOrders, saveOrders, nextSeq, zurichDay, zurichTime } from './store.
 import { pushOrder } from './sync.js'
 
 const catalog = buildCatalog(rawMenu)
-const PICKUP = [
-  ['asap', 'Sofort'],
-  ['+15', '+15 Min'],
-  ['+30', '+30 Min'],
-  ['+45', '+45 Min'],
-]
+const PICKUP = ['asap', '+15', '+30', '+45']
+
+const UI = {
+  en: {
+    title: 'Till', pinWrong: 'Wrong PIN', preview: 'Preview · no SumUp',
+    till: 'Till', open: 'Open', today: 'Today', lock: 'Lock',
+    walkin: 'Walk-in', phone: 'Phone', asap: 'ASAP',
+    '+15': '+15 min', '+30': '+30 min', '+45': '+45 min',
+    customer: 'Name or phone', note: 'Note', empty: 'Nothing selected yet.',
+    cart: 'List', menu: 'Menu', save: 'Save', openOrders: 'Open orders',
+    noneOpen: 'No open orders.', back: 'Back', sumup: 'Type into SumUp',
+    notePrefix: 'Note', pickup: 'Pickup', paid: 'Mark paid', cancel: 'Cancel',
+    orders: 'Orders', openStat: 'Open', paidStat: 'Paid', sales: 'Sales',
+    csvOrders: 'Orders CSV', csvLines: 'Lines CSV', close: 'Close',
+    noItems: 'No dishes.', spicy: 'spicy', nr: 'No.', notFound: 'Order not found.',
+    less: 'less', more: 'more',
+  },
+  de: {
+    title: 'Kasse', pinWrong: 'Falsche PIN', preview: 'Vorschau · kein SumUp',
+    till: 'Kasse', open: 'Offen', today: 'Heute', lock: 'Sperren',
+    walkin: 'Vor Ort', phone: 'Telefon', asap: 'Sofort',
+    '+15': '+15 Min', '+30': '+30 Min', '+45': '+45 Min',
+    customer: 'Name oder Telefon', note: 'Notiz', empty: 'Noch nichts gewählt.',
+    cart: 'Liste', menu: 'Karte', save: 'Speichern', openOrders: 'Offene Bestellungen',
+    noneOpen: 'Keine offenen Bestellungen.', back: 'Zurück', sumup: 'In SumUp eingeben',
+    notePrefix: 'Notiz', pickup: 'Abholung', paid: 'Bezahlt', cancel: 'Stornieren',
+    orders: 'Bestellungen', openStat: 'Offen', paidStat: 'Bezahlt', sales: 'Umsatz',
+    csvOrders: 'Bestellungen CSV', csvLines: 'Zeilen CSV', close: 'Schliessen',
+    noItems: 'Keine Gerichte.', spicy: 'scharf', nr: 'Nr.', notFound: 'Bestellung nicht gefunden.',
+    less: 'weniger', more: 'mehr',
+  },
+}
+
+function loadLang() {
+  try {
+    const stored = localStorage.getItem('hiraya-kasse-lang')
+    if (stored === 'de' || stored === 'en') return stored
+  } catch { /* private mode */ }
+  return 'en'
+}
+
+function t(key) {
+  return (UI[state.lang] || UI.en)[key] || UI.en[key] || key
+}
 
 const state = {
+  lang: loadLang(),
   unlocked: sessionStorage.getItem('hiraya-kasse-pin') === 'ok',
   pin: '',
   pinError: '',
@@ -37,6 +76,38 @@ function esc(s) {
   return String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
 }
 
+function text(de, en) {
+  if (state.lang === 'en' && en) return en
+  return de || en || ''
+}
+
+function sectionLabel(section) {
+  return text(section.name, section.en)
+}
+
+function sizeLabel(size) {
+  return text(size.labelDe, size.labelEn)
+}
+
+function lineSize(line) {
+  return text(line.sizeDe || line.size || '', line.sizeEn || '')
+}
+
+function langToggle() {
+  return `<div class="lang" role="group" aria-label="EN DE">
+    <button type="button" data-lang="en" aria-pressed="${state.lang === 'en'}">EN</button>
+    <span class="bar" aria-hidden="true">|</span>
+    <button type="button" data-lang="de" aria-pressed="${state.lang === 'de'}">DE</button>
+  </div>`
+}
+
+function setLang(lang) {
+  state.lang = lang
+  try { localStorage.setItem('hiraya-kasse-lang', lang) } catch { /* ignore */ }
+  document.documentElement.lang = lang
+  render()
+}
+
 function lineKey(item, size) {
   return item.key + '|' + size.id
 }
@@ -46,7 +117,8 @@ function addLine(item, size) {
   const hit = state.lines.find(l => l.id === id)
   if (hit) hit.qty += 1
   else state.lines.push({
-    id, key: item.key, name: item.name, size: size.label, unit: size.price, qty: 1,
+    id, key: item.key, name: item.name,
+    sizeDe: size.labelDe, sizeEn: size.labelEn, unit: size.price, qty: 1,
   })
   state.cartOpen = true
   render()
@@ -62,6 +134,7 @@ function todayOrders() {
 }
 
 function render() {
+  document.documentElement.lang = state.lang
   const scroll = document.querySelector('.items')?.scrollTop || 0
   app.innerHTML = state.unlocked ? shell() : pinScreen()
   const items = document.querySelector('.items')
@@ -75,8 +148,9 @@ function pinScreen() {
     .map(k => `<button type="button" data-digit="${k}" class="${k === 'del' || k === 'ok' ? 'ghost' : ''}">${k === 'del' ? '⌫' : k === 'ok' ? 'OK' : k}</button>`)
     .join('')
   return `<div class="pin">
+    ${langToggle()}
     <div class="mark" aria-hidden="true"><span>平</span><span>屋</span></div>
-    <h1>Kasse</h1>
+    <h1>${esc(t('title'))}</h1>
     <div class="dots" aria-label="PIN">${dots}</div>
     <div class="err">${esc(state.pinError)}</div>
     <div class="keys">${keys}</div>
@@ -88,11 +162,12 @@ function shell() {
   return `<div class="shell">
     <header class="top">
       <div class="brand"><div class="mark" aria-hidden="true"><span>平</span><span>屋</span></div><strong>Hira<em>ya</em></strong></div>
-      <span class="preview-tag">Vorschau · kein SumUp</span>
-      <button type="button" class="nav" data-view="order" aria-pressed="${state.view === 'order'}">Kasse</button>
-      <button type="button" class="nav" data-view="open" aria-pressed="${state.view === 'open'}">Offen</button>
-      <button type="button" class="nav" data-view="today" aria-pressed="${state.view === 'today'}">Heute</button>
-      <button type="button" class="nav" data-lock>Sperren</button>
+      <span class="preview-tag">${esc(t('preview'))}</span>
+      ${langToggle()}
+      <button type="button" class="nav" data-view="order" aria-pressed="${state.view === 'order'}">${esc(t('till'))}</button>
+      <button type="button" class="nav" data-view="open" aria-pressed="${state.view === 'open'}">${esc(t('open'))}</button>
+      <button type="button" class="nav" data-view="today" aria-pressed="${state.view === 'today'}">${esc(t('today'))}</button>
+      <button type="button" class="nav" data-lock>${esc(t('lock'))}</button>
     </header>
     <div class="stage ${state.view === 'order' ? 'order' : ''} ${state.view === 'order' && wide ? 'wide' : ''}">
       ${state.view === 'order' ? orderView(wide) : state.view === 'open' ? openView() : state.view === 'detail' ? detailView() : todayView()}
@@ -102,12 +177,12 @@ function shell() {
 }
 
 function orderView(wide) {
-  const section = catalog.find(s => s.name === state.section) || catalog[0]
+  const section = catalog.find(s => s.id === state.section) || catalog[0]
   const cards = (section?.items || []).map(itemCard).join('')
-  const tabs = catalog.map(s => `<button type="button" data-section="${esc(s.name)}" aria-pressed="${s.name === section?.name}">${esc(s.name)}</button>`).join('')
+  const tabs = catalog.map(s => `<button type="button" data-section="${esc(s.id)}" aria-pressed="${s.id === section?.id}">${esc(sectionLabel(s))}</button>`).join('')
   const collapsed = !wide && !state.cartOpen
-  return `<div class="items">${cards || '<p>Keine Gerichte.</p>'}</div>
-    <nav class="tabs" aria-label="Gruppen">${tabs}</nav>
+  return `<div class="items">${cards || `<p>${esc(t('noItems'))}</p>`}</div>
+    <nav class="tabs" aria-label="${esc(t('till'))}">${tabs}</nav>
     <aside class="ticket ${collapsed ? 'collapsed' : ''}">${ticketInner(wide)}</aside>`
 }
 
@@ -116,15 +191,19 @@ function itemCard(item) {
   const badges = [
     item.pick ? '<span class="badge">★ Gher</span>' : '',
     item.veg ? `<span class="badge v">${esc(item.veg)}</span>` : '',
-    item.spicy ? '<span class="badge hot">scharf</span>' : '',
+    item.spicy ? `<span class="badge hot">${esc(t('spicy'))}</span>` : '',
   ].join('')
-  const chips = rest.map(s => `<button type="button" class="chip" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(s.label || 'Variante')} ${money(s.price)}</button>`).join('')
+  const desc = text(item.descDe, item.descEn)
+  const note = text(item.noteDe, item.noteEn)
+  const chips = rest.map(s => `<button type="button" class="chip" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(sizeLabel(s) ? sizeLabel(s) + ' ' : '')}${money(s.price)}</button>`).join('')
+  const mainLabel = sizeLabel(first)
   return `<article class="item ${item.pick ? 'pick' : ''}" data-item="${esc(item.key)}">
     <div class="nm">${esc(item.name)}</div>
     ${badges ? `<div class="meta">${badges}</div>` : ''}
-    ${item.note ? `<div class="note">${esc(item.note)}</div>` : ''}
+    ${desc ? `<div class="desc">${esc(desc)}</div>` : ''}
+    ${note ? `<div class="note">${esc(note)}</div>` : ''}
     <div class="price-row">
-      <button type="button" class="add-main" data-add="${esc(item.key)}" data-size-id="${first.id}">${esc(first.label ? first.label + ' · ' : '')}${money(first.price)}</button>
+      <button type="button" class="add-main" data-add="${esc(item.key)}" data-size-id="${first.id}">${esc(mainLabel ? mainLabel + ' · ' : '')}${money(first.price)}</button>
       ${chips}
     </div>
   </article>`
@@ -132,55 +211,55 @@ function itemCard(item) {
 
 function ticketInner(wide) {
   const lines = state.lines.map(l => `<div class="line">
-    <div><div class="who">${esc(l.name)}</div><div class="sz">${esc(l.size)} · ${money(l.unit)}</div></div>
+    <div><div class="who">${esc(l.name)}</div><div class="sz">${esc(lineSize(l) ? lineSize(l) + ' · ' : '')}${money(l.unit)}</div></div>
     <div class="qty">
-      <button type="button" data-qty="${esc(l.id)}" data-dir="-1" aria-label="weniger">−</button>
+      <button type="button" data-qty="${esc(l.id)}" data-dir="-1" aria-label="${esc(t('less'))}">−</button>
       <span>${l.qty}</span>
-      <button type="button" data-qty="${esc(l.id)}" data-dir="1" aria-label="mehr">+</button>
+      <button type="button" data-qty="${esc(l.id)}" data-dir="1" aria-label="${esc(t('more'))}">+</button>
     </div>
   </div>`).join('')
-  const modes = [['walkin', 'Vor Ort'], ['phone', 'Telefon']]
-    .map(([id, label]) => `<button type="button" data-type="${id}" aria-pressed="${state.type === id}">${label}</button>`).join('')
-  const when = PICKUP.map(([id, label]) => `<button type="button" data-pickup="${id}" aria-pressed="${state.pickup === id}">${label}</button>`).join('')
+  const modes = [['walkin', 'walkin'], ['phone', 'phone']]
+    .map(([id, key]) => `<button type="button" data-type="${id}" aria-pressed="${state.type === id}">${esc(t(key))}</button>`).join('')
+  const when = PICKUP.map(id => `<button type="button" data-pickup="${id}" aria-pressed="${state.pickup === id}">${esc(t(id))}</button>`).join('')
   return `<header><div class="modes">${modes}</div></header>
-    <div class="lines">${lines || '<div class="empty">Noch nichts gewählt.</div>'}</div>
+    <div class="lines">${lines || `<div class="empty">${esc(t('empty'))}</div>`}</div>
     <div class="fields">
       <div class="when">${when}</div>
-      <input data-customer placeholder="Name oder Telefon" value="${esc(state.customer)}" />
-      <textarea data-note placeholder="Notiz" rows="2">${esc(state.note)}</textarea>
+      <input data-customer placeholder="${esc(t('customer'))}" value="${esc(state.customer)}" />
+      <textarea data-note placeholder="${esc(t('note'))}" rows="2">${esc(state.note)}</textarea>
     </div>
     <div class="foot">
-      ${wide ? '' : `<button type="button" class="wide-btn ghost" data-cart style="background:#2a221c;color:#f4ead6">${state.cartOpen ? 'Karte' : 'Liste'}</button>`}
+      ${wide ? '' : `<button type="button" class="wide-btn ghost" data-cart style="background:#2a221c;color:#f4ead6">${state.cartOpen ? esc(t('menu')) : esc(t('cart'))}</button>`}
       <div class="total">${money(totalOf(state.lines))}</div>
-      <button type="button" class="save" data-save ${state.lines.length ? '' : 'disabled'}>Speichern</button>
+      <button type="button" class="save" data-save ${state.lines.length ? '' : 'disabled'}>${esc(t('save'))}</button>
     </div>`
 }
 
 function openView() {
   const open = state.orders.filter(o => o.status === 'open').sort((a, b) => b.createdAt.localeCompare(a.createdAt))
   const rows = open.map(o => `<button type="button" class="order-row" data-open="${esc(o.id)}">
-    <span>Nr. ${o.seq} · ${o.type === 'phone' ? 'Telefon' : 'Vor Ort'} · ${zurichTime(o.createdAt)}</span>
+    <span>${esc(t('nr'))} ${o.seq} · ${o.type === 'phone' ? esc(t('phone')) : esc(t('walkin'))} · ${zurichTime(o.createdAt)}</span>
     <span>${money(o.total)}</span>
   </button>`).join('')
-  return `<div class="list-view"><h2>Offene Bestellungen</h2>${rows || '<p>Keine offenen Bestellungen.</p>'}</div>`
+  return `<div class="list-view"><h2>${esc(t('openOrders'))}</h2>${rows || `<p>${esc(t('noneOpen'))}</p>`}</div>`
 }
 
 function detailView() {
   const o = state.orders.find(x => x.id === state.openId)
-  if (!o) return `<div class="detail"><p>Bestellung nicht gefunden.</p></div>`
-  const lines = o.lines.map(l => `<div class="line"><div><div class="who">${esc(l.name)}</div><div class="sz">${esc(l.size)} × ${l.qty}</div></div><strong>${money(l.unit * l.qty)}</strong></div>`).join('')
+  if (!o) return `<div class="detail"><p>${esc(t('notFound'))}</p></div>`
+  const lines = o.lines.map(l => `<div class="line"><div><div class="who">${esc(l.name)}</div><div class="sz">${esc(lineSize(l) ? lineSize(l) + ' × ' : '× ')}${l.qty}</div></div><strong>${money(l.unit * l.qty)}</strong></div>`).join('')
   return `<div class="detail">
-    <button type="button" class="wide-btn ghost" data-view="open">Zurück</button>
-    <div class="hint">Nr. ${o.seq} · ${esc(o.day)} ${zurichTime(o.createdAt)} · ${o.type === 'phone' ? 'Telefon' : 'Vor Ort'}</div>
-    <div class="hint">In SumUp eingeben</div>
+    <button type="button" class="wide-btn ghost" data-view="open">${esc(t('back'))}</button>
+    <div class="hint">${esc(t('nr'))} ${o.seq} · ${esc(o.day)} ${zurichTime(o.createdAt)} · ${o.type === 'phone' ? esc(t('phone')) : esc(t('walkin'))}</div>
+    <div class="hint">${esc(t('sumup'))}</div>
     <div class="sum">${money(o.total)}</div>
     ${o.customer ? `<div>${esc(o.customer)}</div>` : ''}
-    ${o.note ? `<div>Notiz: ${esc(o.note)}</div>` : ''}
-    <div class="hint">Abholung: ${esc(PICKUP.find(p => p[0] === o.pickup)?.[1] || o.pickup)}</div>
+    ${o.note ? `<div>${esc(t('notePrefix'))}: ${esc(o.note)}</div>` : ''}
+    <div class="hint">${esc(t('pickup'))}: ${esc(t(o.pickup) || o.pickup)}</div>
     <div class="lines">${lines}</div>
     <div class="actions">
-      <button type="button" class="wide-btn" data-paid="${esc(o.id)}" ${o.status === 'paid' ? 'disabled' : ''}>Bezahlt</button>
-      <button type="button" class="wide-btn ink" data-cancel="${esc(o.id)}" ${o.status === 'cancelled' ? 'disabled' : ''}>Stornieren</button>
+      <button type="button" class="wide-btn" data-paid="${esc(o.id)}" ${o.status === 'paid' ? 'disabled' : ''}>${esc(t('paid'))}</button>
+      <button type="button" class="wide-btn ink" data-cancel="${esc(o.id)}" ${o.status === 'cancelled' ? 'disabled' : ''}>${esc(t('cancel'))}</button>
     </div>
   </div>`
 }
@@ -192,16 +271,16 @@ function todayView() {
   const paid = all.filter(o => o.status === 'paid')
   const sales = paid.reduce((s, o) => s + o.total, 0)
   return `<div class="today">
-    <h2>Heute · ${esc(day)}</h2>
+    <h2>${esc(t('today'))} · ${esc(day)}</h2>
     <div class="stats">
-      <div class="stat"><span>Bestellungen</span><b>${all.filter(o => o.status !== 'cancelled').length}</b></div>
-      <div class="stat"><span>Offen</span><b>${open.length}</b></div>
-      <div class="stat"><span>Bezahlt</span><b>${paid.length}</b></div>
-      <div class="stat"><span>Umsatz</span><b>${money(sales)}</b></div>
+      <div class="stat"><span>${esc(t('orders'))}</span><b>${all.filter(o => o.status !== 'cancelled').length}</b></div>
+      <div class="stat"><span>${esc(t('openStat'))}</span><b>${open.length}</b></div>
+      <div class="stat"><span>${esc(t('paidStat'))}</span><b>${paid.length}</b></div>
+      <div class="stat"><span>${esc(t('sales'))}</span><b>${money(sales)}</b></div>
     </div>
     <div class="actions">
-      <button type="button" class="wide-btn" data-csv="orders">Bestellungen CSV</button>
-      <button type="button" class="wide-btn ink" data-csv="lines">Zeilen CSV</button>
+      <button type="button" class="wide-btn" data-csv="orders">${esc(t('csvOrders'))}</button>
+      <button type="button" class="wide-btn ink" data-csv="lines">${esc(t('csvLines'))}</button>
     </div>
   </div>`
 }
@@ -209,11 +288,11 @@ function todayView() {
 function sizeSheet() {
   const item = findItem(state.sizeFor)
   if (!item) return ''
-  const choices = item.sizes.map(s => `<button type="button" class="choice" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(s.label || item.name)} · ${money(s.price)}</button>`).join('')
+  const choices = item.sizes.map(s => `<button type="button" class="choice" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc((sizeLabel(s) || item.name) + ' · ')}${money(s.price)}</button>`).join('')
   return `<div class="sheet" data-close-sheet><div class="panel" data-sheet>
     <h2>${esc(item.name)}</h2>
     ${choices}
-    <button type="button" class="wide-btn ghost" data-close-sheet>Schliessen</button>
+    <button type="button" class="wide-btn ghost" data-close-sheet>${esc(t('close'))}</button>
   </div></div>`
 }
 
@@ -226,6 +305,7 @@ function findItem(key) {
 }
 
 function bind() {
+  app.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)))
   app.querySelectorAll('[data-digit]').forEach(btn => btn.addEventListener('click', () => onDigit(btn.dataset.digit)))
   app.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', () => {
     state.view = btn.dataset.view
@@ -315,7 +395,7 @@ function checkPin() {
     render()
     return
   }
-  state.pinError = 'Falsche PIN'
+  state.pinError = t('pinWrong')
   state.pin = ''
 }
 
@@ -343,6 +423,7 @@ async function saveOrder() {
     note: state.note.trim(),
     lines: state.lines.map(l => ({ ...l })),
     total: totalOf(state.lines),
+    lang: state.lang,
     sync: 'local',
   }
   try {
