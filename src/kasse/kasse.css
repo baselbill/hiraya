@@ -134,7 +134,8 @@ button { cursor: pointer; touch-action: manipulation; }
   padding: 0 14px;
   font-weight: 700;
 }
-.preview-tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em; display: flex; align-items: center; }
+.preview-tag, .sync { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.04em; display: flex; align-items: center; }
+.sync { color: var(--saffron); min-height: 40px; }
 .top button.nav[aria-pressed="true"] { background: var(--clay); border-color: var(--clay); }
 
 .stage { min-height: 0; display: grid; overflow: hidden; }

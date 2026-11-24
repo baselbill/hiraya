@@ -1,15 +1,116 @@
-import { APPS_SCRIPT_URL } from './config.js'
+import { ENDPOINT_URL, TOKEN } from './config.js'
+import { zurichDay } from './store.js'
 
-// Stub. When APPS_SCRIPT_URL is set, each saved or updated order is POSTed
-// as JSON. The script is expected to append the Orders row and the Order lines.
-// Apps Script web apps accept text/plain without a CORS preflight.
-export async function pushOrder(order) {
-  if (!APPS_SCRIPT_URL) return { ok: false, skipped: true }
-  const res = await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ kind: 'order', order }),
+const QUEUE_KEY = 'hiraya-kasse-sync-queue-v1'
+
+export function endpointReady() {
+  return Boolean(ENDPOINT_URL && TOKEN)
+}
+
+export function queueLength() {
+  return loadQueue().length
+}
+
+export function enqueueOrder(order) {
+  if (!endpointReady()) return
+  const payload = toPayload(order)
+  const queue = loadQueue().filter(row => row.order_id !== payload.order_id)
+  queue.push(payload)
+  saveQueue(queue)
+}
+
+export async function flushQueue() {
+  if (!endpointReady()) return { skipped: true, waiting: 0 }
+  const queue = loadQueue()
+  const remain = []
+  for (let i = 0; i < queue.length; i++) {
+    try {
+      const res = await fetch(ENDPOINT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ token: TOKEN, order: queue[i] }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok || data.ok !== true) {
+        remain.push(...queue.slice(i))
+        break
+      }
+    } catch {
+      remain.push(...queue.slice(i))
+      break
+    }
+  }
+  saveQueue(remain)
+  return { skipped: false, waiting: remain.length }
+}
+
+export function toPayload(order) {
+  const when = zurichParts(order.createdAt)
+  const lines = (order.lines || []).map((line, index) => {
+    const qty = Number(line.qty) || 0
+    const unit = round2(line.unit)
+    return {
+      order_id: order.id,
+      order_no: String(order.seq),
+      date: when.date,
+      line_no: index + 1,
+      section: line.section || '',
+      item: line.name || '',
+      size: line.sizeDe || line.size || '',
+      qty,
+      unit_price_chf: unit,
+      line_total_chf: round2(unit * qty),
+    }
   })
-  if (!res.ok) throw new Error('sync ' + res.status)
-  return { ok: true }
+  return {
+    order_id: order.id,
+    order_no: String(order.seq),
+    created_at: order.createdAt,
+    date: when.date,
+    time: when.time,
+    type: order.type === 'phone' ? 'phone' : 'walk-in',
+    customer: order.customer || '',
+    pickup_time: order.pickup || '',
+    note: order.note || '',
+    item_count: lines.length,
+    total_chf: round2(order.total),
+    status: order.status,
+    paid_at: order.paidAt || '',
+    cancelled_at: order.cancelledAt || '',
+    lang: order.lang || '',
+    device: order.device || '',
+    lines,
+  }
+}
+
+function zurichParts(iso) {
+  const date = new Date(iso)
+  return {
+    date: zurichDay(date),
+    time: new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Zurich',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23',
+    }).format(date),
+  }
+}
+
+function round2(n) {
+  return Math.round(Number(n) * 100) / 100
+}
+
+function loadQueue() {
+  try {
+    const raw = localStorage.getItem(QUEUE_KEY)
+    const list = raw ? JSON.parse(raw) : []
+    return Array.isArray(list) ? list : []
+  } catch {
+    return []
+  }
+}
+
+function saveQueue(queue) {
+  localStorage.setItem(QUEUE_KEY, JSON.stringify(queue))
 }

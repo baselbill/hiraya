@@ -3,7 +3,7 @@ import rawMenu from 'kasse:menu'
 import { PIN } from './config.js'
 import { buildCatalog, money } from './menu.js'
 import { loadOrders, saveOrders, nextSeq, zurichDay, zurichTime } from './store.js'
-import { pushOrder } from './sync.js'
+import { enqueueOrder, endpointReady, flushQueue, queueLength } from './sync.js'
 
 const catalog = buildCatalog(rawMenu)
 const PICKUP = ['asap', '+15', '+30', '+45']
@@ -21,7 +21,7 @@ const UI = {
     orders: 'Orders', openStat: 'Open', paidStat: 'Paid', sales: 'Sales',
     csvOrders: 'Orders CSV', csvLines: 'Lines CSV', close: 'Close',
     noItems: 'No dishes.', spicy: 'spicy', nr: 'No.', notFound: 'Order not found.',
-    less: 'less', more: 'more',
+    less: 'less', more: 'more', local: 'Local', synced: 'Synced', waiting: 'waiting',
   },
   de: {
     title: 'Kasse', pinWrong: 'Falsche PIN', preview: 'Vorschau · kein SumUp',
@@ -35,7 +35,7 @@ const UI = {
     orders: 'Bestellungen', openStat: 'Offen', paidStat: 'Bezahlt', sales: 'Umsatz',
     csvOrders: 'Bestellungen CSV', csvLines: 'Zeilen CSV', close: 'Schliessen',
     noItems: 'Keine Gerichte.', spicy: 'scharf', nr: 'Nr.', notFound: 'Bestellung nicht gefunden.',
-    less: 'weniger', more: 'mehr',
+    less: 'weniger', more: 'mehr', local: 'Nur hier', synced: 'Synchron', waiting: 'warten',
   },
 }
 
@@ -117,7 +117,7 @@ function addLine(item, size) {
   const hit = state.lines.find(l => l.id === id)
   if (hit) hit.qty += 1
   else state.lines.push({
-    id, key: item.key, name: item.name,
+    id, key: item.key, name: item.name, section: item.section,
     sizeDe: size.labelDe, sizeEn: size.labelEn, unit: size.price, qty: 1,
   })
   state.cartOpen = true
@@ -163,6 +163,7 @@ function shell() {
     <header class="top">
       <div class="brand"><div class="mark" aria-hidden="true"><span>平</span><span>屋</span></div><strong>Hira<em>ya</em></strong></div>
       <span class="preview-tag">${esc(t('preview'))}</span>
+      <span class="sync" data-sync>${esc(syncLabel())}</span>
       ${langToggle()}
       <button type="button" class="nav" data-view="order" aria-pressed="${state.view === 'order'}">${esc(t('till'))}</button>
       <button type="button" class="nav" data-view="open" aria-pressed="${state.view === 'open'}">${esc(t('open'))}</button>
@@ -424,13 +425,9 @@ async function saveOrder() {
     lines: state.lines.map(l => ({ ...l })),
     total: totalOf(state.lines),
     lang: state.lang,
+    device: deviceLabel(),
+    cancelledAt: null,
     sync: 'local',
-  }
-  try {
-    const result = await pushOrder(order)
-    if (result.ok) order.sync = 'sent'
-  } catch {
-    order.sync = 'error'
   }
   state.orders.unshift(order)
   saveOrders(state.orders)
@@ -441,16 +438,18 @@ async function saveOrder() {
   state.openId = order.id
   state.view = 'detail'
   render()
+  rememberSync(order)
 }
 
 function setStatus(id, status) {
   const order = state.orders.find(o => o.id === id)
   if (!order) return
   order.status = status
-  order.paidAt = status === 'paid' ? new Date().toISOString() : null
+  order.paidAt = status === 'paid' ? new Date().toISOString() : order.paidAt
+  order.cancelledAt = status === 'cancelled' ? new Date().toISOString() : order.cancelledAt
   saveOrders(state.orders)
-  pushOrder(order).catch(() => {})
   render()
+  rememberSync(order)
 }
 
 function csvEscape(value) {
@@ -465,7 +464,7 @@ function downloadCsv(kind) {
   if (kind === 'lines') {
     csv = ['order_id,line_no,item_key,item_name,size_label,unit_chf,qty,line_chf']
     for (const o of rows) o.lines.forEach((l, i) => {
-      csv.push([o.id, i + 1, l.key, l.name, l.size, l.unit.toFixed(2), l.qty, (l.unit * l.qty).toFixed(2)].map(csvEscape).join(','))
+      csv.push([o.id, i + 1, l.key, l.name, l.sizeDe || l.size || '', l.unit.toFixed(2), l.qty, (l.unit * l.qty).toFixed(2)].map(csvEscape).join(','))
     })
   } else {
     csv = ['order_id,day,seq,created_at,paid_at,type,status,customer,pickup,note,total_chf,sync']
@@ -481,7 +480,32 @@ function downloadCsv(kind) {
   URL.revokeObjectURL(a.href)
 }
 
+function deviceLabel() {
+  const ua = navigator.userAgent || ''
+  if (/iPad|Tablet|Android/i.test(ua)) return 'tablet'
+  if (/Mobile/i.test(ua)) return 'phone'
+  return 'desktop'
+}
+
+function syncLabel() {
+  if (!endpointReady()) return t('local')
+  const waiting = queueLength()
+  return waiting ? `${waiting} ${t('waiting')}` : t('synced')
+}
+
+function rememberSync(order) {
+  enqueueOrder(order)
+  flushQueue().then(paintSync).catch(paintSync)
+}
+
+function paintSync() {
+  const el = document.querySelector('[data-sync]')
+  if (el) el.textContent = syncLabel()
+}
+
 window.addEventListener('resize', () => { if (state.unlocked) render() })
+window.addEventListener('online', () => { flushQueue().then(paintSync).catch(paintSync) })
+setInterval(() => { flushQueue().then(paintSync).catch(paintSync) }, 60000)
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {})
