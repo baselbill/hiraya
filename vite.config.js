@@ -4,8 +4,9 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { applyClosureJsonLd } from './src/closure.js'
 
-// Unlisted till preview. Not linked from the site. PR #42 is not on main.
-const KASSE_DIR = 'kasse-7a6466ec'
+// Unlisted till. Served at /kasse/. The old /kasse-7a6466ec/ path is a
+// static redirect in public/ and is not a Vite entry.
+const KASSE_DIR = 'kasse'
 
 // index.html cannot import config.js. Placeholders are filled from RENOVATION
 // so the published JSON-LD stays on the same dates as the banner.
@@ -35,7 +36,7 @@ function kasseMenuJson() {
 }
 
 function menuSlash() {
-  const paths = ['/menu', `/${KASSE_DIR}`]
+  const paths = ['/menu', '/kasse', '/kasse-7a6466ec']
   const redirect = (req, res, next) => {
     const url = req.url || ''
     const hit = paths.find(p => url === p || url.startsWith(p + '?'))

@@ -1,0 +1,13 @@
+{
+  "name": "Hiraya Kasse",
+  "short_name": "Kasse",
+  "start_url": "/kasse/",
+  "scope": "/kasse/",
+  "display": "standalone",
+  "background_color": "#f4ead6",
+  "theme_color": "#c2492a",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

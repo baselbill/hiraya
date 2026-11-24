@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="googlebot" content="noindex,nofollow" />
+    <meta http-equiv="refresh" content="0;url=/kasse/" />
+    <title>Kasse</title>
+    <script>
+      (function () {
+        var next = '/kasse/'
+        function go() { location.replace(next) }
+        if (!('serviceWorker' in navigator)) { go(); return }
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          return Promise.all(regs.map(function (reg) {
+            if (reg.scope.indexOf('/kasse-7a6466ec') === -1) return
+            return reg.update().catch(function () {}).then(function () { return reg.unregister() })
+          }))
+        }).then(go, go)
+      })()
+    </script>
+  </head>
+  <body>
+    <p><a href="/kasse/">Kasse</a></p>
+  </body>
+</html>

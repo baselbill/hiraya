@@ -553,6 +553,11 @@ window.addEventListener('online', () => { flushQueue().then(paintSync).catch(pai
 setInterval(() => { flushQueue().then(paintSync).catch(paintSync) }, 60000)
 
 if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((regs) => {
+    for (const reg of regs) {
+      if (reg.scope.includes('/kasse-7a6466ec')) reg.unregister()
+    }
+  }).catch(() => {})
   navigator.serviceWorker.register('./sw.js').catch(() => {})
 }
 
