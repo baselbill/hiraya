@@ -1,33 +1,26 @@
-// Scoped to /kasse-7a6466ec/ because this file lives in that directory.
-// It does not control the public website.
-const CACHE = 'hiraya-kasse-v1'
-const SHELL = ['./', './index.html', './manifest.webmanifest']
-
+// The till moved to /kasse/. This worker replaces the one that was
+// scoped to /kasse-7a6466ec/, clears that cache, and leaves.
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()))
+  self.skipWaiting()
 })
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
-  )
+  event.waitUntil((async () => {
+    await caches.delete('hiraya-kasse-v1')
+    await self.clients.claim()
+    const windows = await self.clients.matchAll({ type: 'window' })
+    await Promise.all(windows.map((client) => {
+      const path = new URL(client.url).pathname
+      if (path === '/kasse-7a6466ec' || path.startsWith('/kasse-7a6466ec/')) return client.navigate('/kasse/')
+    }))
+    await self.registration.unregister()
+  })())
 })
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
-  if (url.origin !== self.location.origin) return
-  if (!url.pathname.startsWith('/kasse-7a6466ec')) return
-  event.respondWith(
-    fetch(event.request).then((res) => {
-      if (res.ok) {
-        const copy = res.clone()
-        caches.open(CACHE).then((cache) => cache.put(event.request, copy))
-      }
-      return res
-    }).catch(async () => {
-      const hit = await caches.match(event.request)
-      return hit || caches.match('./index.html')
-    })
-  )
+  const path = url.pathname
+  if (event.request.mode === 'navigate' && (path === '/kasse-7a6466ec' || path.startsWith('/kasse-7a6466ec/'))) {
+    event.respondWith(Response.redirect('/kasse/', 302))
+  }
 })

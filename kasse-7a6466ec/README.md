@@ -2,9 +2,9 @@
 
 Unlisted tablet till for walk-in and phone orders. Gerwin taps items, the tablet adds up the total, and he types that total into SumUp himself. This preview does not take payment, talk to SumUp, or print.
 
-Open it at `/kasse-7a6466ec/` after `npm run dev` or `npm run preview`. It is not linked from hiraya.ch. The PIN for this preview is `1234`, set in `src/kasse/config.js`.
+Open it at `/kasse/` after `npm run dev` or `npm run preview`. `/kasse-7a6466ec/` only redirects there. It is not linked from hiraya.ch. The PIN for this preview is `1234`, set in `src/kasse/config.js`.
 
-Menu names and prices are generated from `src/data/menu.json`, the same file the in-store board at `/menu` uses. Pull request #42 (homepage price fixes, Evian/Valser water, Tamago Nigiri V) is not on `main`, so those edits are not in this preview.
+Menu names and prices are generated from `src/data/menu.json`, the same file the in-store board at `/menu` uses. Orders already saved on a tablet stay put: `localStorage` is per site, not per path. The home-screen icon should be added again from `/kasse/`.
 
 ## Google Sheet
 
