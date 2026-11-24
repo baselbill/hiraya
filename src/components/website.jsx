@@ -227,6 +227,13 @@ const LangPills = ({ lang, onLang, tone = 'light' }) => {
   );
 };
 
+const GOAT = {
+  justeat: { 'data-goatcounter-click': 'click-just-eat', 'data-goatcounter-title': 'Just Eat' },
+  ubereats: { 'data-goatcounter-click': 'click-uber-eats', 'data-goatcounter-title': 'Uber Eats' },
+  phone: { 'data-goatcounter-click': 'click-phone', 'data-goatcounter-title': 'Phone' },
+  directions: { 'data-goatcounter-click': 'click-directions', 'data-goatcounter-title': 'Directions' },
+};
+
 const ORDER_PROVIDERS = {
   justeat: {
     url: JUST_EAT_URL, badge: 'JE', badgeBg: '#ff8000', badgeFg: '#fff',
@@ -250,7 +257,7 @@ const OrderLink = ({ provider = 'justeat', size = 'md', tone = 'solid', lang = '
   const br = tone === 'outline' ? '1.5px solid var(--ink)' : 'none';
   const label = size === 'sm' ? t(lang, p.labelShortKey) : t(lang, p.labelKey);
   return (
-    <a href={p.url} target="_blank" rel="noopener noreferrer" style={{
+    <a href={p.url} {...GOAT[provider]} target="_blank" rel="noopener noreferrer" style={{
       background: bg, color: fg, border: br,
       padding: `${sizes.padY}px ${sizes.padX}px`, borderRadius: 999,
       fontFamily: 'var(--f-sans)', fontSize: sizes.font, fontWeight: 700,
@@ -922,12 +929,12 @@ const Menu = ({ lang, layoutKey = '' }) => {
           {t(lang, 'menu.order.note')}
         </span>
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-          <a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" className="mono" style={{
+          <a href={JUST_EAT_URL} {...GOAT.justeat} target="_blank" rel="noopener noreferrer" className="mono" style={{
             color: 'var(--clay)', fontSize: 12, textDecoration: 'none', whiteSpace: 'nowrap', fontWeight: 600,
           }}>
             Just Eat ↗
           </a>
-          <a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" className="mono" style={{
+          <a href={UBER_EATS_URL} {...GOAT.ubereats} target="_blank" rel="noopener noreferrer" className="mono" style={{
             color: 'var(--clay)', fontSize: 12, textDecoration: 'none', whiteSpace: 'nowrap', fontWeight: 600,
           }}>
             Uber Eats ↗
@@ -1074,18 +1081,18 @@ const LocationBlock = ({ lang, phase, startLabel }) => {
               {phase === 'closed' ? (
                 <OrderLinks size="sm" lang={lang} />
               ) : (
-                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                <a href={MAPS_URL} {...GOAT.directions} target="_blank" rel="noopener noreferrer"
                    style={{ background: 'var(--clay)', color: 'var(--linen)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>
                   {t(lang, 'cta.route')} →
                 </a>
               )}
               {phase === 'closed' ? (
-                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                <a href={MAPS_URL} {...GOAT.directions} target="_blank" rel="noopener noreferrer"
                    style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
                   {t(lang, 'cta.route')} →
                 </a>
               ) : (
-                <a href={`tel:${PHONE_TEL}`}
+                <a href={`tel:${PHONE_TEL}`} {...GOAT.phone}
                    style={{ background: 'transparent', color: 'var(--paper)', padding: '12px 18px', borderRadius: 999, fontFamily: 'var(--f-sans)', fontSize: 13, fontWeight: 600, border: '1px solid rgba(244,234,214,0.3)', textDecoration: 'none' }}>
                   {t(lang, 'cta.reserve')}
                 </a>
@@ -1230,17 +1237,17 @@ const Footer = ({ lang, onLang, phase }) => {
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.order')}</div>
-          <div><a href={JUST_EAT_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
-          <div><a href={UBER_EATS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Uber Eats ↗</a></div>
+          <div><a href={JUST_EAT_URL} {...GOAT.justeat} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Just Eat ↗</a></div>
+          <div><a href={UBER_EATS_URL} {...GOAT.ubereats} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Uber Eats ↗</a></div>
           <div><a href={`mailto:${EMAIL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.request')}</a></div>
-          <div><a href={`tel:${PHONE_TEL}`} style={{ color: 'inherit', textDecoration: 'none' }}>{PHONE_DISPLAY}</a></div>
+          <div><a href={`tel:${PHONE_TEL}`} {...GOAT.phone} style={{ color: 'inherit', textDecoration: 'none' }}>{PHONE_DISPLAY}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.loc')}</div>
           <div>{STREET}</div>
           <div>4102 Binningen</div>
           <div>{phase === 'closed' ? t(lang, 'closure.footer.line') : `${t(lang, 'loc.hours.days')} ${HOURS_SHORT}`}</div>
-          <div><a href={MAPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
+          <div><a href={MAPS_URL} {...GOAT.directions} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{t(lang, 'cta.route')}</a></div>
         </div>
         <div style={{ fontFamily: 'var(--f-sans)', fontSize: 13, lineHeight: 2 }}>
           <div className="mono" style={{ color: 'var(--ember)', marginBottom: 6 }}>{t(lang, 'footer.col.follow')}</div>
