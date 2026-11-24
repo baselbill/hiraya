@@ -19,7 +19,7 @@ const UI = {
     noneOpen: 'No open orders.', back: 'Back', sumup: 'Type into SumUp',
     notePrefix: 'Note', pickup: 'Pickup', paid: 'Mark paid', cancel: 'Cancel',
     orders: 'Orders', openStat: 'Open', paidStat: 'Paid', sales: 'Sales',
-    csvOrders: 'Orders CSV', csvLines: 'Lines CSV', close: 'Close',
+    csv: 'Export CSV', close: 'Close',
     noItems: 'No dishes.', spicy: 'spicy', nr: 'No.', notFound: 'Order not found.',
     less: 'less', more: 'more', local: 'Local', synced: 'Synced', waiting: 'waiting',
   },
@@ -33,7 +33,7 @@ const UI = {
     noneOpen: 'Keine offenen Bestellungen.', back: 'Zurück', sumup: 'In SumUp eingeben',
     notePrefix: 'Notiz', pickup: 'Abholung', paid: 'Bezahlt', cancel: 'Stornieren',
     orders: 'Bestellungen', openStat: 'Offen', paidStat: 'Bezahlt', sales: 'Umsatz',
-    csvOrders: 'Bestellungen CSV', csvLines: 'Zeilen CSV', close: 'Schliessen',
+    csv: 'CSV exportieren', close: 'Schliessen',
     noItems: 'Keine Gerichte.', spicy: 'scharf', nr: 'Nr.', notFound: 'Bestellung nicht gefunden.',
     less: 'weniger', more: 'mehr', local: 'Nur hier', synced: 'Synchron', waiting: 'warten',
   },
@@ -89,6 +89,15 @@ function sizeLabel(size) {
   return text(size.labelDe, size.labelEn)
 }
 
+function isDrink(item) {
+  return item?.section === 'Getränke'
+}
+
+function shownSize(item, size) {
+  if (isDrink(item)) return ''
+  return sizeLabel(size)
+}
+
 function lineSize(line) {
   return text(line.sizeDe || line.size || '', line.sizeEn || '')
 }
@@ -118,7 +127,9 @@ function addLine(item, size) {
   if (hit) hit.qty += 1
   else state.lines.push({
     id, key: item.key, name: item.name, section: item.section,
-    sizeDe: size.labelDe, sizeEn: size.labelEn, unit: size.price, qty: 1,
+    sizeDe: isDrink(item) ? '' : size.labelDe,
+    sizeEn: isDrink(item) ? '' : size.labelEn,
+    unit: size.price, qty: 1,
   })
   state.cartOpen = true
   render()
@@ -196,8 +207,11 @@ function itemCard(item) {
   ].join('')
   const desc = text(item.descDe, item.descEn)
   const note = text(item.noteDe, item.noteEn)
-  const chips = rest.map(s => `<button type="button" class="chip" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(sizeLabel(s) ? sizeLabel(s) + ' ' : '')}${money(s.price)}</button>`).join('')
-  const mainLabel = sizeLabel(first)
+  const chips = rest.map(s => {
+    const label = shownSize(item, s)
+    return `<button type="button" class="chip" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(label ? label + ' ' : '')}${money(s.price)}</button>`
+  }).join('')
+  const mainLabel = shownSize(item, first)
   return `<article class="item ${item.pick ? 'pick' : ''}" data-item="${esc(item.key)}">
     <div class="nm">${esc(item.name)}</div>
     ${badges ? `<div class="meta">${badges}</div>` : ''}
@@ -280,8 +294,7 @@ function todayView() {
       <div class="stat"><span>${esc(t('sales'))}</span><b>${money(sales)}</b></div>
     </div>
     <div class="actions">
-      <button type="button" class="wide-btn" data-csv="orders">${esc(t('csvOrders'))}</button>
-      <button type="button" class="wide-btn ink" data-csv="lines">${esc(t('csvLines'))}</button>
+      <button type="button" class="wide-btn" data-csv>${esc(t('csv'))}</button>
     </div>
   </div>`
 }
@@ -289,7 +302,11 @@ function todayView() {
 function sizeSheet() {
   const item = findItem(state.sizeFor)
   if (!item) return ''
-  const choices = item.sizes.map(s => `<button type="button" class="choice" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc((sizeLabel(s) || item.name) + ' · ')}${money(s.price)}</button>`).join('')
+  const choices = item.sizes.map(s => {
+    const label = shownSize(item, s)
+    const choice = label ? `${label} · ${money(s.price)}` : money(s.price)
+    return `<button type="button" class="choice" data-size="${esc(item.key)}" data-size-id="${s.id}">${esc(choice)}</button>`
+  }).join('')
   return `<div class="sheet" data-close-sheet><div class="panel" data-sheet>
     <h2>${esc(item.name)}</h2>
     ${choices}
@@ -353,7 +370,7 @@ function bind() {
   }))
   app.querySelectorAll('[data-paid]').forEach(btn => btn.addEventListener('click', () => setStatus(btn.dataset.paid, 'paid')))
   app.querySelectorAll('[data-cancel]').forEach(btn => btn.addEventListener('click', () => setStatus(btn.dataset.cancel, 'cancelled')))
-  app.querySelectorAll('[data-csv]').forEach(btn => btn.addEventListener('click', () => downloadCsv(btn.dataset.csv)))
+  app.querySelector('[data-csv]')?.addEventListener('click', downloadCsv)
   app.querySelectorAll('[data-close-sheet]').forEach(el => el.addEventListener('click', (e) => {
     if (e.target.closest('[data-sheet]') && !e.target.closest('button')) return
     state.sizeFor = null
@@ -457,25 +474,53 @@ function csvEscape(value) {
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
 }
 
-function downloadCsv(kind) {
+function zurichClock(iso) {
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Zurich',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  }).format(new Date(iso))
+}
+
+function downloadCsv() {
   const day = zurichDay()
   const rows = state.orders.filter(o => o.day === day)
-  let csv
-  if (kind === 'lines') {
-    csv = ['order_id,line_no,item_key,item_name,size_label,unit_chf,qty,line_chf']
-    for (const o of rows) o.lines.forEach((l, i) => {
-      csv.push([o.id, i + 1, l.key, l.name, l.sizeDe || l.size || '', l.unit.toFixed(2), l.qty, (l.unit * l.qty).toFixed(2)].map(csvEscape).join(','))
+  const csv = ['order_id,order_no,created_at,date,time,type,customer,pickup_time,note,status,paid_at,cancelled_at,order_total_chf,line_no,section,item,size,qty,unit_price_chf,line_total_chf']
+  for (const o of rows) {
+    ;(o.lines || []).forEach((l, i) => {
+      const qty = Number(l.qty) || 0
+      const unit = Number(l.unit) || 0
+      const lineTotal = Math.round(unit * qty * 100) / 100
+      csv.push([
+        o.id,
+        o.seq,
+        o.createdAt,
+        o.day,
+        zurichClock(o.createdAt),
+        o.type === 'phone' ? 'phone' : 'walk-in',
+        o.customer || '',
+        o.pickup || '',
+        o.note || '',
+        o.status || '',
+        o.paidAt || '',
+        o.cancelledAt || '',
+        Number(o.total).toFixed(2),
+        i + 1,
+        l.section || '',
+        l.name || '',
+        l.sizeDe || l.size || '',
+        qty,
+        unit.toFixed(2),
+        lineTotal.toFixed(2),
+      ].map(csvEscape).join(','))
     })
-  } else {
-    csv = ['order_id,day,seq,created_at,paid_at,type,status,customer,pickup,note,total_chf,sync']
-    for (const o of rows) {
-      csv.push([o.id, o.day, o.seq, o.createdAt, o.paidAt || '', o.type, o.status, o.customer, o.pickup, o.note, o.total.toFixed(2), o.sync].map(csvEscape).join(','))
-    }
   }
   const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8' })
   const a = document.createElement('a')
   a.href = URL.createObjectURL(blob)
-  a.download = `hiraya-${kind}-${day}.csv`
+  a.download = `hiraya-${day}.csv`
   a.click()
   URL.revokeObjectURL(a.href)
 }
