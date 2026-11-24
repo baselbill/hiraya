@@ -24,24 +24,39 @@ export async function flushQueue() {
   const queue = loadQueue()
   const remain = []
   for (let i = 0; i < queue.length; i++) {
-    try {
-      const res = await fetch(ENDPOINT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ token: TOKEN, order: queue[i] }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok || data.ok !== true) {
-        remain.push(...queue.slice(i))
-        break
-      }
-    } catch {
+    const posted = await postOrder(queue[i])
+    if (!posted) {
       remain.push(...queue.slice(i))
       break
     }
   }
   saveQueue(remain)
   return { skipped: false, waiting: remain.length }
+}
+
+// Apps Script answers the POST with a 302 to script.googleusercontent.com.
+// A text/plain body is a simple request, so fetch follows that redirect.
+// If the final response is opaque, the upsert already ran and is idempotent.
+async function postOrder(order) {
+  const init = {
+    method: 'POST',
+    redirect: 'follow',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ token: TOKEN, order }),
+  }
+  try {
+    const res = await fetch(ENDPOINT_URL, init)
+    if (res.type === 'opaque' || res.status === 0) return true
+    const data = await res.json().catch(() => null)
+    return !!(res.ok && data && data.ok === true)
+  } catch {
+    try {
+      const res = await fetch(ENDPOINT_URL, { ...init, mode: 'no-cors' })
+      return res.type === 'opaque' || res.status === 0 || res.ok
+    } catch {
+      return false
+    }
+  }
 }
 
 export function toPayload(order) {
@@ -73,7 +88,7 @@ export function toPayload(order) {
     pickup_time: order.pickup || '',
     note: order.note || '',
     item_count: lines.length,
-    total_chf: round2(order.total),
+    total_chf: round2(lines.reduce((sum, line) => sum + line.line_total_chf, 0)),
     status: order.status,
     paid_at: order.paidAt || '',
     cancelled_at: order.cancelledAt || '',

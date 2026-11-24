@@ -12,7 +12,7 @@ The spreadsheet is **Hiraya orders**, id `1iBy05hc4RoZK7o3cN7QbzI_X6PoypJDg-Ymvk
 
 `kasse-7a6466ec/apps-script/Code.gs` is the web app. It is not imported by the site build, so it is not published to hiraya.ch. `doPost` reads a JSON body sent as `text/plain` (no CORS preflight), checks `TOKEN` from Script Properties, and upserts by `order_id`. A retry or a status change updates that order and replaces its lines. It does not add a second row.
 
-Until `ENDPOINT_URL` and `TOKEN` are filled in `src/kasse/config.js`, the till only stores orders in `localStorage` (`hiraya-kasse-orders-v1`) and the top bar says "Local" / "Nur hier". With both set, a save, "Mark paid", or "Cancel" joins an offline queue and is posted immediately, again when the browser comes online, and every 60 seconds. The top bar then says "Synced" or "N waiting".
+`ENDPOINT_URL` and `TOKEN` in `src/kasse/config.js` point at the deployed web app. The token is only a spam filter. A save, "Mark paid", or "Cancel" joins an offline queue and is posted immediately, again when the browser comes online, and every 60 seconds. The top bar says "Synced" / "Synchron" or "N waiting" / "N warten". Orders are also kept in `localStorage` (`hiraya-kasse-orders-v1`).
 
 The token is compiled into the public JavaScript. Treat it as a spam filter, not a password. `Code.gs` still checks types, lengths (customer 120, note 500), numeric totals, and a maximum of 100 lines.
 
