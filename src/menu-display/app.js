@@ -124,11 +124,17 @@ function renderCards(s) {
   return hd(s.de, s.en, s.page) + `<div class="grid ${n === 4 ? 'h' : ''}" style="grid-template-columns:repeat(${cols},1fr);grid-template-rows:repeat(${rows},minmax(0,1fr))">${tiles.join('')}</div>`;
 }
 
+function listSize(p) {
+  if (!p.de) return '';
+  if (/^\d+ Stk$/.test(p.de)) return esc(p.de.replace('Stk', 'Stk/pcs'));
+  // Show the English option when it is a different name, not a piece count or volume.
+  const en = p.en && p.en !== p.de && !/\d/.test(p.en) ? ` <small>/ ${esc(p.en)}</small>` : '';
+  return `${esc(p.de)}${en}`;
+}
+
 function li(it, compact) {
   const r = it.prices.map((p) => {
-    const size = p.de
-      ? `<span class="sz">${esc(/^\d+ Stk$/.test(p.de) ? p.de.replace('Stk', 'Stk/pcs') : p.de)}</span>`
-      : '';
+    const size = p.de ? `<span class="sz">${listSize(p)}</span>` : '';
     return `<div class="p">${size}<span class="chf">${esc(p.chf)}</span></div>`;
   }).join('');
   let body;

@@ -1470,7 +1470,7 @@
        "de_desc": "Japanisches Omelett · Reis",
        "en_desc": "Japanese omelette · Rice",
        "cook": "",
-       "veg": "",
+       "veg": "V",
        "spicy": false,
        "pick": false,
        "photo": "",
@@ -1638,8 +1638,8 @@
       {
        "key": "Wasser (Valser)",
        "section": "Getränke",
-       "de": "Valser Wasser",
-       "en": "Valser Water",
+       "de": "Wasser",
+       "en": "Water",
        "note": null,
        "de_desc": "",
        "en_desc": "",
@@ -1650,15 +1650,16 @@
        "photo": "",
        "prices": [
         {
-         "de": "",
-         "en": "",
+         "de": "Still (Evian)",
+         "en": "Still (Evian)",
+         "chf": "3.00"
+        },
+        {
+         "de": "mit Blöterli (Valser)",
+         "en": "Sparkling (Valser)",
          "chf": "3.00"
         }
-       ],
-       "variants": {
-        "de": "Still / mit Blöterli",
-        "en": "still / sparkling"
-       }
+       ]
       },
       {
        "key": "Coca Cola",

@@ -771,10 +771,10 @@ export const ITEM_I18N = {
     en: { name: 'Swish Roll',     ingredients: 'Flambéed salmon · Avocado · Mango · Surimi · Jalapeño · Sesame · Sauce',                  desc: 'Salmon flambéed directly on the roll. Warm, smoky, with a kick.' },
   },
   'roll-kru': {
-    de: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce',                      desc: 'Komplett vegan, komplett bunt — unser farbenfrohstes Stück auf der Karte.' },
-    fr: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Pomme · Avocat · Carotte · Pistache · Kiwi · Concombre · Sauce',                   desc: 'Entièrement végétalien, entièrement coloré — notre pièce la plus vive du menu.' },
-    it: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Mela · Avocado · Carota · Pistacchio · Kiwi · Cetriolo · Salsa',                   desc: 'Completamente vegano, completamente vivido — il nostro pezzo più colorato del menu.' },
-    en: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Apple · Avocado · Carrot · Pistachio · Kiwi · Cucumber · Sauce',                   desc: 'Fully vegan, fully vivid — our most colourful piece on the menu.' },
+    de: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Apfel · Avocado · Karotte · Pistazie · Kiwi · Gurke · Sauce',                      desc: 'Komplett vegetarisch, komplett bunt — unser farbenfrohstes Stück auf der Karte.' },
+    fr: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Pomme · Avocat · Carotte · Pistache · Kiwi · Concombre · Sauce',                   desc: 'Entièrement végétarien, entièrement coloré — notre pièce la plus vive du menu.' },
+    it: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Mela · Avocado · Carota · Pistacchio · Kiwi · Cetriolo · Salsa',                   desc: 'Completamente vegetariano, completamente vivido — il nostro pezzo più colorato del menu.' },
+    en: { name: 'Kiwi Rainbow Uramaki', ingredients: 'Apple · Avocado · Carrot · Pistachio · Kiwi · Cucumber · Sauce',                   desc: 'Fully vegetarian, fully vivid — our most colourful piece on the menu.' },
   },
   'roll-vip': {
     de: { name: 'VIP Roll',    ingredients: 'Jakobsmuscheln · Karotte · Avocado · Gurke · Sauce',                                      desc: 'Jakobsmuscheln, Karotten, Avocado — elegant und leicht. Unser Premium-Roll.' },
