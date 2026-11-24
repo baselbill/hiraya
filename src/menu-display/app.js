@@ -222,10 +222,55 @@ function fit() {
 let cur = 0;
 let t0 = 0;
 let raf = null;
+let lastGuest = 0;
+const IDLE_MS = 2 * 60 * 1000;
 
-function show(i) {
+function slug(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function slideLabel(slide) {
+  if (!slide || slide.kind === 'welcome') return 'Welcome';
+  if (slide.de) return slide.page ? `${slide.de} ${slide.page}` : slide.de;
+  return (slide.cols || []).map((col) => (col.page ? `${col.de} ${col.page}` : col.de)).join(' · ');
+}
+
+function slideSlug(slide) {
+  if (!slide || slide.kind === 'welcome') return 'welcome';
+  if (slide.de) return slug(slide.page ? `${slide.de} ${slide.page.split('/')[0]}` : slide.de);
+  const parts = (slide.cols || []).map((col) => (col.page ? `${col.de} ${col.page.split('/')[0]}` : col.de));
+  return slug(parts.join(' ')) || 'slide';
+}
+
+function track(path, title) {
+  try {
+    const count = window.goatcounter && window.goatcounter.count;
+    if (typeof count !== 'function') return;
+    count({ path, title, event: true });
+  } catch {
+    /* GoatCounter blocked or offline. Never break the board. */
+  }
+}
+
+function noteActivity() {
+  const now = Date.now();
+  if (!lastGuest || now - lastGuest >= IDLE_MS) track('menu-session-start', 'Menu session');
+  lastGuest = now;
+}
+
+function noteSection(index) {
+  const slide = DATA.slides[index];
+  track(`menu-section-${slideSlug(slide)}`, slideLabel(slide));
+}
+
+function show(i, guest) {
   const ss = [...document.querySelectorAll('.slide')];
   cur = (i + ss.length) % ss.length;
+  if (guest) noteSection(cur);
   ss.forEach((s, k) => s.classList.toggle('on', k === cur));
   [...document.querySelectorAll('#prog .seg')].forEach((s, k) => {
     s.classList.toggle('done', k < cur);
@@ -298,8 +343,9 @@ if (PRINT) {
   watchForDeploy();
 
   addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
-    if (e.key === 'ArrowLeft') show(cur - 1);
+    noteActivity();
+    if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1, true);
+    else if (e.key === 'ArrowLeft') show(cur - 1, true);
   });
 
   let sx = 0;
@@ -312,16 +358,18 @@ if (PRINT) {
   addEventListener('touchend', (e) => {
     requestFullscreenOnce();
     lastTouch = Date.now();
+    noteActivity();
     const x = e.changedTouches[0].clientX;
     const dx = x - sx;
     const dy = e.changedTouches[0].clientY - sy;
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? cur + 1 : cur - 1);
-    else if (Math.abs(dx) < 24 && Math.abs(dy) < 24) show(x > viewportSize().w / 3 ? cur + 1 : cur - 1);
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? cur + 1 : cur - 1, true);
+    else if (Math.abs(dx) < 24 && Math.abs(dy) < 24) show(x > viewportSize().w / 3 ? cur + 1 : cur - 1, true);
   }, { passive: true });
   addEventListener('click', (e) => {
     if (Date.now() - lastTouch < 800) return;
     requestFullscreenOnce();
-    show(e.clientX > viewportSize().w / 3 ? cur + 1 : cur - 1);
+    noteActivity();
+    show(e.clientX > viewportSize().w / 3 ? cur + 1 : cur - 1, true);
   });
 }
 
